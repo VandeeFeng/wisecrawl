@@ -3,6 +3,8 @@
 
 # 忽略环境变量配置文件
 .env
+# 忽略原始单代码文件
+hot_news.py
 
 # 忽略Python缓存文件
 __pycache__/
