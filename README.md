@@ -10,6 +10,8 @@
 - **定制化配置**：可通过环境变量灵活配置信息源、推送渠道和AI模型参数
 - **科技热点筛选**：可选择只收集和推送科技相关热点
 - **RSS源集成**：支持从RSS源获取额外的热点文章
+- **缓存机制**：支持摘要缓存，提高运行效率
+- **灵活的命令行参数**：支持多种运行模式，满足不同场景需求
 
 ## 项目结构
 
@@ -85,6 +87,7 @@ WEBHOOK_URL=your_webhook_url  # 通用Webhook URL
 ```
 # 企业微信机器人
 QYWX_KEY=your_qywx_key
+QYWX_ORIGIN=https://qyapi.weixin.qq.com  # 可选，企业微信代理地址
 
 # 钉钉机器人
 DD_BOT_SECRET=your_dd_bot_secret
@@ -115,6 +118,9 @@ python hot_news_main.py --no-cache
 
 # 跳过内容处理（不获取网页内容和摘要）
 python hot_news_main.py --skip-content
+
+# 组合使用多个参数
+python hot_news_main.py --tech-only --no-cache
 ```
 
 ### 测试推送功能
@@ -135,6 +141,15 @@ python test_webhook_detailed.py
 | `BASE_URL` | 热点数据API基础URL | `https://api-hot.tuber.cc` |
 | `MAX_WORKERS` | 最大并发工作线程数 | `5` |
 | `FILTER_DAYS` | 过滤多少天内的热点 | `1` |
+| `TITLE_LENGTH` | 显示标题的最大长度 | `20` |
+
+### RSS配置
+
+| 变量名 | 说明 | 默认值 |
+|-------|------|-------|
+| `RSS_URL` | RSS源URL | - |
+| `RSS_DAYS` | 获取RSS中最近几天的文章 | `1` |
+| `HOTSPOT_LIMIT` | 每个来源获取的热点数量限制 | `1` |
 
 ##***REMOVED***
 
@@ -149,15 +164,23 @@ python test_webhook_detailed.py
 
 | 变量名 | 说明 | 配置示例 |
 |-------|------|--------|
-| `WEBHOOK_URL` | 通用Webhook URL | `https://example.com/webhook` |
+| `WEBHOOK_URL` | 通用Webhook URL | `https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=xxxx` |
 | `QYWX_KEY` | 企业微信机器人key | `693axxx-xxxx-xxxx-xxxx-xxxxx` |
+| `QYWX_ORIGIN` | 企业微信代理地址 | `https://qyapi.weixin.qq.com` |
 | `DD_BOT_TOKEN` | 钉钉机器人Token | `xxxxxxxxxxxxxxxx` |
 | `DD_BOT_SECRET` | 钉钉机器人Secret | `SECxxxxxxxxxxxxxxxx` |
 | `FSKEY` | 飞书机器人Key | `xxxxxxxxxxxxxxxx` |
 | `TG_BOT_TOKEN` | Telegram机器人Token | `123456789:ABCDEF` |
 | `TG_USER_ID` | Telegram用户ID | `123456789` |
+| `TG_API_HOST` | Telegram API代理地址 | - |
+| `TG_PROXY_HOST` | Telegram代理地址 | - |
+| `TG_PROXY_PORT` | Telegram代理端口 | - |
+| `TG_PROXY_AUTH` | Telegram代理认证信息 | - |
 | `BARK_PUSH` | Bark推送URL | `https://api.day.app/xxxxxxxx` |
+| `BARK_SOUND` | Bark推送声音 | - |
+| `BARK_GROUP` | Bark推送分组 | - |
 | `PUSH_PLUS_TOKEN` | PushPlus Token | `xxxxxxxxxxxxxxxx` |
+| `PUSH_PLUS_USER` | PushPlus 群组编码 | - |
 | `PUSH_KEY` | Server酱Key | `xxxxxxxxxxxxxxxx` |
 | `QYWX_AM` | 企业微信应用参数 | `corpid,corpsecret,touser,agentid,media_id` |
 
@@ -191,6 +214,16 @@ python test_webhook_detailed.py
 ### 4. 如何自定义推送内容格式？
 
 修改`notification/webhook_sender.py`文件中的`format_content`函数来自定义推送内容的格式。
+
+### 5. 如何使用RSS源获取额外内容？
+
+在`.env`文件中配置`RSS_URL`变量，指定RSS源地址。可以通过`RSS_DAYS`和`HOTSPOT_LIMIT`控制获取的文章范围和数量。
+
+### 6. 如何提高处理速度？
+
+- 设置`SKIP_CONTENT=True`可以跳过网页内容获取和摘要生成步骤
+- 增加`MAX_WORKERS`值可以提高并发处理能力
+- 使用缓存机制（确保`NO_CACHE=False`）可以避免重复生成摘要
 
 ## 许可证
 
