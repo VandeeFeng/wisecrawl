@@ -138,7 +138,7 @@ python test_webhook_detailed.py
 | `TECH_ONLY` | 是否只收集科技热点 | `False` |
 | `NO_CACHE` | 是否禁用缓存 | `False` |
 | `SKIP_CONTENT` | 是否跳过内容处理 | `False` |
-| `BASE_URL` | 热点数据API基础URL | `https://api-hot.tuber.cc` |
+| `BASE_URL` | 热点数据API基础URL | `https://api-hot.imsyy.top` |
 | `MAX_WORKERS` | 最大并发工作线程数 | `5` |
 | `FILTER_DAYS` | 过滤多少天内的热点 | `1` |
 | `TITLE_LENGTH` | 显示标题的最大长度 | `20` |
