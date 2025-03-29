@@ -982,8 +982,15 @@ def fetch_twitter_feed(days_to_fetch=2):
 
                     # 获取来源
                     source_name = "Twitter"
-                    if tweet.get("user") and tweet["user"].get("screenName"):
-                        source_name = f"Twitter-{tweet['user']['screenName']}"
+                    user_info = tweet.get("user")
+                    if user_info:
+                        display_name = user_info.get("name")
+                        screen_name = user_info.get("screenName")
+                        if display_name: # 优先使用显示名称
+                            source_name = f"Twitter-{display_name}"
+                        elif screen_name: # 如果显示名称没有，则使用screenName
+                            source_name = f"Twitter-{screen_name}"
+                        # 如果两者都没有，则保持 "Twitter"
 
                     # 格式化为标准字典
                     formatted_tweet = {
