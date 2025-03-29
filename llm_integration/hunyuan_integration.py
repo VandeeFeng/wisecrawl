@@ -66,7 +66,7 @@ def summarize_with_tencent_hunyuan(content, api_key, title="", max_retries=3, us
                     {content}
                     
                     请以JSON格式返回，包含以下字段：
-                    1. summary: 新闻摘要，不超过50个字
+                    1. summary: 新闻摘要，不超过150个字
                     2. is_tech: 布尔值，表示是否与科技相关
 
                     只返回JSON格式，不要有任何额外说明。

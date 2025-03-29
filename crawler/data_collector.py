@@ -167,7 +167,7 @@ def _process_single_rss(feed_url, feed_name, headers, days, cutoff_time, current
         logger.info(f"检测到Atom格式的RSS源: {feed_name}")
     
     for entry in feed.entries:
-        try: # Add try block for individual entry processing
+        try:
             # 尝试获取发布时间
             if hasattr(entry, 'published_parsed') and entry.published_parsed:
                 pub_time = datetime.fromtimestamp(time.mktime(entry.published_parsed))
@@ -180,12 +180,11 @@ def _process_single_rss(feed_url, feed_name, headers, days, cutoff_time, current
             # 只保留最近days天的文章
             if pub_time >= cutoff_time:
                 # 使用标准化的RSS解析函数提取信息
-                articles_count += 1
                 entry_data = extract_rss_entry(entry)
                 
                 # 根据源类型设置不同的source标识
-                if feed_name.lower().find('公众号') >= 0 or is_atom_format:
-                    # 如果是公众号类型的源或Atom格式
+                if feed_name.lower().find('公众号') >= 0:
+                    # 如果是公众号类型的源
                     source = "公众号精选"
                     if entry_data["author"] != "未知作者":
                         source = f"{feed_name}-{entry_data['author']}"
@@ -199,7 +198,7 @@ def _process_single_rss(feed_url, feed_name, headers, days, cutoff_time, current
                     "url": entry_data["link"],
                     "source": source,
                     "hot": "",
-                    "published": entry_data["published"] or pub_time.strftime("%Y-%m-%d %H:%M:%S")
+                    "published": pub_time.strftime("%Y-%m-%d %H:%M:%S")
                 }
                 
                 # 检查是否已有内容或摘要，如果有则直接添加，避免后续重复爬取
@@ -364,7 +363,7 @@ def _process_single_rss(feed_url, feed_name, headers, days, cutoff_time, current
                         logger.info(f"从RSS源直接获取到摘要: {entry_data['title'][:30]}...")
             
             all_articles.append(article_data)
-            articles_count += 1 # Increment counter only for successfully processed articles
+            articles_count += 1
 
         except Exception as entry_err: # Catch errors for this specific entry
             # Log error with entry link if available
@@ -511,7 +510,7 @@ def fetch_rss_articles(rss_url=None, days=1, rss_feeds=None):
                 
                 articles_count = 0
                 for entry in feed.entries:
-                    try: # Add try block for individual entry processing
+                    try:
                         # 尝试获取发布时间
                         if hasattr(entry, 'published_parsed') and entry.published_parsed:
                             pub_time = datetime.fromtimestamp(time.mktime(entry.published_parsed))
@@ -524,12 +523,11 @@ def fetch_rss_articles(rss_url=None, days=1, rss_feeds=None):
                         # 只保留最近days天的文章
                         if pub_time >= cutoff_time:
                             # 使用标准化的RSS解析函数提取信息
-                            articles_count += 1
                             entry_data = extract_rss_entry(entry)
                             
                             # 根据源类型设置不同的source标识
-                            if feed_name.lower().find('公众号') >= 0 or is_atom_format:
-                                # 如果是公众号类型的源或Atom格式
+                            if feed_name.lower().find('公众号') >= 0:
+                                # 如果是公众号类型的源
                                 source = "公众号精选"
                                 if entry_data["author"] != "未知作者":
                                     source = f"{feed_name}-{entry_data['author']}"
@@ -543,11 +541,11 @@ def fetch_rss_articles(rss_url=None, days=1, rss_feeds=None):
                                 "url": entry_data["link"],
                                 "source": source,
                                 "hot": "",
-                                "published": entry_data["published"] or pub_time.strftime("%Y-%m-%d %H:%M:%S")
+                                "published": pub_time.strftime("%Y-%m-%d %H:%M:%S")
                             }
                             
                             content_found = False
-                            # --- 优先尝试获取 content --- 
+                            # --- 优先尝试获取 content ---
                             # 1. 从 entry_data 获取预解析的 content (如果有)
                             if entry_data.get("content"):
                                 content_value = entry_data["content"]
@@ -580,9 +578,9 @@ def fetch_rss_articles(rss_url=None, days=1, rss_feeds=None):
                                     if len(potential_content_html.strip()) > 100: # Heuristic for actual content vs short descriptions
                                         article_data["content"] = potential_content_html
                                         logger.info(f"从 RSS content/content_encoded 获取到较长内容: {entry_data['title'][:30]}...")
-                                        content_found = True
-
-                            # --- 获取并清理 summary (用作 desc) --- 
+                                    content_found = True
+                        
+                            # --- 获取并清理 summary (用作 desc) ---
                             raw_summary = entry_data.get("summary", "")
                             cleaned_summary_text = ""
                             is_summary_valid = False # Flag to track validity
@@ -617,9 +615,9 @@ def fetch_rss_articles(rss_url=None, days=1, rss_feeds=None):
                                 logger.info(f"RSS summary 无效 ({reason})，将不使用: '{cleaned_summary_text[:50]}...' for {entry_data['title'][:30]}")
                             elif not is_summary_valid and not cleaned_summary_text: # Align elif correctly
                                 logger.info(f"RSS summary 为空或解析失败 for {entry_data['title'][:30]}")
-                            
+
                             all_articles.append(article_data)
-                            articles_count += 1 # Increment counter only for successfully processed articles
+                            articles_count += 1
 
                     except Exception as entry_err: # Catch errors for this specific entry
                         # Log error with entry link if available
@@ -708,9 +706,9 @@ def fetch_rss_articles(rss_url=None, days=1, rss_feeds=None):
                 is_atom_format = True
                 logger.info(f"检测到Atom格式的RSS源")
             
-            articles_count = 0 # Initialize counter
+            articles_count = 0
             for entry in feed.entries:
-                try: # Add try block for individual entry processing
+                try:
                     # 尝试获取发布时间
                     if hasattr(entry, 'published_parsed') and entry.published_parsed:
                         pub_time = datetime.fromtimestamp(time.mktime(entry.published_parsed))
@@ -723,12 +721,11 @@ def fetch_rss_articles(rss_url=None, days=1, rss_feeds=None):
                     # 只保留最近days天的文章
                     if pub_time >= cutoff_time:
                         # 使用标准化的RSS解析函数提取信息
-                        articles_count += 1
                         entry_data = extract_rss_entry(entry)
                         
                         # 根据源类型设置不同的source标识
-                        if feed_name.lower().find('公众号') >= 0 or is_atom_format:
-                            # 如果是公众号类型的源或Atom格式
+                        if feed_name.lower().find('公众号') >= 0:
+                            # 如果是公众号类型的源
                             source = "公众号精选"
                             if entry_data["author"] != "未知作者":
                                 source = f"{feed_name}-{entry_data['author']}"
@@ -742,11 +739,11 @@ def fetch_rss_articles(rss_url=None, days=1, rss_feeds=None):
                             "url": entry_data["link"],
                             "source": source,
                             "hot": "",
-                            "published": entry_data["published"] or pub_time.strftime("%Y-%m-%d %H:%M:%S")
+                            "published": pub_time.strftime("%Y-%m-%d %H:%M:%S")
                         }
                         
                         content_found = False
-                        # --- 优先尝试获取 content --- 
+                        # --- 优先尝试获取 content ---
                         # 1. 从 entry_data 获取预解析的 content (如果有)
                         if entry_data.get("content"):
                             content_value = entry_data["content"]
@@ -781,7 +778,7 @@ def fetch_rss_articles(rss_url=None, days=1, rss_feeds=None):
                                     logger.info(f"从 RSS content/content_encoded 获取到较长内容: {entry_data['title'][:30]}...")
                                     content_found = True
 
-                        # --- 获取并清理 summary (用作 desc) --- 
+                        # --- 获取并清理 summary (用作 desc) ---
                         raw_summary = entry_data.get("summary", "")
                         cleaned_summary_text = ""
                         is_summary_valid = False # Flag to track validity
@@ -816,9 +813,9 @@ def fetch_rss_articles(rss_url=None, days=1, rss_feeds=None):
                             logger.info(f"RSS summary 无效 ({reason})，将不使用: '{cleaned_summary_text[:50]}...' for {entry_data['title'][:30]}")
                         elif not is_summary_valid and not cleaned_summary_text: # Align elif correctly
                             logger.info(f"RSS summary 为空或解析失败 for {entry_data['title'][:30]}")
-                        
+
                         all_articles.append(article_data)
-                        articles_count += 1 # Increment counter
+                        articles_count += 1
 
                 except Exception as entry_err: # Catch errors for this specific entry
                     entry_link = "N/A"
@@ -826,7 +823,9 @@ def fetch_rss_articles(rss_url=None, days=1, rss_feeds=None):
                         entry_link = entry.link
                     elif hasattr(entry, 'get'):
                         entry_link = entry.get('link', 'N/A')
-                    logger.error(f"处理单个 RSS 源 '{rss_url}' 的条目时出错: {entry_err}. Entry URL: {entry_link}")
+                    # Try to get feed_url for context, assuming rss_url is available in this scope
+                    feed_url_context = rss_url if 'rss_url' in locals() else "URL N/A" 
+                    logger.error(f"处理单个 RSS 源 '{feed_url_context}' 的条目时出错: {entry_err}. Entry URL: {entry_link}")
                     # Continue to the next entry
                     continue
 

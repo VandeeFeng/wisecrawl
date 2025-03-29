@@ -32,9 +32,13 @@ def fetch_webpage_content(url, timeout=20, max_retries=3, existing_content=None,
     使用cloudscraper尝试绕过Cloudflare，然后使用多种方法提取内容
     If fetch_html_only is True, then only get the raw HTML, without extracting the text content.
     """
-    # 如果已有内容，并且不是只获取HTML，直接返回
-    if existing_content is not None and not fetch_html_only:
-        logger.info(f"使用已有内容，跳过爬取: {url}, 内容长度: {len(existing_content)} 字符")
+    # 检查是否有实质性的现有内容 (去除首尾空格后长度大于10)
+    has_substantial_existing_content = (
+        existing_content is not None and len(existing_content.strip()) > 10
+    )
+    # 如果有实质性内容，并且不是只获取HTML，才跳过爬取
+    if has_substantial_existing_content and not fetch_html_only:
+        logger.info(f"检测到已有实质性内容({len(existing_content)}字符)，跳过爬取: {url}")
         # Even if using existing content, we might need HTML later for timestamp extraction, 
         # but we don't have it if we skip fetching. Return None for HTML in this case.
         # If fetch_html_only was True, this block is skipped anyway.

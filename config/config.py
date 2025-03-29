@@ -29,10 +29,10 @@ RSS_DAYS = int(os.getenv('RSS_DAYS', '1'))
 
 # RSS源列表
 RSS_FEEDS = [
-    {
-        'name': 'OpenAI Blog',
-        'url': 'https://openai.com/blog/rss.xml'
-    },
+    # {
+    #     'name': 'OpenAI Blog',
+    #     'url': 'https://openai.com/blog/rss.xml'
+    # },
     {
         'name': '机器之心',
         'url': 'https://www.jiqizhixin.com/rss'
@@ -52,6 +52,46 @@ RSS_FEEDS = [
     {
         'name': 'InfoQ',
         'url': 'https://www.infoq.cn/feed'
+    },
+    {
+        'name': 'MarkTechPost',
+        'url': 'https://marktechpost.com/feed'
+    },
+    {
+        'name': 'Meta Research',
+        'url': 'https://research.facebook.com/feed/'
+    },
+    {
+        'name': 'VentureBeat',
+        'url': 'https://venturebeat.com/category/ai/feed/'
+    },
+    {
+        'name': 'AI news',
+        'url': 'https://www.artificialintelligence-news.com/feed/'
+    },
+    {
+        'name': 'Wired',
+        'url': 'https://www.wired.com/feed/tag/ai/latest/rss'
+    },
+    {
+        'name': 'Bloomberg',
+        'url': 'https://feeds.bloomberg.com/technology/news.rss'
+    },
+    {
+        'name': 'TechCrunch',
+        'url': 'https://techcrunch.com/category/artificial-intelligence/feed/'
+    },
+    {
+        'name': 'huggingface',
+        'url': 'https://huggingface.co/blog/feed.xml'
+    },
+    {
+        'name': 'TechSpot',
+        'url': 'https://www.techspot.com/backend.xml'
+    },
+    {
+        'name': 'The Verge',
+        'url': 'https://www.theverge.com/rss/index.xml'
     },
     {
         'name': 'Twitter',

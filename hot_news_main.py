@@ -198,6 +198,23 @@ def main():
     deduplicated_content = list(seen_titles.values())
     logger.info(f"去重后剩余数量: {len(deduplicated_content)}")
     # --- 结束：去重逻辑 ---
+
+    # --- 新增：保存最终处理和去重后的新闻列表 ---
+    logger.info(f"准备保存处理和去重后的 {len(deduplicated_content)} 条新闻...")
+    processed_output_dir = os.path.join("data", "processed_output")
+    os.makedirs(processed_output_dir, exist_ok=True) # 确保目录存在
+    timestamp_str = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    processed_filename = os.path.join(processed_output_dir, f"processed_news_{timestamp_str}.json")
+    
+    try:
+        # 导入 json 模块（如果尚未导入）
+        import json 
+        with open(processed_filename, 'w', encoding='utf-8') as f:
+            json.dump(deduplicated_content, f, ensure_ascii=False, indent=4)
+        logger.info(f"成功将处理后的新闻列表保存到: {processed_filename}")
+    except Exception as e:
+        logger.error(f"保存处理后的新闻列表到 {processed_filename} 时出错: {str(e)}")
+    # --- 结束：保存逻辑 ---
     
     # 使用Deepseek汇总，传递tech_only参数
     summary = summarize_with_deepseek(deduplicated_content, deepseek_key, # 使用去重后的列表
