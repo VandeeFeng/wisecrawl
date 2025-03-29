@@ -12,6 +12,7 @@ import json
 import logging
 from pathlib import Path
 from datetime import datetime
+import time
 
 # 配置日志
 logging.basicConfig(
@@ -121,6 +122,10 @@ def format_title_for_display(title, source, max_length=30):
     """
     格式化标题，确保长度一致，适配手机宽度
     """
+    # 如果来源包含公众号标识，去掉前缀
+    if source.startswith("公众号-"):
+        source = source[4:]
+    
     # 计算标题最大长度（考虑到后面要加上来源）
     source_part = f" - {source}"
     title_max_length = max_length - len(source_part)
@@ -131,3 +136,48 @@ def format_title_for_display(title, source, max_length=30):
     
     # 返回格式化后的标题
     return f"{title}{source_part}"
+
+def cleanup_old_files(directory, days_to_keep=7):
+    """
+    清理指定目录下超过指定天数的旧文件。
+
+    参数:
+        directory (str): 需要清理的目录路径 (相对于项目根目录)。
+        days_to_keep (int): 文件保留的最长天数，默认为7天。
+    """
+    try:
+        # 获取当前脚本所在目录的绝对路径
+        script_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        # 构建要清理目录的绝对路径
+        abs_directory = os.path.join(script_dir, directory)
+
+        if not os.path.isdir(abs_directory):
+            logger.warning(f"清理目录不存在，跳过清理: {abs_directory}")
+            return
+
+        logger.info(f"开始清理目录 '{abs_directory}' 中超过 {days_to_keep} 天的旧文件...")
+
+        # 计算截止时间戳
+        cutoff_time = time.time() - (days_to_keep * 24 * 60 * 60)
+        deleted_count = 0
+
+        # 遍历目录中的所有文件
+        for filename in os.listdir(abs_directory):
+            file_path = os.path.join(abs_directory, filename)
+            # 确保是文件而不是子目录
+            if os.path.isfile(file_path):
+                try:
+                    # 获取文件的最后修改时间
+                    file_mtime = os.path.getmtime(file_path)
+                    # 如果文件的修改时间早于截止时间，则删除
+                    if file_mtime < cutoff_time:
+                        os.remove(file_path)
+                        logger.info(f"已删除旧文件: {file_path}")
+                        deleted_count += 1
+                except Exception as e:
+                    logger.error(f"删除文件 {file_path} 时出错: {str(e)}")
+
+        logger.info(f"目录 '{abs_directory}' 清理完成，共删除 {deleted_count} 个旧文件。")
+
+    except Exception as e:
+        logger.error(f"清理目录 {directory} 时发生意外错误: {str(e)}")

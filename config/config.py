@@ -27,6 +27,200 @@ DEEPSEEK_MODEL_ID = os.getenv('DEEPSEEK_MODEL_ID', 'ep-20250307234946-b2znq')
 RSS_URL = os.getenv('RSS_URL', 'https://wewe.tuber.cc/feeds/all.atom?limit=20')
 RSS_DAYS = int(os.getenv('RSS_DAYS', '1'))
 
+# RSS源列表
+RSS_FEEDS = [
+    {
+        'name': 'OpenAI Blog',
+        'url': 'https://openai.com/blog/rss.xml'
+    },
+    {
+        'name': '机器之心',
+        'url': 'https://www.jiqizhixin.com/rss'
+    },
+    {
+        'name': '极客公园',
+        'url': 'http://www.geekpark.net/rss'
+    },
+    {
+        'name': 'Google DeepMind',
+        'url': 'https://deepmind.google/blog/rss.xml'
+    },
+    {
+        'name': '量子位',
+        'url': 'https://www.qbitai.com/feed'
+    },
+    {
+        'name': 'InfoQ',
+        'url': 'https://www.infoq.cn/feed'
+    },
+    {
+        'name': 'Twitter',
+        'accounts': [
+            {
+                'name': 'Barsee',
+                'url': 'https://rsshub.app/twitter/user/heyBarsee'
+            },
+            # {
+            #     'name': 'Sam Altman',
+            #     'url': 'https://rsshub.app/twitter/user/sama'
+            # },
+            # {
+            #     'name': 'Anthropic',
+            #     'url': 'https://rsshub.app/twitter/user/AnthropicAI'
+            # },
+            # {
+            #     'name': 'AI at Meta',
+            #     'url': 'https://rsshub.app/twitter/user/AIatMeta'
+            # },
+            # {
+            #     'name': 'Google DeepMind',
+            #     'url': 'https://rsshub.app/twitter/user/GoogleDeepMind'
+            # },
+            # {
+            #     'name': 'Hugging Face',
+            #     'url': 'https://rsshub.app/twitter/user/huggingface'
+            # },
+            # {
+            #     'name': 'Pieter Abbeel',
+            #     'url': 'https://rsshub.app/twitter/user/pabbeel'
+            # },
+            # {
+            #     'name': 'Eliezer Yudkowsky',
+            #     'url': 'https://rsshub.app/twitter/user/ESYudkowsky'
+            # },
+            # {
+            #     'name': 'Ilya Sutskever',
+            #     'url': 'https://rsshub.app/twitter/user/ilyasut'
+            # },
+            # {
+            #     'name': 'Eric Schmidt',
+            #     'url': 'https://rsshub.app/twitter/user/ericschmidt'
+            # },
+            # {
+            #     'name': 'Hugo Larochelle',
+            #     'url': 'https://rsshub.app/twitter/user/hugo_larochelle'
+            # },
+            # {
+            #     'name': 'elvis',
+            #     'url': 'https://rsshub.app/twitter/user/omarsar0'
+            # },
+            # {
+            #     'name': 'Jim Fan',
+            #     'url': 'https://rsshub.app/twitter/user/DrJimFan'
+            # },
+            # {
+            #     'name': 'Fei-Fei Li',
+            #     'url': 'https://rsshub.app/twitter/user/drfeifei'
+            # },
+            # {
+            #     'name': 'Emad',
+            #     'url': 'https://rsshub.app/twitter/user/EMostaque'
+            # },
+            # {
+            #     'name': 'Sebastian Raschka',
+            #     'url': 'https://rsshub.app/twitter/user/rasbt'
+            # },
+            # {
+            #     'name': 'Lucas Beyer',
+            #     'url': 'https://rsshub.app/twitter/user/giffmana'
+            # },
+            # {
+            #     'name': 'Aakanksha Chowdhery',
+            #     'url': 'https://rsshub.app/twitter/user/achowdhery'
+            # },
+            # {
+            #     'name': 'Jeff Dean',
+            #     'url': 'https://rsshub.app/twitter/user/JeffDean'
+            # },
+            # {
+            #     'name': 'Michael Black',
+            #     'url': 'https://rsshub.app/twitter/user/Michael_J_Black'
+            # },
+            # {
+            #     'name': 'Oriol Vinyals',
+            #     'url': 'https://rsshub.app/twitter/user/OriolVinyalsML'
+            # },
+            # {
+            #     'name': 'Lilian Weng',
+            #     'url': 'https://rsshub.app/twitter/user/lilianweng'
+            # },
+            # {
+            #     'name': 'hardmaru',
+            #     'url': 'https://rsshub.app/twitter/user/hardmaru'
+            # },
+            # {
+            #     'name': 'Demis Hassabis',
+            #     'url': 'https://rsshub.app/twitter/user/demishassabis'
+            # },
+            # {
+            #     'name': 'Sara Hooker',
+            #     'url': 'https://rsshub.app/twitter/user/sarahookr'
+            # },
+            # {
+            #     'name': 'Jürgen Schmidhuber',
+            #     'url': 'https://rsshub.app/twitter/user/SchmidhuberAI'
+            # },
+            # {
+            #     'name': 'François Chollet',
+            #     'url': 'https://rsshub.app/twitter/user/fchollet'
+            # },
+            # {
+            #     'name': 'Yao Fu',
+            #     'url': 'https://rsshub.app/twitter/user/Francis_YAO_'
+            # },
+            # {
+            #     'name': 'OpenAI',
+            #     'url': 'https://rsshub.app/twitter/user/OpenAI'
+            # },
+            # {
+            #     'name': 'Andrew Ng',
+            #     'url': 'https://rsshub.app/twitter/user/AndrewYNg'
+            # },
+            # {
+            #     'name': 'Jay Hack',
+            #     'url': 'https://rsshub.app/twitter/user/mathemagic1an'
+            # },
+            # {
+            #     'name': 'John Nay',
+            #     'url': 'https://rsshub.app/twitter/user/johnjnay'
+            # },
+            # {
+            #     'name': 'LangChain',
+            #     'url': 'https://rsshub.app/twitter/user/LangChainAI'
+            # },
+            # {
+            #     'name': '歸藏',
+            #     'url': 'https://rsshub.app/twitter/user/op7418'
+            # },
+            # {
+            #     'name': '宝玉',
+            #     'url': 'https://rsshub.app/twitter/user/dotey'
+            # },
+            # {
+            #     'name': 'Lex Fridman',
+            #     'url': 'https://rsshub.app/twitter/user/lexfridman'
+            # },
+            # {
+            #     'name': 'roon',
+            #     'url': 'https://rsshub.app/twitter/user/tszzl'
+            # },
+            # {
+            #     'name': 'Suhail',
+            #     'url': 'https://rsshub.app/twitter/user/Suhail'
+            # },
+            # {
+            #     'name': 'Aaron Levie',
+            #     'url': 'https://rsshub.app/twitter/user/levie'
+            # },
+        ]
+    },
+    {
+        'name': '公众号',
+        'url': RSS_URL
+    }
+
+]
+
 # 其他配置
 TITLE_LENGTH = int(os.getenv('TITLE_LENGTH', '20'))
 MAX_WORKERS = int(os.getenv('MAX_WORKERS', '5'))
@@ -44,17 +238,17 @@ TECH_SOURCES = [
     "51cto",        # IT技术运维社区  
     "huxiu",        # 科技商业媒体
     "ifanr",        # 聚焦智能硬件的科技媒体
-    "coolapk",      # 安卓应用和科技产品讨论
-    "v2ex",         # 创意工作者技术社区
-    "hostloc",      # 服务器和网络技术交流
-    "hupu",         # 虎扑数码区（手机/电脑讨论）
+    # "coolapk",      # 安卓应用和科技产品讨论
+    # "v2ex",         # 创意工作者技术社区
+    # "hostloc",      # 服务器和网络技术交流
+    # "hupu",         # 虎扑数码区（手机/电脑讨论）
     "guokr",        # 泛科学科普平台
     "hellogithub",  # GitHub开源项目推荐
     "nodeseek",     # 服务器和网络技术论坛
     "52pojie",      # 软件逆向技术社区
-    "ithome-xijiayi",# 免费软件/游戏资讯
+    # "ithome-xijiayi",# 免费软件/游戏资讯
     "zhihu-daily",  # 含科技类深度报道
-    "tieba",        # 百度贴吧（手机/电脑相关贴吧）
+    # "tieba",        # 百度贴吧（手机/电脑相关贴吧）
 ]
 
 # 所有可用的信息源

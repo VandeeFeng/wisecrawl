@@ -7,6 +7,11 @@ beautifulsoup4>=4.12.0
 python-dateutil>=2.8.2
 feedparser>=6.0.0
 
+# 网页内容提取
+newspaper3k>=0.2.8
+trafilatura>=2.0.0
+cloudscraper>=1.2.71
+
 # 异步和并发
 asyncio>=3.4.3
 

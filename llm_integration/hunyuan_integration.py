@@ -17,7 +17,7 @@ from utils.utils import get_content_hash, load_summary_cache, save_summary_cache
 # 配置日志
 logger = logging.getLogger(__name__)
 
-def summarize_with_tencent_hunyuan(content, api_key, max_retries=3, use_cache=True):
+def summarize_with_tencent_hunyuan(content, api_key, title="", max_retries=3, use_cache=True):
     """
     使用腾讯混元turbo-S模型对内容进行概述总结
     返回JSON格式，包含摘要和科技相关性判断
@@ -58,12 +58,13 @@ def summarize_with_tencent_hunyuan(content, api_key, max_retries=3, use_cache=Tr
             
             # 创建提示模板，要求返回JSON格式
             prompt = PromptTemplate(
-                input_variables=["content"],
-                template="""请对以下新闻内容进行简洁概述，并判断是否与科技相关（包括AI、互联网、软件、硬件、电子产品等）。
-                
+                input_variables=["content", "title"],
+                template="""请对以下新闻内容进行简洁概述，并判断是否与科技相关（包括AI、人工智能、互联网、软件、硬件、电子产品等）。请优先通过新闻标题来判断是否与科技相关，如果标题中没有科技相关的关键词，请通过新闻内容来判断。
+                    
+                    新闻标题：{title}
                     新闻内容：
                     {content}
-
+                    
                     请以JSON格式返回，包含以下字段：
                     1. summary: 新闻摘要，不超过50个字
                     2. is_tech: 布尔值，表示是否与科技相关
@@ -76,7 +77,7 @@ def summarize_with_tencent_hunyuan(content, api_key, max_retries=3, use_cache=Tr
             chain = LLMChain(llm=llm, prompt=prompt)
             
             # 调用模型
-            response = chain.invoke({"content": content[:2000]})  # 限制输入长度
+            response = chain.invoke({"content": content[:2000], "title": title})  # 限制输入长度
             
             result_text = response.get("text", "").strip()
             

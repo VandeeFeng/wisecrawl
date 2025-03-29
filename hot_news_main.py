@@ -9,21 +9,24 @@ import os
 import sys
 import asyncio
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 from distutils.util import strtobool
 
 # 导入配置
 from config.config import (
     TECH_SOURCES, ALL_SOURCES, WEBHOOK_URL, DEEPSEEK_API_KEY, 
     HUNYUAN_API_KEY, BASE_URL, DEEPSEEK_API_URL, DEEPSEEK_MODEL_ID,
-    RSS_URL, RSS_DAYS, TITLE_LENGTH, MAX_WORKERS, FILTER_DAYS
+    RSS_URL, RSS_DAYS, TITLE_LENGTH, MAX_WORKERS, FILTER_DAYS, RSS_FEEDS
 )
 
 # 导入工具函数
-from utils.utils import save_hotspots_to_jsonl, check_base_url
+from utils.utils import save_hotspots_to_jsonl, check_base_url, cleanup_old_files
 
 # 导入数据收集模块
-from crawler.data_collector import collect_all_hotspots, fetch_rss_articles, filter_recent_hotspots
+from crawler.data_collector import (
+    collect_all_hotspots, fetch_rss_articles, filter_recent_hotspots,
+    fetch_twitter_feed
+)
 
 # 导入处理模块
 from processor.news_processor import process_hotspot_with_summary
@@ -83,24 +86,62 @@ def main():
     hotspots = collect_all_hotspots(sources, base_url)
     
     if not hotspots:
-        logger.error("未收集到任何热点数据，程序退出")
-        sys.exit(1)
+        logger.warning("未能收集到任何热点数据，将继续尝试其他来源...")
+        hotspots = [] # 确保 hotspots 是列表
     
     # 保存原始热点数据
-    save_hotspots_to_jsonl(hotspots)
+    if hotspots:
+        save_hotspots_to_jsonl(hotspots, directory=os.path.join("data", "raw")) # 指定 raw 目录
     
     # 筛选最近的热点
     hotspots = filter_recent_hotspots(hotspots, filter_days)
     
     # 保存筛选后的热点数据
-    save_hotspots_to_jsonl(hotspots, directory=os.path.join("data", "filtered"))
+    if hotspots:
+        save_hotspots_to_jsonl(hotspots, directory=os.path.join("data", "filtered"))
     
     # 获取RSS文章
-    rss_articles = fetch_rss_articles(rss_url, rss_days)
+    # 优先使用RSS_FEEDS列表，如果为空则使用单个RSS_URL
+    rss_articles = fetch_rss_articles(rss_url=rss_url, days=rss_days, rss_feeds=RSS_FEEDS)
     
-    # 合并热点和RSS文章
-    all_content = hotspots + rss_articles
-    logger.info(f"合并后共有 {len(all_content)} 条内容")
+    # --- 新增：获取 Twitter Feed ---
+    twitter_feed_raw = fetch_twitter_feed(days_to_fetch=2) # 获取最近2天
+    
+    # 过滤推文，只保留最近1天 (24小时) 的
+    recent_tweets = []
+    cutoff_time_tweets = datetime.now() - timedelta(days=1)
+    if twitter_feed_raw:
+        logger.info(f"开始过滤最近24小时的推文 (截止时间: {cutoff_time_tweets})...")
+        for tweet in twitter_feed_raw:
+            if tweet.get("timestamp"): # 确保有时间戳
+                # Ensure timestamp is treated correctly (it's already in milliseconds from fetch_twitter_feed)
+                tweet_time_ms = tweet["timestamp"]
+                if isinstance(tweet_time_ms, (int, float)):
+                   tweet_time = datetime.fromtimestamp(tweet_time_ms / 1000)
+                   if tweet_time >= cutoff_time_tweets:
+                       recent_tweets.append(tweet)
+                   # else: # 可以取消注释以查看被丢弃的推文
+                   #     logger.debug(f"丢弃较早的推文: {tweet['title']} @ {tweet_time}")
+                else:
+                   logger.warning(f"推文时间戳格式不正确: {tweet_time_ms}, 类型: {type(tweet_time_ms)}, 跳过推文: {tweet.get('title')}")
+
+            else:
+                 logger.warning(f"推文缺少时间戳，无法过滤: {tweet.get('title')}")
+                 # Decide whether to include tweets without timestamps or skip them
+                 # For now, we skip them to ensure only recent ones are included
+                 # recent_tweets.append(tweet) # Uncomment to include tweets without timestamp
+
+        logger.info(f"筛选后保留 {len(recent_tweets)}/{len(twitter_feed_raw)} 条最近24小时的推文。")
+    # --- 结束：获取 Twitter Feed ---
+    
+    # 合并热点、RSS文章和过滤后的推文
+    all_content = hotspots + rss_articles + recent_tweets # 添加 recent_tweets
+    logger.info(f"合并后共有 {len(all_content)} 条内容 (包括推文)")
+    
+    # 检查合并后是否有内容
+    if not all_content:
+        logger.error("所有来源均未获取到有效内容，程序退出")
+        sys.exit(1)
     
     # 保存合并后的数据
     save_hotspots_to_jsonl(all_content, directory=os.path.join("data", "merged"))
@@ -127,8 +168,39 @@ def main():
         all_content_with_summary = all_content
         logger.info("已跳过获取网页内容和生成摘要步骤")
     
+    # --- 新增：基于标题去重，优先保留 RSS 和 Twitter --- 
+    logger.info(f"开始基于标题去重 (保留RSS/Twitter优先)，处理前数量: {len(all_content_with_summary)}")
+    seen_titles = {}
+    preferred_sources = {"RSS", "Twitter"} # 确认这些是 data_collector 中使用的准确来源名称
+    
+    for item in all_content_with_summary:
+        title = item.get("title", "").strip()
+        if not title: # 跳过没有标题的条目
+            continue
+            
+        current_source = item.get("source", "")
+    
+        if title not in seen_titles:
+            seen_titles[title] = item
+        else:
+            existing_item = seen_titles[title]
+            existing_source = existing_item.get("source", "")
+            
+            # 如果当前条目来源是优先来源，且已存在的条目来源不是优先来源，则替换
+            if current_source in preferred_sources and existing_source not in preferred_sources:
+                logger.debug(f"去重：替换 '{title}' (来自 {existing_source}) 为来自优先源 {current_source}")
+                seen_titles[title] = item
+            # 如果两者都是优先来源，或都不是，保留先遇到的那个（目前逻辑）
+            # 可以根据需要添加更复杂的优先级，例如 RSS 优先于 Twitter
+            # else:
+            #    logger.debug(f"去重：保留 '{title}' (来自 {existing_source}), 忽略来自 {current_source}")
+                
+    deduplicated_content = list(seen_titles.values())
+    logger.info(f"去重后剩余数量: {len(deduplicated_content)}")
+    # --- 结束：去重逻辑 ---
+    
     # 使用Deepseek汇总，传递tech_only参数
-    summary = summarize_with_deepseek(all_content_with_summary, deepseek_key, 
+    summary = summarize_with_deepseek(deduplicated_content, deepseek_key, # 使用去重后的列表
                                      deepseek_url, model_id, tech_only=tech_only)
     
     # 使用多种方式推送消息
@@ -139,6 +211,24 @@ def main():
         send_to_webhook(webhook, summary, tech_only)
     
     logger.info("处理完成")
+
+    # 在这里添加清理逻辑
+    # 清理旧数据文件
+    directories_to_clean = [
+        "data/raw",      # 原始热点数据
+        "data/filtered", # 筛选后的热点数据
+        "data/merged",   # 合并后的数据
+        "data/inputs",   # LLM 输入数据
+        "data/outputs",  # LLM 输出数据
+        "data/webhook",  # Webhook 日志
+        "cache/summary"  # 摘要缓存 (如果需要清理缓存)
+    ]
+    days_to_keep = 7 # 设置保留天数
+    logger.info(f"开始清理超过 {days_to_keep} 天的旧数据...")
+    for directory in directories_to_clean:
+        cleanup_old_files(directory, days_to_keep=days_to_keep)
+
+    logger.info("旧数据清理完成")
 
 if __name__ == "__main__":
     main()
