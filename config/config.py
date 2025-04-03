@@ -19,12 +19,12 @@ HUNYUAN_API_KEY = os.getenv('HUNYUAN_API_KEY')
 WEBHOOK_URL = os.getenv('WEBHOOK_URL')
 
 # API配置
-BASE_URL = os.getenv('BASE_URL', 'https://api-hot.tuber.cc')
-DEEPSEEK_API_URL = os.getenv('DEEPSEEK_API_URL', 'https://ark.cn-beijing.volces.com/api/v3/chat/completions')
-DEEPSEEK_MODEL_ID = os.getenv('DEEPSEEK_MODEL_ID', 'ep-20250307234946-b2znq')
+BASE_URL = os.getenv('BASE_URL')
+DEEPSEEK_API_URL = os.getenv('DEEPSEEK_API_URL')
+DEEPSEEK_MODEL_ID = os.getenv('DEEPSEEK_MODEL_ID')
 
 # RSS配置
-RSS_URL = os.getenv('RSS_URL', 'https://wewe.tuber.cc/feeds/all.atom?limit=20')
+RSS_URL = os.getenv('RSS_URL')
 RSS_DAYS = int(os.getenv('RSS_DAYS', '1'))
 
 # RSS源列表
