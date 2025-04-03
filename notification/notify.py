@@ -46,7 +46,7 @@ push_config = {
     'DD_BOT_SECRET': '',  # 钉钉机器人的 DD_BOT_SECRET
     'DD_BOT_TOKEN': '',  # 钉钉机器人的 DD_BOT_TOKEN
 
-    'FSKEY': '',  ***REMOVED***的 FSKEY
+    'FSKEY': '',  # 飞书机器人的 FSKEY
 
     'GOBOT_URL': '',  # go-cqhttp
     # 推送到个人QQ：http://127.0.0.1/send_private_msg

@@ -1,4 +1,4 @@
-# 热点新闻收集与推送工具 (Hot News Daily)
+# 热点新闻收集与推送工具 (Hot News Daily Push)
 
 这是一个自动收集各大平台热点新闻、RSS订阅源以及特定Twitter Feed，进行处理、去重、总结，并通过多种渠道推送热点摘要的工具。
 
@@ -113,7 +113,17 @@ cp .env.example .env
 编辑`.env`文件，配置以下**必要**参数：
 
 ```dotenv
-# --- API密钥 ---\nDEEPSEEK_API_KEY=\"your_deepseek_api_key\"  # DeepSeek AI API密钥 (用于最终总结)\nHUNYUAN_API_KEY=\"your_hunyuan_api_key\"    # 腾讯混元大模型API密钥 (用于生成单条摘要，如果SKIP_CONTENT=false且来源非Twitter则可能需要)\n\n# --- 推送渠道 (至少配置一种，或配置下面的 WEBHOOK_URL 作为备选) ---\n# 以企业微信机器人为例\nQYWX_KEY=\"your_qywx_key\"\n# 或其他渠道，如钉钉、飞书、Telegram等，参考 .env.example\n\n# --- 通用 Webhook (可选，作为上述渠道失败时的备选) ---\nWEBHOOK_URL=\"your_webhook_url\"
+# --- API密钥 ---
+DEEPSEEK_API_KEY="your_deepseek_api_key"  # DeepSeek AI API密钥 (用于最终总结)
+HUNYUAN_API_KEY="your_hunyuan_api_key"    # 腾讯混元大模型API密钥 (用于生成单条摘要，如果SKIP_CONTENT=false且来源非Twitter则可能需要)
+
+# --- 推送渠道 (至少配置一种，或配置下面的 WEBHOOK_URL 作为备选) ---
+# 以企业微信机器人为例
+QYWX_KEY="your_qywx_key"
+# 或其他渠道，如钉钉、飞书、Telegram等，参考 .env.example
+
+# --- 通用 Webhook (可选，作为上述渠道失败时的备选) ---
+WEBHOOK_URL="your_webhook_url"
 ```
 
 ### 4. (可选) 配置RSS源
@@ -233,11 +243,11 @@ python hot_news_main.py
 ### 1. 为什么有些摘要是空的或类似 \"[摘要无法生成：无内容或来源信息不足]\"?
 
 可能的原因：
-    *   **来源无有效信息**: 原始API/RSS/推文就没有提供摘要或有效内容。
-    *   **网页抓取失败**: (非Twitter来源) 目标网站限制访问、结构复杂或已失效，导致无法获取用于生成摘要的内容。
-    *   **内容不足**: 抓取到的原文或原始描述太短（少于50字符），不足以生成有意义的摘要。
-    *   **腾讯混元API调用失败**: (非Twitter来源) API密钥错误、网络问题或API服务异常。
-    *   **Twitter来源**: Twitter推文默认不进行AI摘要生成，如果原文过长会被截断，如果原文为空则可能无摘要。
+    - **来源无有效信息**: 原始API/RSS/推文就没有提供摘要或有效内容。
+    - **网页抓取失败**: (非Twitter来源) 目标网站限制访问、结构复杂或已失效，导致无法获取用于生成摘要的内容。
+    - **内容不足**: 抓取到的原文或原始描述太短（少于50字符），不足以生成有意义的摘要。
+    - **腾讯混元API调用失败**: (非Twitter来源) API密钥错误、网络问题或API服务异常。
+    - **Twitter来源**: Twitter推文默认不进行AI摘要生成，如果原文过长会被截断，如果原文为空则可能无摘要。
 
 ### 2. 为什么有些摘要被截断了 (以 \"...\" 结尾)?
 

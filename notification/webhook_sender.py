@@ -30,8 +30,8 @@ push_config = {
     'DD_BOT_SECRET': '',  # 钉钉机器人的 DD_BOT_SECRET
     'DD_BOT_TOKEN': '',  # 钉钉机器人的 DD_BOT_TOKEN
     
-    ***REMOVED***
-    'FSKEY': '',  ***REMOVED***的 FSKEY
+    # 飞书机器人
+    'FSKEY': '',  # 飞书机器人的 FSKEY
     
     # 企业微信应用
     'QYWX_AM': '',  # 企业微信应用参数，格式为：corpid,corpsecret,touser,agentid,media_id
@@ -247,7 +247,7 @@ def dingding_bot(content, is_tech_only=False):
         logger.error(f"钉钉机器人推送时发生错误: {str(e)}")
         return False
 
-***REMOVED***推送
+# 飞书机器人推送
 def feishu_bot(content, is_tech_only=False):
     """
     通过飞书机器人推送消息
@@ -265,7 +265,7 @@ def feishu_bot(content, is_tech_only=False):
         # 构建请求URL和数据
         url = f'https://open.feishu.cn/open-apis/bot/v2/hook/{push_config.get("FSKEY")}'
         
-        ***REMOVED***支持富文本格式
+        # 飞书机器人支持富文本格式
         payload = {
             "msg_type": "post",
             "content": {
@@ -674,7 +674,7 @@ def notify(content, is_tech_only=False):
         if dingding_bot(content, is_tech_only):
             success = True
     
-    ***REMOVED***推送
+    # 飞书机器人推送
     if push_config.get("FSKEY"):
         if feishu_bot(content, is_tech_only):
             success = True
