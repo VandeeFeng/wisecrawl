@@ -1,16 +1,8 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-"""
-主文件：调用各个函数，确保逻辑清晰
-"""
-
 import os
 import sys
 import asyncio
 import logging
 from datetime import datetime, timedelta
-from distutils.util import strtobool
 
 # 导入配置
 from config.config import (
@@ -32,7 +24,7 @@ from crawler.data_collector import (
 from processor.news_processor import process_hotspot_with_summary
 
 # 导入LLM集成模块
-from llm_integration.deepseek_integration import summarize_with_deepseek
+from llm_integration.summary_integration import summarize_with_deepseek
 
 # 导入通知模块
 from notification.webhook_sender import notify, send_to_webhook
@@ -44,22 +36,38 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+def str_to_bool(value):
+    """
+    将字符串转换为布尔值
+    """
+    if isinstance(value, bool):
+        return value
+    return value.lower() in ('true', '1', 't', 'y', 'yes')
+
 def main():
     # 从环境变量中读取配置，优先使用环境变量，如果不存在则使用config.py中的默认值
-    tech_only = bool(strtobool(os.getenv('TECH_ONLY', 'False')))
-    webhook = os.getenv('WEBHOOK_URL', WEBHOOK_URL)
-    deepseek_key = os.getenv('DEEPSEEK_API_KEY', DEEPSEEK_API_KEY)
-    hunyuan_key = os.getenv('HUNYUAN_API_KEY', HUNYUAN_API_KEY)
-    no_cache = bool(strtobool(os.getenv('NO_CACHE', 'False')))
-    base_url = os.getenv('BASE_URL', BASE_URL)
-    deepseek_url = os.getenv('DEEPSEEK_API_URL', DEEPSEEK_API_URL)
-    model_id = os.getenv('DEEPSEEK_MODEL_ID', DEEPSEEK_MODEL_ID)
-    rss_url = os.getenv('RSS_URL', RSS_URL)
-    rss_days = int(os.getenv('RSS_DAYS', str(RSS_DAYS)))
-    title_length = int(os.getenv('TITLE_LENGTH', str(TITLE_LENGTH)))
-    max_workers = int(os.getenv('MAX_WORKERS', str(MAX_WORKERS)))
-    skip_content = bool(strtobool(os.getenv('SKIP_CONTENT', 'False')))
-    filter_days = int(os.getenv('FILTER_DAYS', str(FILTER_DAYS)))
+    # Use values directly imported from config, which already handle defaults and env vars
+    tech_only = str_to_bool(os.getenv('TECH_ONLY', str(TECH_SOURCES is not None))) # Default depends on TECH_SOURCES definition
+    webhook = WEBHOOK_URL
+    deepseek_key = DEEPSEEK_API_KEY
+    hunyuan_key = HUNYUAN_API_KEY
+    no_cache = str_to_bool(os.getenv('NO_CACHE', 'False')) # Keep env var override for this
+    base_url = BASE_URL.strip() # Ensure no trailing spaces from env var or default
+    deepseek_url = DEEPSEEK_API_URL
+    model_id = DEEPSEEK_MODEL_ID
+    rss_url = RSS_URL
+    rss_days = RSS_DAYS
+    title_length = TITLE_LENGTH
+    max_workers = MAX_WORKERS
+    skip_content = str_to_bool(os.getenv('SKIP_CONTENT', 'False')) # Keep env var override for this
+    filter_days = FILTER_DAYS
+    
+    # --- DEBUGGING --- 
+    # print(f"DEBUG: BASE_URL from config.py: '{BASE_URL}'")
+    # print(f"DEBUG: base_url local variable (before strip): '{base_url}'")
+    base_url = base_url.strip() # Keep the strip() here just in case
+    # print(f"DEBUG: base_url local variable (after strip): '{base_url}'")
+    # --- END DEBUGGING ---
     
     # 检查必要的API密钥是否存在
     if not webhook:
@@ -75,15 +83,19 @@ def main():
         sys.exit(1)
     
     # 检查 BASE_URL 是否可访问
-    if not check_base_url(base_url):
-        logger.error(f"BASE_URL {base_url} 不可访问，程序退出")
+    # Clean the base_url before checking
+    cleaned_base_url = base_url.rstrip('/') # Remove trailing slash for check_base_url
+    # print(f"DEBUG: Value passed to check_base_url: '{cleaned_base_url}'") # Remove debug print
+    if not check_base_url(cleaned_base_url):
+        logger.error(f"BASE_URL {cleaned_base_url} 不可访问，程序退出")
         sys.exit(1)
     
     # 根据参数选择信息源
     sources = TECH_SOURCES if tech_only else ALL_SOURCES
     
     # 收集热点
-    hotspots = collect_all_hotspots(sources, base_url)
+    # Pass the cleaned base_url
+    hotspots = collect_all_hotspots(sources, base_url) # Pass the original base_url with potential slash
     
     if not hotspots:
         logger.warning("未能收集到任何热点数据，将继续尝试其他来源...")

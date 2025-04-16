@@ -22,6 +22,9 @@ logger = logging.getLogger(__name__)
 
 # 推送配置，从环境变量中读取
 push_config = {
+    # 全局开关，控制是否启用消息推送
+    'PUSH_ENABLED': False,  # 默认关闭推送功能
+    
     # 企业微信机器人
     'QYWX_KEY': '',  # 企业微信机器人的 webhook key
     'QYWX_ORIGIN': '',  # 企业微信代理地址，默认为 https://qyapi.weixin.qq.com
@@ -98,6 +101,26 @@ def save_content_and_response(formatted_content, request_data=None, response_dat
     """
     保存发送内容、请求和响应到文件
     """
+    # 检查对应的推送方式是否启用
+    if push_type == "webhook" and not push_config.get("WEBHOOK_URL"):
+        return
+    elif push_type == "wecom_bot" and not push_config.get("QYWX_KEY"):
+        return
+    elif push_type == "dingding_bot" and (not push_config.get("DD_BOT_TOKEN") or not push_config.get("DD_BOT_SECRET")):
+        return
+    elif push_type == "feishu_bot" and not push_config.get("FSKEY"):
+        return
+    elif push_type == "telegram_bot" and (not push_config.get("TG_BOT_TOKEN") or not push_config.get("TG_USER_ID")):
+        return
+    elif push_type == "bark" and not push_config.get("BARK_PUSH"):
+        return
+    elif push_type == "pushplus_bot" and not push_config.get("PUSH_PLUS_TOKEN"):
+        return
+    elif push_type == "serverJ" and not push_config.get("PUSH_KEY"):
+        return
+    elif push_type == "wecom_app" and not push_config.get("QYWX_AM"):
+        return
+    
     try:
         # 获取项目根目录路径
         current_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -662,6 +685,11 @@ def notify(content, is_tech_only=False):
     根据环境变量配置选择推送方式
     返回是否至少有一种推送方式成功
     """
+    # 检查全局推送开关
+    if not push_config.get("PUSH_ENABLED"):
+        logger.info("消息推送功能已关闭，跳过推送")
+        return False
+        
     success = False
     
     # 企业微信机器人推送

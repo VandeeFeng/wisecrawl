@@ -1,160 +1,153 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-"""
-网页内容爬取：获取到url后，对网页的指定内容进行提取
-使用newspaper3k和trafilatura库进行智能内容提取
-"""
-
 import requests
-import cloudscraper # 导入 cloudscraper
+import cloudscraper # Import cloudscraper
 import re
 import time
 import logging
+import random
+from threading import Lock
 from bs4 import BeautifulSoup
 from dateutil import parser as date_parser
 from datetime import datetime
 
-# 导入专业的新闻内容提取库
+# Import professional news content extraction libraries
 import newspaper
 from newspaper import Article
 import trafilatura
 from trafilatura.settings import use_config
 from trafilatura import extract
 
-# 配置日志
+# Configure logging
 logger = logging.getLogger(__name__)
+
+# Global request lock
+request_lock = Lock()
 
 def fetch_webpage_content(url, timeout=20, max_retries=3, existing_content=None, fetch_html_only=False):
     """
-    获取网页内容，返回处理后的文本内容和原始HTML
-    如果提供了existing_content，则直接使用该内容而不进行爬取
-    使用cloudscraper尝试绕过Cloudflare，然后使用多种方法提取内容
+    Get webpage content, return processed text content and original HTML
+    If existing_content is provided, use it directly without crawling
+    Use cloudscraper to try to bypass Cloudflare, then use multiple methods to extract content
     If fetch_html_only is True, then only get the raw HTML, without extracting the text content.
     """
-    # 检查是否有实质性的现有内容 (去除首尾空格后长度大于10)
+    # Check if there is substantial existing content (length greater than 10 after removing leading and trailing spaces)
     has_substantial_existing_content = (
         existing_content is not None and len(existing_content.strip()) > 10
     )
-    # 如果有实质性内容，并且不是只获取HTML，才跳过爬取
+    # Only skip crawling if there is substantial content and not only getting HTML
     if has_substantial_existing_content and not fetch_html_only:
-        logger.info(f"检测到已有实质性内容({len(existing_content)}字符)，跳过爬取: {url}")
-        # Even if using existing content, we might need HTML later for timestamp extraction, 
-        # but we don't have it if we skip fetching. Return None for HTML in this case.
-        # If fetch_html_only was True, this block is skipped anyway.
+        logger.info(f"Detected existing substantial content ({len(existing_content)} characters), skipping crawling: {url}")
         return existing_content, None 
     
     retry_count = 0
     while retry_count < max_retries:
         try:
-            # 创建 cloudscraper 实例
-            # 可以配置浏览器类型等，这里使用默认设置
-            scraper = cloudscraper.create_scraper(
-                # 可以添加一些浏览器伪装选项
-                browser={
-                    'browser': 'chrome',
-                    'platform': 'windows',
-                    'mobile': False
-                }
-            )
+            # Use lock to ensure only one request at a time
+            with request_lock:
+                # Add random delay to avoid frequent requests
+                if retry_count > 0:
+                    delay = random.uniform(1, 5)
+                    logger.info(f"Waiting {delay:.2f} seconds before retrying...")
+                    time.sleep(delay)
 
-            # 使用 scraper.get 获取网页，它会自动处理 Cloudflare 挑战
-            # 注意：cloudscraper 可能需要更长的超时时间
-            response = scraper.get(url, timeout=timeout, verify=True, allow_redirects=True)
-            response.raise_for_status() # 检查请求是否成功 (cloudscraper 失败时也会抛出异常)
+                # Create cloudscraper instance
+                scraper = cloudscraper.create_scraper(
+                    browser={
+                        'browser': 'chrome',
+                        'platform': 'windows',
+                        'mobile': False
+                    }
+                )
 
-            # 获取原始HTML内容
-            html_content = response.text
+                # Use scraper.get to get webpage
+                response = scraper.get(url, timeout=timeout, verify=True, allow_redirects=True)
+                response.raise_for_status()
 
-            # 如果只需要HTML，直接返回
-            if fetch_html_only:
-                logger.info(f"仅获取原始HTML: {url}, HTML长度: {len(html_content)}")
-                return None, html_content # Return None for content, as it wasn't extracted
+                # Get original HTML content
+                html_content = response.text
 
-            # 使用多种方法提取内容，优先使用专业的新闻内容提取库
-            processed_content = extract_content_with_multiple_methods(html_content, url)
-            
-            logger.info(f"获取到网页内容: {url}, 原始HTML长度: {len(html_content)}, 处理后文本长度: {len(processed_content)} 字符")
-            
-            return processed_content, html_content
+                # If only HTML is needed, return directly
+                if fetch_html_only:
+                    logger.info(f"Only getting original HTML: {url}, HTML length: {len(html_content)}")
+                    return None, html_content
+
+                # Use multiple methods to extract content
+                processed_content = extract_content_with_multiple_methods(html_content, url)
+                
+                logger.info(f"Got webpage content: {url}, original HTML length: {len(html_content)}, processed text length: {len(processed_content)} characters")
+                
+                return processed_content, html_content
+
         except Exception as e:
-            # 检查是否是 cloudscraper 特有的错误
-            if "CloudflareJSChallengeError" in str(e) or "CloudflareCaptchaError" in str(e):
-                 logger.warning(f"Cloudscraper 未能绕过 Cloudflare 保护: {url}, 错误: {str(e)}")
-                 # 遇到无法绕过的 Cloudflare 保护，不再重试
-                 return "", ""
-            # 其他错误，执行重试逻辑
             retry_count += 1
             if retry_count < max_retries:
-                logger.warning(f"获取网页内容失败: {url}, 错误: {str(e)}，{5 * retry_count}秒后重试 ({retry_count}/{max_retries})...")
-                time.sleep(5 * retry_count) # 增加重试等待时间
+                logger.warning(f"Failed to get webpage content: {url}, error: {str(e)}, will add random delay on next retry...")
             else:
-                logger.error(f"获取网页内容失败: {url}, 错误: {str(e)}")
+                logger.error(f"Failed to get webpage content: {url}, error: {str(e)}")
                 return "", ""
 
 def extract_content_with_multiple_methods(html_content, url):
     """
-    使用多种方法提取网页内容，按优先级尝试不同的提取方法
-    1. trafilatura - 专为网页内容提取设计，对新闻文章效果很好
-    2. newspaper3k - 专为新闻内容提取设计
-    3. 传统的BeautifulSoup提取 - 作为备选方案
+    Extract webpage content using multiple methods, try different extraction methods by priority
+    1. trafilatura - designed for webpage content extraction, works well for news articles
+    2. newspaper3k - designed for news content extraction
+    3. Traditional BeautifulSoup extraction - as a fallback
     """
     extracted_content = ""
     
-    # 方法1: 使用trafilatura提取内容（专为网页内容提取设计）
+    # Method 1: Use trafilatura to extract content (designed for webpage content extraction)
     try:
-        # 配置trafilatura以提取更完整的内容
+        # Configure trafilatura to extract more complete content
         traf_config = use_config()
         traf_config.set("DEFAULT", "MIN_OUTPUT_SIZE", "200")
         traf_config.set("DEFAULT", "MIN_EXTRACTED_SIZE", "200")
         
-        # 提取正文内容
+        # Extract main content
         extracted_content = extract(html_content, config=traf_config, url=url, include_comments=False, include_tables=True)
         
         if extracted_content and len(extracted_content.strip()) > 200:
-            logger.info(f"使用trafilatura成功提取内容，长度: {len(extracted_content)} 字符")
+            logger.info(f"Successfully extracted content using trafilatura, length: {len(extracted_content)} characters")
             return extracted_content
         else:
-            logger.info("trafilatura提取内容失败或内容过短，尝试其他方法")
+            logger.info("Failed to extract content using trafilatura or content too short, trying other methods")
     except Exception as e:
-        logger.warning(f"使用trafilatura提取内容时出错: {str(e)}")
+        logger.warning(f"Error extracting content using trafilatura: {str(e)}")
     
-    # 方法2: 使用newspaper3k提取内容（专为新闻内容提取设计）
+    # Method 2: Use newspaper3k to extract content (designed for news content extraction)
     try:
-        # 配置newspaper，禁用下载多媒体内容以提高速度
+        # Configure newspaper, disable downloading multimedia content to improve speed
         article = Article(url, language='zh')
-        article.download(input_html=html_content)  # 使用已获取的HTML内容
+        article.download(input_html=html_content)  # Use already obtained HTML content
         article.parse()
         
-        # 获取正文内容
+        # Get main content
         if article.text and len(article.text.strip()) > 200:
             extracted_content = article.text
-            logger.info(f"使用newspaper3k成功提取内容，长度: {len(extracted_content)} 字符")
+            logger.info(f"Successfully extracted content using newspaper3k, length: {len(extracted_content)} characters")
             return extracted_content
         else:
-            logger.info("newspaper3k提取内容失败或内容过短，尝试其他方法")
+            logger.info("Failed to extract content using newspaper3k or content too short, trying other methods")
     except Exception as e:
-        logger.warning(f"使用newspaper3k提取内容时出错: {str(e)}")
+        logger.warning(f"Error extracting content using newspaper3k: {str(e)}")
     
-    # 方法3: 使用传统的BeautifulSoup提取（作为备选方案）
+    # Method 3: Use traditional BeautifulSoup extraction (as a fallback)
     try:
         soup = BeautifulSoup(html_content, 'html.parser')
         
-        # 移除不需要的元素
+        # Remove unwanted elements
         for element in soup.find_all(['script', 'style', 'nav', 'footer', 'header', 'aside']):
             element.decompose()
         
-        # 尝试找到主要内容区域
+        # Try to find main content area
         main_content = None
         
-        # 常见的内容容器ID和类名
+        # Common content container IDs and class names
         content_selectors = [
             "article", ".article", "#article", ".post", "#post", ".content", "#content",
             ".main-content", "#main-content", ".entry-content", "#entry-content",
             ".post-content", "#post-content", ".article-content", "#article-content"
         ]
         
-        # 尝试找到主要内容区域
+        # Try to find main content area
         for selector in content_selectors:
             if selector.startswith("."):
                 elements = soup.find_all(class_=selector[1:])
@@ -163,40 +156,40 @@ def extract_content_with_multiple_methods(html_content, url):
             else:
                 elements = soup.find_all(selector)
             
-            # 找到最长的内容区域
+            # Find the longest content area
             for element in elements:
                 if element and (not main_content or len(element.get_text()) > len(main_content.get_text())):
                     main_content = element
         
-        # 如果找到了主要内容区域，提取文本
+        # If main content area is found, extract text
         if main_content:
             text_content = main_content.get_text(separator=' ', strip=True)
         else:
-            # 如果没有找到主要内容区域，提取整个body的文本
+            # If no main content area is found, extract text from the entire body
             text_content = soup.get_text(separator=' ', strip=True)
         
-        # 预处理文本内容
+        # Preprocess text content
         extracted_content = preprocess_webpage_content(text_content)
-        logger.info(f"使用BeautifulSoup提取内容，长度: {len(extracted_content)} 字符")
+        logger.info(f"Extracted content using BeautifulSoup, length: {len(extracted_content)} characters")
         return extracted_content
     except Exception as e:
-        logger.warning(f"使用BeautifulSoup提取内容时出错: {str(e)}")
+        logger.warning(f"Error extracting content using BeautifulSoup: {str(e)}")
     
-    # 如果所有方法都失败，返回空字符串
-    logger.error("所有内容提取方法均失败")
+    # If all methods fail, return empty string
+    logger.error("All content extraction methods failed")
     return ""
 
 def preprocess_webpage_content(content):
     """
-    预处理网页内容，去除无关内容，提取核心文本
+    Preprocess webpage content, remove irrelevant content, extract core text
     """
     if not content:
         return ""
     
-    # 1. 去除多余空白字符
+    # 1. Remove extra whitespace characters
     content = ' '.join(content.split())
     
-    # 2. 去除常见的网页噪音
+    # 2. Remove common webpage noise
     noise_patterns = [
         r'版权所有.*?保留所有权利',
         r'Copyright.*?Reserved',
@@ -214,15 +207,15 @@ def preprocess_webpage_content(content):
     for pattern in noise_patterns:
         content = re.sub(pattern, ' ', content, flags=re.IGNORECASE)
     
-    # 3. 如果内容太长，保留前3000字符（考虑到后续会截断）
+    # 3. If content is too long, keep the first 3000 characters (considering later truncation)
     if len(content) > 3000:
-        # 记录截断信息
-        logger.info(f"内容过长，从 {len(content)} 字符截断至 3000 字符")
+        # Log truncation information
+        logger.info(f"Content too long, truncated from {len(content)} to 3000 characters")
         
-        # 尝试在句子边界截断
+        # Try to truncate at sentence boundaries
         sentences = re.split(r'[.。!！?？;；]', content[:3000])
         if len(sentences) > 1:
-            # 保留完整句子
+            # Keep complete sentences
             content = '.'.join(sentences[:-1]) + '.'
         else:
             content = content[:3000]
@@ -231,99 +224,116 @@ def preprocess_webpage_content(content):
 
 def extract_publish_time_from_html(html_content, url):
     """
-    从HTML内容中提取发布时间
-    支持多种常见的时间格式和HTML结构
-    优先使用newspaper3k和trafilatura提取
+    Extract publish time from HTML content
+    Support multiple common time formats and HTML structures
+    Prioritize using newspaper3k and trafilatura extraction
     """
     if not html_content:
         return None
     
     try:
-        # 方法1: 使用newspaper3k提取发布时间
+        # Method 1: Use newspaper3k to extract publish time
         try:
             article = Article(url, language='zh')
             article.download(input_html=html_content)
             article.parse()
             
             if article.publish_date:
-                logger.info(f"使用newspaper3k成功提取发布时间: {article.publish_date}")
+                logger.info(f"Successfully extracted publish time using newspaper3k: {article.publish_date}")
                 return article.publish_date
         except Exception as e:
-            logger.debug(f"使用newspaper3k提取发布时间失败: {str(e)}")
+            logger.warning(f"Failed to extract publish time using newspaper3k: {str(e)}")
         
-        # 方法2: 使用trafilatura提取元数据
+        # Method 2: Use BeautifulSoup to extract publish time from meta tags
         try:
-            metadata = trafilatura.extract_metadata(html_content, url=url)
-            if metadata and metadata.date:
-                date_obj = date_parser.parse(metadata.date)
-                logger.info(f"使用trafilatura成功提取发布时间: {date_obj}")
-                return date_obj
-        except Exception as e:
-            logger.debug(f"使用trafilatura提取发布时间失败: {str(e)}")
-        
-        # 方法3: 使用传统方法提取
-        soup = BeautifulSoup(html_content, 'html.parser')
-        
-        # 1. 尝试从meta标签中提取时间
-        meta_tags = [
-            soup.find('meta', attrs={'property': 'article:published_time'}),
-            soup.find('meta', attrs={'property': 'og:published_time'}),
-            soup.find('meta', attrs={'property': 'publish_date'}),
-            soup.find('meta', attrs={'itemprop': 'datePublished'}),
-            soup.find('meta', attrs={'name': 'pubdate'}),
-            soup.find('meta', attrs={'name': 'publishdate'}),
-            soup.find('meta', attrs={'name': 'date'})
-        ]
-        
-        for tag in meta_tags:
-            if tag and tag.get('content'):
-                try:
-                    return date_parser.parse(tag.get('content'))
-                except:
-                    pass
-        
-        # 2. 尝试从time标签中提取
-        time_tags = soup.find_all('time')
-        for time_tag in time_tags:
-            datetime_attr = time_tag.get('datetime')
-            if datetime_attr:
-                try:
-                    return date_parser.parse(datetime_attr)
-                except:
-                    pass
-        
-        # 3. 针对特定网站的自定义提取逻辑
-        if 'juejin.cn' in url:
-            # 掘金网站的时间提取
-            time_elements = soup.find_all('time', class_='time')
-            for time_element in time_elements:
-                if time_element.get('datetime'):
+            soup = BeautifulSoup(html_content, 'html.parser')
+            
+            # Look for common meta tags containing publish time
+            meta_tags = {
+                'article:published_time': ['property', 'name'],
+                'pubdate': ['property', 'name'],
+                'publishdate': ['property', 'name'],
+                'og:published_time': ['property'],
+                'publish_date': ['name'],
+                'date': ['name'],
+                'published_time': ['name'],
+                'datePublished': ['itemprop']
+            }
+            
+            for meta_name, attrs in meta_tags.items():
+                for attr in attrs:
+                    meta = soup.find('meta', {attr: meta_name})
+                    if meta and meta.get('content'):
+                        try:
+                            pub_date = date_parser.parse(meta['content'])
+                            logger.info(f"Extracted publish time from meta tag {attr}={meta_name}: {pub_date}")
+                            return pub_date
+                        except Exception as e:
+                            logger.warning(f"Failed to parse date from meta tag {attr}={meta_name}: {str(e)}")
+            
+            # Look for time tags
+            time_tags = soup.find_all('time')
+            for time_tag in time_tags:
+                if time_tag.get('datetime'):
                     try:
-                        return date_parser.parse(time_element.get('datetime'))
-                    except:
-                        pass
-        
-        # 4. 尝试从常见的日期格式中提取
-        date_patterns = [
-            r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}',  # 2024-03-08 12:34:56
-            r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}',  # 2024-03-08T12:34:56
-            r'\d{4}/\d{2}/\d{2} \d{2}:\d{2}',        # 2024/03/08 12:34
-            r'\d{4}年\d{1,2}月\d{1,2}日 \d{1,2}:\d{1,2}',  # 2024年3月8日 12:34
-            r'\d{4}年\d{1,2}月\d{1,2}日',            # 2024年3月8日
-            r'\d{4}-\d{2}-\d{2}'                     # 2024-03-08
-        ]
-        
-        for pattern in date_patterns:
-            matches = re.findall(pattern, html_content)
-            if matches:
+                        pub_date = date_parser.parse(time_tag['datetime'])
+                        logger.info(f"Extracted publish time from time tag: {pub_date}")
+                        return pub_date
+                    except Exception as e:
+                        logger.warning(f"Failed to parse date from time tag: {str(e)}")
+            
+            # Look for specific JSON-LD scripts containing publish time
+            script_tags = soup.find_all('script', {'type': 'application/ld+json'})
+            for script in script_tags:
                 try:
-                    return date_parser.parse(matches[0])
-                except:
-                    pass
+                    import json
+                    data = json.loads(script.string)
+                    date_published = None
+                    
+                    # Check for datePublished in different levels
+                    if isinstance(data, dict):
+                        date_published = data.get('datePublished')
+                        if not date_published and '@graph' in data and isinstance(data['@graph'], list):
+                            for item in data['@graph']:
+                                if isinstance(item, dict) and 'datePublished' in item:
+                                    date_published = item['datePublished']
+                                    break
+                    
+                    if date_published:
+                        pub_date = date_parser.parse(date_published)
+                        logger.info(f"Extracted publish time from JSON-LD: {pub_date}")
+                        return pub_date
+                except Exception as e:
+                    logger.warning(f"Failed to extract date from JSON-LD: {str(e)}")
         
-        logger.debug(f"无法从HTML内容中提取发布时间: {url}")
+        except Exception as e:
+            logger.warning(f"Failed to extract publish time from HTML: {str(e)}")
+        
+        # Method 3: Try to find date patterns in URLs
+        try:
+            # Common date patterns in URLs: /2023/01/15/, /2023-01-15/, etc.
+            date_patterns = [
+                r'/(\d{4})/(\d{1,2})/(\d{1,2})/',
+                r'/(\d{4})-(\d{1,2})-(\d{1,2})/',
+                r'[_./-](\d{4})(\d{2})(\d{2})[_./-]'
+            ]
+            
+            for pattern in date_patterns:
+                match = re.search(pattern, url)
+                if match:
+                    year, month, day = match.groups()
+                    try:
+                        pub_date = datetime(int(year), int(month), int(day))
+                        logger.info(f"Extracted publish time from URL pattern: {pub_date}")
+                        return pub_date
+                    except Exception as e:
+                        logger.warning(f"Failed to create date from URL pattern: {str(e)}")
+        except Exception as e:
+            logger.warning(f"Failed to extract date from URL: {str(e)}")
+        
+        logger.warning(f"Could not extract publish time from {url}")
         return None
     
     except Exception as e:
-        logger.warning(f"提取发布时间时发生错误: {str(e)}, URL: {url}")
+        logger.error(f"Error extracting publish time: {str(e)}")
         return None

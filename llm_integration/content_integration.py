@@ -1,10 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-"""
-混元新闻内容总结：使用混元对爬取的内容进行摘要总结和mark
-"""
-
 import json
 import logging
 import time
@@ -45,15 +38,15 @@ def summarize_with_tencent_hunyuan(content, api_key, title="", max_retries=3, us
     while retry_count < max_retries:
         try:
             # 记录要发送的内容长度
-            logger.info(f"发送至混元模型的内容长度: {len(content[:2000])} 字符")
+            logger.info(f"发送至内容处理模型的内容长度: {len(content[:2000])} 字符")
             
             # 创建LLM实例，添加正确的base_url
             llm = ChatOpenAI(
-                model="hunyuan-turbos-latest",  # 使用hunyuan-turboS模型
+                model="qwen2.5:14b",  
                 temperature=0.3,
-                api_key=api_key,
+                api_key='ollama',
                 max_tokens=150,
-                base_url="https://api.hunyuan.cloud.tencent.com/v1"  # 添加混元API的base_url
+                base_url="http://127.0.0.1:11434/v1/"  
             )
             
             # 创建提示模板，要求返回JSON格式

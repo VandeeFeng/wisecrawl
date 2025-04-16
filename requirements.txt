@@ -22,9 +22,9 @@ langchain-core>=0.1.0
 langchain-openai>=0.0.5
 
 # 日志和工具
-logging>=0.5.1.2
+logging
 pathlib>=1.0.1
 
 # 数据处理
-json>=2.0.9
+
 pickle-mixin>=1.0.2
