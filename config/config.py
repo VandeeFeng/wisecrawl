@@ -236,8 +236,8 @@ TECH_SOURCES = [
     "zhihu",        # 科技类问答和专栏文章
     "sspai",        # 专注效率工具和科技应用
     # "ithome",       # IT科技新闻门户
-    "36kr",         # 科技创新创业资讯平台
-    "juejin",       # 开发者技术社区
+    # "36kr",         # 科技创新创业资讯平台
+    # "juejin",       # 开发者技术社区
     # "csdn",         # 专业技术博客平台
     # "51cto",        # IT技术运维社区  
     "huxiu",        # 科技商业媒体
@@ -248,7 +248,7 @@ TECH_SOURCES = [
     # "hupu",         # 虎扑数码区（手机/电脑讨论）
     "guokr",        # 泛科学科普平台
     "hellogithub",  # GitHub开源项目推荐
-    "nodeseek",     # 服务器和网络技术论坛
+    # "nodeseek",     # 服务器和网络技术论坛
     # "52pojie",      # 软件逆向技术社区
     # "ithome-xijiayi",# 免费软件/游戏资讯
     "zhihu-daily",  # 含科技类深度报道
