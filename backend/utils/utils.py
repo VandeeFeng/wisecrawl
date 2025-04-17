@@ -145,19 +145,20 @@ def format_title_for_display(title, source, max_length=30):
     # Return formatted title
     return f"{title}{source_part}"
 
-def cleanup_old_files(directory, days_to_keep=7):
+def cleanup_old_files(directory, days_to_keep=7, use_backend_dir=False):
     """
     Clean up old files in specified directory that are older than specified days.
 
     Args:
-        directory (str): Directory path to clean (relative to project root).
+        directory (str): Directory path to clean (relative to project root or backend dir).
         days_to_keep (int): Number of days to keep files, default is 7 days.
+        use_backend_dir (bool): If True, use backend directory as base, otherwise use project root.
     """
     try:
-        # Get project root directory
-        project_root = get_project_root()
-        # Build absolute path from project root
-        abs_directory = os.path.join(project_root, directory)
+        # Get base directory (project root or backend)
+        base_dir = get_backend_dir() if use_backend_dir else get_project_root()
+        # Build absolute path from base directory
+        abs_directory = os.path.join(base_dir, directory)
 
         if not os.path.isdir(abs_directory):
             logger.warning(f"Directory does not exist, skipping cleanup: {abs_directory}")

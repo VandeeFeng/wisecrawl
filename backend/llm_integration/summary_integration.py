@@ -4,8 +4,9 @@ import time
 import logging
 import requests
 from datetime import datetime
-from config.config import SOURCE_NAME_MAP
+from config.config import SOURCE_NAME_MAP, DEEPSEEK_MODEL_ID
 from utils.utils import format_title_for_display
+from utils.token_tracker import token_tracker
 
 logger = logging.getLogger(__name__)
 
@@ -18,7 +19,7 @@ def summarize_with_deepseek(hotspots, api_key, api_url=None, model_id=None, max_
         api_url = "http://127.0.0.1:11434/v1/chat/completions"
     
     if model_id is None:
-        model_id = "deepseek-r1:14b"
+        model_id = DEEPSEEK_MODEL_ID
     
     retry_count = 0
     while retry_count < max_retries:
@@ -143,6 +144,15 @@ def summarize_with_deepseek(hotspots, api_key, api_url=None, model_id=None, max_
                     
                     if "choices" not in result or len(result["choices"]) == 0:
                         raise Exception(f"API响应格式不正确: {process.stdout[:200]}...")
+                    
+                    # Track token usage for Deepseek model
+                    if "usage" in result:
+                        usage = result["usage"]
+                        token_tracker.add_usage(
+                            model_id,
+                            prompt_tokens=usage.get("prompt_tokens", 0),
+                            completion_tokens=usage.get("completion_tokens", 0)
+                        )
                     
                     logger.info("API调用成功!")
                     

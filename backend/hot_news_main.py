@@ -19,6 +19,7 @@ from config.config import (
 
 # Import utility functions
 from utils.utils import save_hotspots_to_jsonl, check_base_url, cleanup_old_files
+from utils.token_tracker import token_tracker
 
 # Import data collection modules
 from crawler.data_collector import (
@@ -282,14 +283,21 @@ def main():
         "data/inputs",   # LLM input data
         "data/outputs",  # LLM output data
         "data/webhook",  # Webhook logs
-        "cache/summary"  # Summary cache
     ]
     days_to_keep = 7 # Set retention period
     logger.info(f"Starting cleanup of data older than {days_to_keep} days...")
     for directory in directories_to_clean:
         cleanup_old_files(directory, days_to_keep=days_to_keep)
 
+    # Clean up cache in backend directory
+    cleanup_old_files("cache/summary", days_to_keep=days_to_keep, use_backend_dir=True)
+
     logger.info("Data cleanup complete")
+    
+    # Print token usage summary
+    token_tracker.print_summary()
+    
+    return 0
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

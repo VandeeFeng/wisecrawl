@@ -6,6 +6,8 @@ from langchain_core.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
 
 from utils.utils import get_content_hash, load_summary_cache, save_summary_cache
+from utils.token_tracker import token_tracker
+from config.config import CONTENT_MODEL_ID
 
 logger = logging.getLogger(__name__)
 
@@ -36,7 +38,7 @@ def summarize_with_tencent_hunyuan(content, api_key, title="", max_retries=3, us
             logger.info(f"发送至内容处理模型的内容长度: {len(content[:2000])} 字符")
             
             llm = ChatOpenAI(
-                model="qwen2.5:14b",  
+                model=CONTENT_MODEL_ID,  
                 temperature=0.3,
                 api_key='ollama',
                 max_tokens=150,
@@ -78,6 +80,13 @@ def summarize_with_tencent_hunyuan(content, api_key, title="", max_retries=3, us
                     result["summary"] = ""
                 if "is_tech" not in result:
                     result["is_tech"] = False
+                
+                # Track token usage for content model
+                token_tracker.add_usage(
+                    CONTENT_MODEL_ID,
+                    prompt_tokens=len(content[:2000]) // 4,  # Rough estimate
+                    completion_tokens=len(result_text) // 4   # Rough estimate
+                )
                 
                 logger.info(f"生成的摘要: {result['summary']}, 科技相关: {result['is_tech']}")
                 

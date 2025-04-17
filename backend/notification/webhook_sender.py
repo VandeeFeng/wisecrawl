@@ -1,10 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-"""
-消息推送函数：将内容调用webhook推送出去，支持多种推送方式
-"""
-
 import os
 import json
 import logging
@@ -99,7 +92,7 @@ def format_content(content, is_tech_only=False):
 # 保存发送内容和响应
 def save_content_and_response(formatted_content, request_data=None, response_data=None, response=None, push_type="webhook"):
     """
-    保存发送内容、请求和响应到文件
+    Save webhook content and response data to files
     """
     # 检查对应的推送方式是否启用
     if push_type == "webhook" and not push_config.get("WEBHOOK_URL"):
@@ -122,27 +115,27 @@ def save_content_and_response(formatted_content, request_data=None, response_dat
         return
     
     try:
-        # 获取项目根目录路径
-        current_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        # Get project root directory (parent of backend)
+        current_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
         output_directory = os.path.join(current_dir, "data", "webhook")
         os.makedirs(output_directory, exist_ok=True)
         timestamp = formatted_content["timestamp"]
         today = formatted_content["today"]
         
-        # 保存发送内容
+        # Save content
         content_filename = os.path.join(output_directory, f"{push_type}_content_{today}_{timestamp}.md")
         with open(content_filename, 'w', encoding='utf-8') as f:
             f.write(formatted_content["content"])
         logger.info(f"已保存{push_type}发送内容至 {content_filename}")
         
-        # 保存请求数据
+        # Save request data
         if request_data:
             request_filename = os.path.join(output_directory, f"{push_type}_request_{today}_{timestamp}.json")
             with open(request_filename, 'w', encoding='utf-8') as f:
                 json.dump(request_data, f, ensure_ascii=False, indent=2)
             logger.info(f"已保存{push_type}请求数据至 {request_filename}")
         
-        # 保存响应数据
+        # Save response data
         if response or response_data:
             response_filename = os.path.join(output_directory, f"{push_type}_response_{today}_{timestamp}.json")
             if response_data:
@@ -158,7 +151,8 @@ def save_content_and_response(formatted_content, request_data=None, response_dat
                         f.write(f"Status Code: {response.status_code}\nContent: {response.text}")
             logger.info(f"已保存{push_type}响应至 {response_filename}")
     except Exception as e:
-        logger.error(f"保存{push_type}内容和响应时发生错误: {str(e)}")
+        logger.error(f"Error saving content and response: {str(e)}")
+        return None
 
 # 企业微信机器人推送
 def wecom_bot(content, is_tech_only=False):
