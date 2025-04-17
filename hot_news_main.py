@@ -3,33 +3,35 @@ import sys
 import asyncio
 import logging
 from datetime import datetime, timedelta
+import re
+from bs4 import BeautifulSoup
 
-# 导入配置
+# Import configurations
 from config.config import (
     TECH_SOURCES, ALL_SOURCES, WEBHOOK_URL, DEEPSEEK_API_KEY, 
     HUNYUAN_API_KEY, BASE_URL, DEEPSEEK_API_URL, DEEPSEEK_MODEL_ID,
     RSS_URL, RSS_DAYS, TITLE_LENGTH, MAX_WORKERS, FILTER_DAYS, RSS_FEEDS
 )
 
-# 导入工具函数
+# Import utility functions
 from utils.utils import save_hotspots_to_jsonl, check_base_url, cleanup_old_files
 
-# 导入数据收集模块
+# Import data collection modules
 from crawler.data_collector import (
     collect_all_hotspots, fetch_rss_articles, filter_recent_hotspots,
     fetch_twitter_feed
 )
 
-# 导入处理模块
+# Import processing module
 from processor.news_processor import process_hotspot_with_summary
 
-# 导入LLM集成模块
+# Import LLM integration module
 from llm_integration.summary_integration import summarize_with_deepseek
 
-# 导入通知模块
+# Import notification module
 from notification.webhook_sender import notify, send_to_webhook
 
-# 配置日志
+# Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
@@ -38,14 +40,14 @@ logger = logging.getLogger(__name__)
 
 def str_to_bool(value):
     """
-    将字符串转换为布尔值
+    Convert string to boolean
     """
     if isinstance(value, bool):
         return value
     return value.lower() in ('true', '1', 't', 'y', 'yes')
 
 def main():
-    # 从环境变量中读取配置，优先使用环境变量，如果不存在则使用config.py中的默认值
+    # Read configuration from environment variables, prioritize env vars over config.py defaults
     # Use values directly imported from config, which already handle defaults and env vars
     tech_only = str_to_bool(os.getenv('TECH_ONLY', str(TECH_SOURCES is not None))) # Default depends on TECH_SOURCES definition
     webhook = WEBHOOK_URL
@@ -69,125 +71,124 @@ def main():
     # print(f"DEBUG: base_url local variable (after strip): '{base_url}'")
     # --- END DEBUGGING ---
     
-    # 检查必要的API密钥是否存在
+    # Check if required API keys exist
     if not webhook:
-        logger.error("未提供Webhook URL，请在环境变量中设置WEBHOOK_URL")
+        logger.error("No Webhook URL provided. Please set WEBHOOK_URL in environment variables")
         sys.exit(1)
     
     if not deepseek_key:
-        logger.error("未提供Deepseek API Key，请在环境变量中设置DEEPSEEK_API_KEY")
+        logger.error("No Deepseek API Key provided. Please set DEEPSEEK_API_KEY in environment variables")
         sys.exit(1)
     
     if not hunyuan_key and not skip_content:
-        logger.error("未提供腾讯混元 API Key，请在环境变量中设置HUNYUAN_API_KEY，或设置SKIP_CONTENT=True跳过内容处理")
+        logger.error("No Tencent Hunyuan API Key provided. Please set HUNYUAN_API_KEY in environment variables or set SKIP_CONTENT=True to skip content processing")
         sys.exit(1)
     
-    # 检查 BASE_URL 是否可访问
+    # Check if BASE_URL is accessible
     # Clean the base_url before checking
     cleaned_base_url = base_url.rstrip('/') # Remove trailing slash for check_base_url
     # print(f"DEBUG: Value passed to check_base_url: '{cleaned_base_url}'") # Remove debug print
     if not check_base_url(cleaned_base_url):
-        logger.error(f"BASE_URL {cleaned_base_url} 不可访问，程序退出")
+        logger.error(f"BASE_URL {cleaned_base_url} is not accessible, exiting")
         sys.exit(1)
     
-    # 根据参数选择信息源
+    # Select information sources based on parameters
     sources = TECH_SOURCES if tech_only else ALL_SOURCES
     
-    # 收集热点
+    # Collect hotspots
     # Pass the cleaned base_url
     hotspots = collect_all_hotspots(sources, base_url) # Pass the original base_url with potential slash
     
     if not hotspots:
-        logger.warning("未能收集到任何热点数据，将继续尝试其他来源...")
-        hotspots = [] # 确保 hotspots 是列表
+        logger.warning("No hotspot data collected, will try other sources...")
+        hotspots = [] # Ensure hotspots is a list
     
-    # 保存原始热点数据
+    # Save raw hotspot data
     if hotspots:
-        save_hotspots_to_jsonl(hotspots, directory=os.path.join("data", "raw")) # 指定 raw 目录
+        save_hotspots_to_jsonl(hotspots, directory=os.path.join("data", "raw")) # Specify raw directory
     
-    # 筛选最近的热点
+    # Filter recent hotspots
     hotspots = filter_recent_hotspots(hotspots, filter_days)
     
-    # 保存筛选后的热点数据
+    # Save filtered hotspot data
     if hotspots:
         save_hotspots_to_jsonl(hotspots, directory=os.path.join("data", "filtered"))
     
-    # 获取RSS文章
-    # 优先使用RSS_FEEDS列表，如果为空则使用单个RSS_URL
+    # Get RSS articles
+    # Prioritize RSS_FEEDS list, if empty use single RSS_URL
     rss_articles = fetch_rss_articles(rss_url=rss_url, days=rss_days, rss_feeds=RSS_FEEDS)
     
-    # --- 新增：获取 Twitter Feed ---
-    twitter_feed_raw = fetch_twitter_feed(days_to_fetch=2) # 获取最近2天
+    # Get Twitter Feed
+    twitter_feed_raw = fetch_twitter_feed(days_to_fetch=2) # Get last 2 days
     
-    # 过滤推文，只保留最近1天 (24小时) 的
+    # Filter tweets, keep only last 24 hours
     recent_tweets = []
     cutoff_time_tweets = datetime.now() - timedelta(days=1)
     if twitter_feed_raw:
-        logger.info(f"开始过滤最近24小时的推文 (截止时间: {cutoff_time_tweets})...")
+        logger.info(f"Start filtering tweets from last 24 hours (cutoff time: {cutoff_time_tweets})...")
         for tweet in twitter_feed_raw:
-            if tweet.get("timestamp"): # 确保有时间戳
+            if tweet.get("timestamp"): # Ensure timestamp exists
                 # Ensure timestamp is treated correctly (it's already in milliseconds from fetch_twitter_feed)
                 tweet_time_ms = tweet["timestamp"]
                 if isinstance(tweet_time_ms, (int, float)):
                    tweet_time = datetime.fromtimestamp(tweet_time_ms / 1000)
                    if tweet_time >= cutoff_time_tweets:
                        recent_tweets.append(tweet)
-                   # else: # 可以取消注释以查看被丢弃的推文
-                   #     logger.debug(f"丢弃较早的推文: {tweet['title']} @ {tweet_time}")
+                   # else: # Uncomment to see discarded tweets
+                   #     logger.debug(f"Discarded older tweet: {tweet['title']} @ {tweet_time}")
                 else:
-                   logger.warning(f"推文时间戳格式不正确: {tweet_time_ms}, 类型: {type(tweet_time_ms)}, 跳过推文: {tweet.get('title')}")
+                   logger.warning(f"Invalid tweet timestamp format: {tweet_time_ms}, type: {type(tweet_time_ms)}, skipping tweet: {tweet.get('title')}")
 
             else:
-                 logger.warning(f"推文缺少时间戳，无法过滤: {tweet.get('title')}")
+                 logger.warning(f"Tweet missing timestamp, cannot filter: {tweet.get('title')}")
                  # Decide whether to include tweets without timestamps or skip them
                  # For now, we skip them to ensure only recent ones are included
                  # recent_tweets.append(tweet) # Uncomment to include tweets without timestamp
 
-        logger.info(f"筛选后保留 {len(recent_tweets)}/{len(twitter_feed_raw)} 条最近24小时的推文。")
-    # --- 结束：获取 Twitter Feed ---
+        logger.info(f"After filtering, kept {len(recent_tweets)}/{len(twitter_feed_raw)} tweets from last 24 hours.")
     
-    # 合并热点、RSS文章和过滤后的推文
-    all_content = hotspots + rss_articles + recent_tweets # 添加 recent_tweets
-    logger.info(f"合并后共有 {len(all_content)} 条内容 (包括推文)")
+    # Merge hotspots, RSS articles and filtered tweets
+    all_content = hotspots + rss_articles + recent_tweets # Add recent_tweets
+    logger.info(f"Total {len(all_content)} items after merging (including tweets)")
     
-    # 检查合并后是否有内容
+    # Check if there's any content after merging
     if not all_content:
-        logger.error("所有来源均未获取到有效内容，程序退出")
+        logger.error("No valid content from any source, exiting")
         sys.exit(1)
     
-    # 保存合并后的数据
+    # Save merged data
     save_hotspots_to_jsonl(all_content, directory=os.path.join("data", "merged"))
     
-    # 获取网页内容并生成摘要
+    # Get webpage content and generate summaries
     if not skip_content:
         try:
-            # 确保有事件循环
+            # Ensure event loop exists
             if asyncio.get_event_loop().is_closed():
                 asyncio.set_event_loop(asyncio.new_event_loop())
             
-            # 使用异步方式处理所有内容，传递tech_only参数和use_cache参数
+            # Process all content asynchronously
             loop = asyncio.get_event_loop()
             all_content_with_summary = loop.run_until_complete(
                 process_hotspot_with_summary(all_content, hunyuan_key, max_workers, 
                                            tech_only, use_cache=not no_cache)
             )
-            logger.info(f"已为 {len(all_content_with_summary)} 条内容生成摘要")
+            logger.info(f"Generated summaries for {len(all_content_with_summary)} items")
         except Exception as e:
-            logger.error(f"获取网页内容或生成摘要时发生错误: {str(e)}")
-            # 如果出错，继续使用原始内容
+            logger.error(f"Error getting webpage content or generating summaries: {str(e)}")
+            # If error occurs, continue with original content
             all_content_with_summary = all_content
     else:
         all_content_with_summary = all_content
-        logger.info("已跳过获取网页内容和生成摘要步骤")
+        logger.info("Skipped webpage content retrieval and summary generation")
     
-    # --- 新增：基于标题去重，优先保留 RSS 和 Twitter --- 
-    logger.info(f"开始基于标题去重 (保留RSS/Twitter优先)，处理前数量: {len(all_content_with_summary)}")
+    # Deduplicate based on title, prioritize RSS and Twitter
+    logger.info(f"Starting title-based deduplication (prioritizing RSS/Twitter), items before: {len(all_content_with_summary)}")
     seen_titles = {}
-    preferred_sources = {"RSS", "Twitter"} # 确认这些是 data_collector 中使用的准确来源名称
+    preferred_sources = {"RSS", "Twitter"} # Verify these match source names used in data_collector
     
     for item in all_content_with_summary:
         title = item.get("title", "").strip()
-        if not title: # 跳过没有标题的条目
+        if not title: # Skip items without title
             continue
             
         current_source = item.get("source", "")
@@ -198,66 +199,93 @@ def main():
             existing_item = seen_titles[title]
             existing_source = existing_item.get("source", "")
             
-            # 如果当前条目来源是优先来源，且已存在的条目来源不是优先来源，则替换
+            # If current item is from preferred source and existing is not, replace it
             if current_source in preferred_sources and existing_source not in preferred_sources:
-                logger.debug(f"去重：替换 '{title}' (来自 {existing_source}) 为来自优先源 {current_source}")
+                logger.debug(f"Deduplication: Replacing '{title}' (from {existing_source}) with preferred source {current_source}")
                 seen_titles[title] = item
-            # 如果两者都是优先来源，或都不是，保留先遇到的那个（目前逻辑）
-            # 可以根据需要添加更复杂的优先级，例如 RSS 优先于 Twitter
+            # If both are preferred sources or neither is, keep the first one (current logic)
+            # Can add more complex priority rules if needed, e.g., RSS over Twitter
             # else:
-            #    logger.debug(f"去重：保留 '{title}' (来自 {existing_source}), 忽略来自 {current_source}")
+            #    logger.debug(f"Deduplication: Keeping '{title}' (from {existing_source}), ignoring from {current_source}")
                 
     deduplicated_content = list(seen_titles.values())
-    logger.info(f"去重后剩余数量: {len(deduplicated_content)}")
-    # --- 结束：去重逻辑 ---
+    logger.info(f"Items after deduplication: {len(deduplicated_content)}")
 
-    # --- 新增：保存最终处理和去重后的新闻列表 ---
-    logger.info(f"准备保存处理和去重后的 {len(deduplicated_content)} 条新闻...")
+    # Save final processed and deduplicated news list
+    logger.info(f"Preparing to save {len(deduplicated_content)} processed and deduplicated news items...")
     processed_output_dir = os.path.join("data", "processed_output")
-    os.makedirs(processed_output_dir, exist_ok=True) # 确保目录存在
+    os.makedirs(processed_output_dir, exist_ok=True) # Ensure directory exists
     timestamp_str = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     processed_filename = os.path.join(processed_output_dir, f"processed_news_{timestamp_str}.json")
     
     try:
-        # 导入 json 模块（如果尚未导入）
+        # HTML tag cleaning function
+        def clean_html(text):
+            if not isinstance(text, str):
+                return text
+            # Use BeautifulSoup to clean HTML tags while preserving line breaks
+            soup = BeautifulSoup(text, 'html.parser')
+            # Convert <br> and </p> tags to newlines
+            for br in soup.find_all(['br', 'p']):
+                br.replace_with('\n' + br.get_text())
+            clean_text = soup.get_text()
+            # Clean extra whitespace while preserving line breaks
+            lines = clean_text.splitlines()
+            cleaned_lines = [re.sub(r'\s+', ' ', line).strip() for line in lines]
+            # Filter out empty lines and rejoin with newlines
+            clean_text = '\n'.join(line for line in cleaned_lines if line)
+            return clean_text
+
+        # Recursively clean all string values in dictionary
+        def clean_dict(item):
+            if isinstance(item, dict):
+                return {k: clean_dict(v) for k, v in item.items()}
+            elif isinstance(item, list):
+                return [clean_dict(i) for i in item]
+            elif isinstance(item, str):
+                return clean_html(item)
+            return item
+
+        # Clean HTML tags from all content
+        cleaned_content = [clean_dict(item) for item in deduplicated_content]
+        
+        # Save to JSON file
         import json 
         with open(processed_filename, 'w', encoding='utf-8') as f:
-            json.dump(deduplicated_content, f, ensure_ascii=False, indent=4)
-        logger.info(f"成功将处理后的新闻列表保存到: {processed_filename}")
+            json.dump(cleaned_content, f, ensure_ascii=False, indent=4)
+        logger.info(f"Successfully saved processed news list (HTML tags cleaned and line breaks preserved) to: {processed_filename}")
     except Exception as e:
-        logger.error(f"保存处理后的新闻列表到 {processed_filename} 时出错: {str(e)}")
-    # --- 结束：保存逻辑 ---
+        logger.error(f"Error saving processed news list to {processed_filename}: {str(e)}")
     
-    # 使用Deepseek汇总，传递tech_only参数
-    summary = summarize_with_deepseek(deduplicated_content, deepseek_key, # 使用去重后的列表
+    # Use Deepseek for summarization
+    summary = summarize_with_deepseek(deduplicated_content, deepseek_key,
                                      deepseek_url, model_id, tech_only=tech_only)
     
-    # 使用多种方式推送消息
+    # Try multiple notification methods
     success = notify(summary, tech_only)
     if not success:
-        # 如果所有推送方式都失败，尝试使用原始webhook方式作为备选
-        logger.warning("所有配置的推送方式均失败，尝试使用原始webhook方式推送")
+        # If all configured notification methods fail, try original webhook as fallback
+        logger.warning("All configured notification methods failed, trying original webhook method")
         send_to_webhook(webhook, summary, tech_only)
     
-    logger.info("处理完成")
+    logger.info("Processing complete")
 
-    # 在这里添加清理逻辑
-    # 清理旧数据文件
+    # Clean up old data files
     directories_to_clean = [
-        "data/raw",      # 原始热点数据
-        "data/filtered", # 筛选后的热点数据
-        "data/merged",   # 合并后的数据
-        "data/inputs",   # LLM 输入数据
-        "data/outputs",  # LLM 输出数据
-        "data/webhook",  # Webhook 日志
-        "cache/summary"  # 摘要缓存 (如果需要清理缓存)
+        "data/raw",      # Raw hotspot data
+        "data/filtered", # Filtered hotspot data
+        "data/merged",   # Merged data
+        "data/inputs",   # LLM input data
+        "data/outputs",  # LLM output data
+        "data/webhook",  # Webhook logs
+        "cache/summary"  # Summary cache
     ]
-    days_to_keep = 7 # 设置保留天数
-    logger.info(f"开始清理超过 {days_to_keep} 天的旧数据...")
+    days_to_keep = 7 # Set retention period
+    logger.info(f"Starting cleanup of data older than {days_to_keep} days...")
     for directory in directories_to_clean:
         cleanup_old_files(directory, days_to_keep=days_to_keep)
 
-    logger.info("旧数据清理完成")
+    logger.info("Data cleanup complete")
 
 if __name__ == "__main__":
     main()

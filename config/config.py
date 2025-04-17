@@ -1,36 +1,29 @@
 import os
 from dotenv import load_dotenv
 
-# 加载环境变量
 load_dotenv()
 
-# API密钥
-# Provide default values (e.g., None or empty string) if the env var might be missing
 DEEPSEEK_API_KEY = os.getenv('DEEPSEEK_API_KEY', None)
 HUNYUAN_API_KEY = os.getenv('HUNYUAN_API_KEY', None)
 
-# Webhook URL
 WEBHOOK_URL = os.getenv('WEBHOOK_URL', None)
 
-# API配置
-# Define default URL directly here
+
 BASE_URL_DEFAULT = "https://api-hot.imsyy.top/"
 raw_base_url = os.getenv('BASE_URL', BASE_URL_DEFAULT)
 # Clean the URL: remove comments and strip whitespace
 BASE_URL = raw_base_url.split('#')[0].strip()
 
-DEEPSEEK_API_URL_DEFAULT = "http://127.0.0.1:11434/v1/chat/completions" # Example default
+DEEPSEEK_API_URL_DEFAULT = "http://127.0.0.1:11434/v1/chat/completions" 
 DEEPSEEK_API_URL = os.getenv('DEEPSEEK_API_URL', DEEPSEEK_API_URL_DEFAULT)
 
-DEEPSEEK_MODEL_ID_DEFAULT = "deepseek-r1:14b" # Example default
+DEEPSEEK_MODEL_ID_DEFAULT = "deepseek-r1:14b" 
 DEEPSEEK_MODEL_ID = os.getenv('DEEPSEEK_MODEL_ID', DEEPSEEK_MODEL_ID_DEFAULT)
 
-# RSS配置
-RSS_URL_DEFAULT = None # Or some default RSS URL if applicable
+RSS_URL_DEFAULT = None 
 RSS_URL = os.getenv('RSS_URL', RSS_URL_DEFAULT)
 RSS_DAYS = int(os.getenv('RSS_DAYS', '1'))
 
-# RSS源列表
 RSS_FEEDS = [
     # {
     #     'name': 'OpenAI Blog',
@@ -187,10 +180,10 @@ RSS_FEEDS = [
             #     'name': 'LangChain',
             #     'url': 'https://rsshub.app/twitter/user/LangChainAI'
             # },
-            # {
-            #     'name': '歸藏',
-            #     'url': 'https://rsshub.app/twitter/user/op7418'
-            # },
+            {
+                 'name': '歸藏',
+                 'url': 'https://rsshub.app/twitter/user/op7418'
+             },
             {
                 'name': '宝玉',
                 'url': 'https://rsshub.app/twitter/user/dotey'
@@ -220,7 +213,6 @@ RSS_FEEDS = [
 
 ]
 
-# 其他配置
 TITLE_LENGTH_DEFAULT = 20
 TITLE_LENGTH = int(os.getenv('TITLE_LENGTH', str(TITLE_LENGTH_DEFAULT)))
 
@@ -230,7 +222,6 @@ MAX_WORKERS = int(os.getenv('MAX_WORKERS', str(MAX_WORKERS_DEFAULT)))
 FILTER_DAYS_DEFAULT = 1
 FILTER_DAYS = int(os.getenv('FILTER_DAYS', str(FILTER_DAYS_DEFAULT)))
 
-# 科技相关的信息源列表
 TECH_SOURCES = [
     # "bilibili",     # 含大量科技区UP主（评测/教程/极客）
     "zhihu",        # 科技类问答和专栏文章
@@ -300,7 +291,6 @@ ALL_SOURCES = [
     # "52pojie",    # 吾爱破解
 ]
 
-# 添加源名称映射字典
 SOURCE_NAME_MAP = {
     "bilibili": "哔哩哔哩",
     "weibo": "微博",
