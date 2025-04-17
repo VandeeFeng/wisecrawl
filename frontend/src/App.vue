@@ -1,38 +1,80 @@
 <template>
-  <div class="container">
-    <div class="title-container">
-      <h1>Wise Crawl</h1>
-    </div>
-    
-    <div class="filters-container">
-      <div class="filters">
-        <button 
-          v-for="source in sources" 
-          :key="source"
-          :class="{ active: selectedSource === source }"
-          @click="setSource(source)"
-        >
-          {{ source === 'all' ? 'All' : source }}
-        </button>
+  <div class="terminal">
+    <div class="terminal-header">
+      <div class="title">WiseCrawl v0.1.0</div>
+      <div class="controls">
+        <span class="minimize"></span>
+        <span class="maximize"></span>
+        <span class="close"></span>
       </div>
     </div>
     
-    <div class="content-container">
-      <div v-if="loading" class="loading">Loading...</div>
-      <div v-else-if="error" class="error">{{ error }}</div>
-      <div v-else class="news-list">
-        <div v-for="(item, index) in filteredNews" :key="index" class="news-card">
-          <h2 class="news-title">{{ item.title }}</h2>
-          <div class="news-meta">
-            <span class="source">Source: {{ item.source }}</span>
-            <span class="hot" v-if="item.hot">Hot: {{ formatHot(item.hot) }}</span>
-            <span class="time" v-if="item.timestamp">{{ formatTime(item.timestamp) }}</span>
-          </div>
-          <p class="news-desc" v-if="item.desc">{{ item.desc }}</p>
-          <p class="news-summary" v-else-if="item.summary && item.summary !== '[Summary cannot be generated: Insufficient content or source information]'">{{ item.summary }}</p>
-          <div class="news-footer">
-            <a :href="item.url" target="_blank" class="news-link">View Original</a>
-            <span class="tech-tag" v-if="item.is_tech">Tech</span>
+    <div class="terminal-body">
+      <div class="ascii-title">
+        <pre>
+ _    _ _          ____                    _ 
+| |  | (_)        / ___|_ __ __ ___      _| |
+| |  | |_ ___  ___| |   | '__/ _' \ \ /\ / / |
+| |/\| | / __|/ _ \ |___| | | (_| |\ V  V /| |
+\  /\  / \__ \  __/\____|_|  \__,_| \_/\_/ |_|
+ \/  \/|_|___/\___|                           
+        </pre>
+      </div>
+
+      <div class="command-line">
+        <span class="prompt">$</span>
+        <div class="filters">
+          <button 
+            v-for="(source, index) in visibleSources" 
+            :key="source"
+            :class="{ active: selectedSource === source }"
+            @click="setSource(source)"
+          >
+            {{ source === 'all' ? '[ALL]' : '[' + source.toUpperCase() + ']' }}
+          </button>
+          <button 
+            v-if="sources.length > maxVisibleSources"
+            @click="toggleExpand"
+            class="expand-btn"
+          >
+            {{ isExpanded ? '[-]' : `[+${sources.length - maxVisibleSources}]` }}
+          </button>
+        </div>
+      </div>
+
+      <div class="output-area">
+        <div v-if="loading" class="loading">
+          <pre>
+Loading news feed...
+[===>-----------------] 25%
+          </pre>
+        </div>
+        
+        <div v-else-if="error" class="error">
+          <pre>
+ERROR: {{ error }}
+Type 'refresh' to try again.
+          </pre>
+        </div>
+        
+        <div v-else class="news-list">
+          <div v-for="(item, index) in filteredNews" :key="index" class="news-item" box-="double">
+            <div class="news-header">
+              <span class="index">[{{ index + 1 }}]</span>
+              <span class="title">{{ item.title }}</span>
+            </div>
+            <div class="news-meta">
+              <span class="source">src://{{ item.source }}</span>
+              <span class="hot" v-if="item.hot">heat={{ formatHot(item.hot) }}</span>
+              <span class="time" v-if="item.timestamp">time={{ formatTime(item.timestamp) }}</span>
+              <span class="tech-tag" v-if="item.is_tech">[TECH]</span>
+            </div>
+            <div class="news-content" v-if="item.desc || item.summary">
+              <pre>{{ item.desc || (item.summary !== '[Summary cannot be generated: Insufficient content or source information]' ? item.summary : '') }}</pre>
+            </div>
+            <div class="news-link">
+              <a :href="item.url" target="_blank">$ curl {{ item.url }}</a>
+            </div>
           </div>
         </div>
       </div>
@@ -48,11 +90,24 @@ const news = ref([]);
 const loading = ref(true);
 const error = ref(null);
 const selectedSource = ref('all');
+const isExpanded = ref(false);
+const maxVisibleSources = 20;
 
 const sources = computed(() => {
   const uniqueSources = new Set(news.value.map(item => item.source));
   return ['all', ...uniqueSources];
 });
+
+const visibleSources = computed(() => {
+  if (isExpanded.value) {
+    return sources.value;
+  }
+  return sources.value.slice(0, maxVisibleSources);
+});
+
+const toggleExpand = () => {
+  isExpanded.value = !isExpanded.value;
+};
 
 const filteredNews = computed(() => {
   if (selectedSource.value === 'all') {
@@ -97,271 +152,237 @@ onMounted(() => {
 </script>
 
 <style>
-.container {
+@layer base, utils, components;
+
+@import "@webtui/css/base.css";
+@import "@webtui/css/utils/box.css";
+@import "@webtui/css/components/button.css";
+@import "@webtui/css/components/typography.css";
+
+:root {
+  --terminal-bg: #1a1b1e;
+  --terminal-text: #98c379;
+  --terminal-prompt: #61afef;
+  --terminal-header: #2c323c;
+  --terminal-border: #3e4451;
+  --box-border-color: var(--terminal-border);
+  --box-rounded-radius: 6px;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  background: #2c323c;
+  font-family: 'Fira Code', monospace;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.terminal {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  background: var(--terminal-bg);
+  border: 1px solid var(--terminal-border);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  min-height: 95vh;
+  max-height: 95vh;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  min-height: 100vh;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 40px);
 }
 
-.title-container {
-  width: 100%;
+.terminal-header {
+  background: var(--terminal-header);
+  padding: 4px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--terminal-border);
+}
+
+.title {
+  color: var(--terminal-text);
+  font-size: 14px;
+}
+
+.controls {
+  display: flex;
+  gap: 4px;
+}
+
+.controls span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.controls span:hover {
+  opacity: 1;
+}
+
+.minimize { background: #f1fa8c; }
+.maximize { background: #50fa7b; }
+.close { background: #ff5555; }
+
+.terminal-body {
+  padding: 20px;
+  color: var(--terminal-text);
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.ascii-title {
+  color: #61afef;
+  margin-bottom: 20px;
   text-align: center;
-  padding: 10px;
 }
 
-h1 {
-  color: #333;
-  margin: 0;
-  font-size: 2rem;
+.command-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 16px;
 }
 
-.filters-container {
-  width: 100%;
-  padding: 15px;
+.prompt {
+  color: var(--terminal-prompt);
+  font-weight: bold;
+  font-size: 0.9em;
 }
 
 .filters {
   display: flex;
-  justify-content: center;
+  gap: 6px;
   flex-wrap: wrap;
-  gap: 4px;
+  align-items: flex-start;
   max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  justify-content: center;
+  min-height: 64px;
+  align-content: flex-start;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--terminal-border);
 }
 
 .filters button {
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 12px;
+  background: transparent;
+  border: 1px solid var(--terminal-border);
+  color: var(--terminal-text);
   padding: 2px 8px;
-  font-size: 0.75rem;
   cursor: pointer;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.8em;
   transition: all 0.2s;
-  margin: 1px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  max-width: 120px;
-  line-height: 1.5;
+  min-width: 60px;
+  text-align: center;
+  flex: 0 1 auto;
+  margin-bottom: 4px;
+  height: 24px;
+  line-height: 1.2;
+}
+
+.filters button:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 .filters button.active {
-  background-color: #1e88e5;
-  color: white;
-  border-color: #1e88e5;
-  font-weight: 500;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: var(--terminal-prompt);
+  color: var(--terminal-bg);
+  border-color: var(--terminal-prompt) !important;
 }
 
-.filters button:hover {
-  background-color: #e3f2fd;
-  border-color: #90caf9;
+.filters .expand-btn {
+  color: #61afef;
+  border-style: dashed;
+  min-width: auto;
+  flex: 0 0 auto;
+  margin-bottom: 0;
+  padding: 2px 6px;
 }
 
-.content-container {
-  width: 100%;
-  padding: 15px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: 600px;
-}
-
-.loading, .error {
-  text-align: center;
-  padding: 40px;
-  font-size: 18px;
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.error {
-  color: #e53935;
+.filters .expand-btn:hover {
+  background: rgba(97, 175, 239, 0.1);
 }
 
 .news-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  align-items: stretch;
-  width: 100%;
-  flex: 1;
-  min-height: 500px;
-}
-
-.news-card {
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  transition: transform 0.4s cubic-bezier(0.215, 0.61, 0.355, 1),
-              box-shadow 0.4s cubic-bezier(0.215, 0.61, 0.355, 1),
-              height 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-  height: 220px;
-  min-height: 220px;
   display: flex;
   flex-direction: column;
-  background-color: white;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  will-change: transform, height, box-shadow;
+  gap: 20px;
 }
 
-.news-card::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 40px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
-  pointer-events: none;
-  transition: opacity 0.4s ease;
+.news-item {
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.05);
 }
 
-.news-card::before {
-  content: '';
-  position: absolute;
-  bottom: 5px;
-  right: 10px;
-  opacity: 0;
+.news-header {
+  margin-bottom: 8px;
 }
 
-.news-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  overflow: auto;
-  z-index: 10;
-  height: auto;
-  max-height: 500px;
-  scrollbar-width: thin;
-  transition: transform 0.4s cubic-bezier(0.215, 0.61, 0.355, 1),
-              box-shadow 0.4s cubic-bezier(0.215, 0.61, 0.355, 1),
-              height 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+.news-header .index {
+  color: #c678dd;
+  margin-right: 8px;
 }
 
-.news-card:hover::-webkit-scrollbar {
-  width: 4px;
-}
-
-.news-card:hover::-webkit-scrollbar-thumb {
-  background-color: #cecece;
-  border-radius: 4px;
-}
-
-.news-card:hover::after,
-.news-card:hover::before {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.news-card:hover .news-desc,
-.news-card:hover .news-summary {
-  -webkit-line-clamp: initial;
-  height: auto;
-  max-height: none;
-  transition: height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s,
-              max-height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s;
-}
-
-.news-card:hover .news-title {
-  -webkit-line-clamp: initial;
-  height: auto;
-}
-
-.news-title {
-  font-size: 18px;
-  margin-top: 0;
-  margin-bottom: 10px;
-  line-height: 1.4;
-  flex: 0 0 auto;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  height: 2.8em;
-  transition: height 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
-              max-height 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  will-change: height, -webkit-line-clamp;
+.news-header .title {
+  color: #e5c07b;
+  font-weight: bold;
 }
 
 .news-meta {
+  font-size: 0.9em;
+  color: #56b6c2;
+  margin-bottom: 12px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  font-size: 14px;
-  color: #757575;
-  margin-bottom: 10px;
-  flex: 0 0 auto;
-  transition: all 0.3s ease;
+  gap: 16px;
 }
 
-.news-desc, .news-summary {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #424242;
-  margin-bottom: 15px;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  flex: 1 1 auto;
-  height: 4.8em;
-  transition: height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), 
-              max-height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  will-change: height, max-height;
+.news-content {
+  margin: 12px 0;
+  color: #abb2bf;
+  font-size: 0.95em;
+  line-height: 1.5;
 }
 
-.news-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex: 0 0 auto;
-  position: sticky;
-  bottom: 0;
-  background-color: white;
-  padding-top: 5px;
-  margin-top: auto;
+.news-content pre {
+  white-space: pre-wrap;
+  margin: 0;
 }
 
-.news-link {
-  color: #1e88e5;
+.news-link a {
+  color: #61afef;
   text-decoration: none;
-  font-size: 14px;
+  font-family: 'Fira Code', monospace;
 }
 
-.news-link:hover {
+.news-link a:hover {
   text-decoration: underline;
 }
 
+.loading pre, .error pre {
+  color: #e06c75;
+  margin: 0;
+}
+
 .tech-tag {
-  background-color: #ff4081;
-  color: white;
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 12px;
+  color: #98c379;
+  font-weight: bold;
 }
 
-.news-card:hover .news-desc,
-.news-card:hover .news-summary {
-  -webkit-line-clamp: initial;
-  height: auto;
-  max-height: none;
-  transition: height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s,
-              max-height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s;
-}
-
-.news-card:hover .news-title {
-  -webkit-line-clamp: initial;
-  height: auto;
-  transition: height 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.05s,
-              max-height 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.05s;
+.output-area {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
 }
 </style>
