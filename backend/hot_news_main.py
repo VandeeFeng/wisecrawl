@@ -1,3 +1,7 @@
+import warnings
+# Filter newspaper package's regex warnings
+warnings.filterwarnings('ignore', category=SyntaxWarning, module='newspaper')
+
 import os
 import sys
 import asyncio
@@ -5,10 +9,6 @@ import logging
 from datetime import datetime, timedelta
 import re
 from bs4 import BeautifulSoup
-import warnings
-
-# Filter newspaper package's regex warnings
-warnings.filterwarnings('ignore', category=SyntaxWarning, module='newspaper')
 
 # Import configurations
 from config.config import (
