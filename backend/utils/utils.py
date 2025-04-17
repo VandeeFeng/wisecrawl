@@ -23,6 +23,12 @@ def get_project_root():
     # Get the project root (parent of backend)
     return os.path.dirname(backend_dir)
 
+def get_backend_dir():
+    """
+    Get the backend directory
+    """
+    return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 def save_hotspots_to_jsonl(hotspots, directory="data"):
     """
     Save hotspot data in JSONL format, organized by date, using absolute path from project root
@@ -64,13 +70,13 @@ def get_content_hash(content):
 
 def load_summary_cache(cache_dir="cache/summary"):
     """
-    Load summary cache
+    Load summary cache from backend directory
     """
     try:
-        # Get project root directory
-        project_root = get_project_root()
-        # Build absolute path from project root
-        abs_cache_dir = os.path.join(project_root, cache_dir)
+        # Get backend directory
+        backend_dir = get_backend_dir()
+        # Build absolute path from backend directory
+        abs_cache_dir = os.path.join(backend_dir, cache_dir)
         cache_path = Path(abs_cache_dir) / "summary_cache.pkl"
         if not cache_path.exists():
             return {}
@@ -85,13 +91,13 @@ def load_summary_cache(cache_dir="cache/summary"):
 
 def save_summary_cache(cache, cache_dir="cache/summary"):
     """
-    Save summary cache
+    Save summary cache in backend directory
     """
     try:
-        # Get project root directory
-        project_root = get_project_root()
-        # Build absolute path from project root
-        abs_cache_dir = os.path.join(project_root, cache_dir)
+        # Get backend directory
+        backend_dir = get_backend_dir()
+        # Build absolute path from backend directory
+        abs_cache_dir = os.path.join(backend_dir, cache_dir)
         cache_path = Path(abs_cache_dir)
         cache_path.mkdir(parents=True, exist_ok=True)
         
