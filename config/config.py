@@ -237,7 +237,7 @@ TECH_SOURCES = [
     # "v2ex",         # 创意工作者技术社区
     # "hostloc",      # 服务器和网络技术交流
     # "hupu",         # 虎扑数码区（手机/电脑讨论）
-    "guokr",        # 泛科学科普平台
+    # "guokr",        # 泛科学科普平台
     "hellogithub",  # GitHub开源项目推荐
     # "nodeseek",     # 服务器和网络技术论坛
     # "52pojie",      # 软件逆向技术社区
