@@ -208,11 +208,13 @@ body {
   color: #abb2bf;
   font-size: 0.95em;
   line-height: 1.5;
+  text-align: left;
 }
 
 .news-content pre {
   white-space: pre-wrap;
   margin: 0;
+  text-align: left;
 }
 
 .news-link a {
