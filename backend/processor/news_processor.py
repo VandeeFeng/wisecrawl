@@ -7,11 +7,11 @@ from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor
 from bs4 import BeautifulSoup
 
-from utils.utils import get_content_hash, load_summary_cache, save_summary_cache
+from utils.utils import get_content_hash, load_summary_cache, save_summary_cache, get_project_root
 from crawler.web_crawler import fetch_webpage_content, extract_publish_time_from_html
 from llm_integration.content_integration import summarize_with_tencent_hunyuan
 
-# 配置日志
+# Configure logging
 logger = logging.getLogger(__name__)
 
 # Define constants for summary length control
@@ -21,31 +21,31 @@ MIN_CONTENT_LENGTH_FOR_SUMMARY = 50 # Min content length to attempt summary
 
 async def process_hotspot_with_summary(hotspots, hunyuan_api_key, max_workers=5, tech_only=False, use_cache=True):
     """
-    异步处理热点数据，获取网页内容并生成摘要
-    优先使用API返回的摘要，没有摘要时才调用混元模型
-    同时尝试从网页内容中提取发布时间
-    如果tech_only为True，则只保留科技相关的内容
-    支持缓存机制，避免重复处理相同内容
-    处理后直接更新merged文件
+    Process hotspot data asynchronously, get webpage content and generate summaries
+    Prioritize using API returned summaries, only call Hunyuan model when no summary exists
+    Also try to extract publish time from webpage content
+    If tech_only is True, only keep tech-related content
+    Support cache mechanism to avoid processing same content repeatedly
+    Update merged file directly after processing
     """
     enhanced_hotspots = []
     
-    # 获取原始merged文件路径
+    # Get original merged file path
     merged_file_path = None
     if hotspots and len(hotspots) > 0 and "saved_at" in hotspots[0]:
         saved_time = hotspots[0]["saved_at"]
         try:
-            # 从saved_at字段提取时间戳
+            # Extract timestamp from saved_at field
             dt = datetime.fromisoformat(saved_time.replace('Z', '+00:00'))
             date_str = dt.strftime("%Y-%m-%d")
             time_str = dt.strftime("%H-%M-%S")
-            # 获取当前脚本所在目录的绝对路径
-            script_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-            # 构建绝对路径
-            merged_file_path = os.path.join(script_dir, "data", "merged", f"hotspots_{date_str}_{time_str}.jsonl")
-            logger.info(f"找到原始merged文件: {merged_file_path}")
+            # Get project root directory
+            project_root = get_project_root()
+            # Build absolute path from project root
+            merged_file_path = os.path.join(project_root, "data", "merged", f"hotspots_{date_str}_{time_str}.jsonl")
+            logger.info(f"Found original merged file: {merged_file_path}")
         except Exception as e:
-            logger.warning(f"无法从saved_at提取时间戳: {str(e)}")
+            logger.warning(f"Could not extract timestamp from saved_at: {str(e)}")
     
     def process_single_item(item):
         url = item["url"]

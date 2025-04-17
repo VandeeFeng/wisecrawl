@@ -227,7 +227,7 @@ FILTER_DAYS = int(os.getenv('FILTER_DAYS', str(FILTER_DAYS_DEFAULT)))
 
 TECH_SOURCES = [
     # "bilibili",     # 含大量科技区UP主（评测/教程/极客）
-    "zhihu",        # 科技类问答和专栏文章
+    # "zhihu",        # 科技类问答和专栏文章
     "sspai",        # 专注效率工具和科技应用
     # "ithome",       # IT科技新闻门户
     # "36kr",         # 科技创新创业资讯平台

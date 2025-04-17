@@ -1,6 +1,9 @@
 import warnings
 # Filter newspaper package's regex warnings
 warnings.filterwarnings('ignore', category=SyntaxWarning, module='newspaper')
+# Filter BeautifulSoup URL warning
+from bs4 import MarkupResemblesLocatorWarning
+warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
 
 import os
 import sys
@@ -18,7 +21,7 @@ from config.config import (
 )
 
 # Import utility functions
-from utils.utils import save_hotspots_to_jsonl, check_base_url, cleanup_old_files
+from utils.utils import save_hotspots_to_jsonl, check_base_url, cleanup_old_files, get_project_root
 from utils.token_tracker import token_tracker
 
 # Import data collection modules
@@ -52,6 +55,9 @@ def str_to_bool(value):
     return value.lower() in ('true', '1', 't', 'y', 'yes')
 
 def main():
+    # Get project root directory for data paths
+    project_root = get_project_root()
+    
     # Read configuration from environment variables, prioritize env vars over config.py defaults
     # Use values directly imported from config, which already handle defaults and env vars
     tech_only = str_to_bool(os.getenv('TECH_ONLY', str(TECH_SOURCES is not None))) # Default depends on TECH_SOURCES definition
@@ -110,14 +116,16 @@ def main():
     
     # Save raw hotspot data
     if hotspots:
-        save_hotspots_to_jsonl(hotspots, directory=os.path.join("data", "raw")) # Specify raw directory
+        raw_data_dir = os.path.join(project_root, "data", "raw")
+        save_hotspots_to_jsonl(hotspots, directory=raw_data_dir)
     
     # Filter recent hotspots
     hotspots = filter_recent_hotspots(hotspots, filter_days)
     
     # Save filtered hotspot data
     if hotspots:
-        save_hotspots_to_jsonl(hotspots, directory=os.path.join("data", "filtered"))
+        filtered_data_dir = os.path.join(project_root, "data", "filtered")
+        save_hotspots_to_jsonl(hotspots, directory=filtered_data_dir)
     
     # Get RSS articles
     # Prioritize RSS_FEEDS list, if empty use single RSS_URL
@@ -162,7 +170,8 @@ def main():
         sys.exit(1)
     
     # Save merged data
-    save_hotspots_to_jsonl(all_content, directory=os.path.join("data", "merged"))
+    merged_data_dir = os.path.join(project_root, "data", "merged")
+    save_hotspots_to_jsonl(all_content, directory=merged_data_dir)
     
     # Get webpage content and generate summaries
     if not skip_content:
@@ -218,7 +227,7 @@ def main():
 
     # Save final processed and deduplicated news list
     logger.info(f"Preparing to save {len(deduplicated_content)} processed and deduplicated news items...")
-    processed_output_dir = os.path.join("data", "processed_output")
+    processed_output_dir = os.path.join(project_root, "data", "processed_output")
     os.makedirs(processed_output_dir, exist_ok=True) # Ensure directory exists
     timestamp_str = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     processed_filename = os.path.join(processed_output_dir, f"processed_news_{timestamp_str}.json")
@@ -277,12 +286,12 @@ def main():
 
     # Clean up old data files
     directories_to_clean = [
-        "data/raw",      # Raw hotspot data
-        "data/filtered", # Filtered hotspot data
-        "data/merged",   # Merged data
-        "data/inputs",   # LLM input data
-        "data/outputs",  # LLM output data
-        "data/webhook",  # Webhook logs
+        os.path.join(project_root, "data", "raw"),      # Raw hotspot data
+        os.path.join(project_root, "data", "filtered"), # Filtered hotspot data
+        os.path.join(project_root, "data", "merged"),   # Merged data
+        os.path.join(project_root, "data", "inputs"),   # LLM input data
+        os.path.join(project_root, "data", "outputs"),  # LLM output data
+        os.path.join(project_root, "data", "webhook"),  # Webhook logs
     ]
     days_to_keep = 7 # Set retention period
     logger.info(f"Starting cleanup of data older than {days_to_keep} days...")

@@ -5,7 +5,7 @@ import logging
 import requests
 from datetime import datetime
 from config.config import SOURCE_NAME_MAP, DEEPSEEK_MODEL_ID
-from utils.utils import format_title_for_display
+from utils.utils import format_title_for_display, get_project_root
 from utils.token_tracker import token_tracker
 
 logger = logging.getLogger(__name__)
@@ -38,7 +38,10 @@ def summarize_with_deepseek(hotspots, api_key, api_url=None, model_id=None, max_
             
             hotspot_json = json.dumps(simplified_hotspots, ensure_ascii=False)
             
-            save_directory = os.path.join("data", "inputs")
+            # Get project root directory
+            project_root = get_project_root()
+            # Build absolute paths from project root
+            save_directory = os.path.join(project_root, "data", "inputs")
             os.makedirs(save_directory, exist_ok=True)
             today = datetime.now().strftime("%Y-%m-%d")
             timestamp = datetime.now().strftime("%H-%M-%S")
@@ -183,7 +186,7 @@ def summarize_with_deepseek(hotspots, api_key, api_url=None, model_id=None, max_
             if "```json" in json_response:
                 json_str = json_response.split("```json")[1].split("```")[0].strip()
             
-            output_directory = os.path.join("data", "outputs")
+            output_directory = os.path.join(project_root, "data", "outputs")
             os.makedirs(output_directory, exist_ok=True)
             
             raw_output_filename = os.path.join(output_directory, f"deepseek_raw_response_{today}_{timestamp}.json")

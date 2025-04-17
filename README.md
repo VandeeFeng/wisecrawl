@@ -9,7 +9,6 @@ wisecrawl/
 ├── backend/
 │   ├── config/         # Configuration files
 │   ├── crawler/        # Web crawling modules
-│   ├── data/          # Data storage
 │   ├── llm_integration/# LLM integration modules
 │   ├── notification/  # Notification services
 │   ├── processor/     # Data processing modules
