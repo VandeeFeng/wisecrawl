@@ -87,7 +87,6 @@ Type 'refresh' to try again.
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import axios from 'axios';
 
 const news = ref([]);
 const loading = ref(true);
@@ -139,11 +138,17 @@ const formatHot = (hot) => {
 const fetchNews = async () => {
   try {
     loading.value = true;
-    const response = await axios.get('/api/news');
-    news.value = response.data;
+    const modules = import.meta.glob('./data/*');
+    const paths = Object.keys(modules);
+    if (paths.length === 0) {
+      throw new Error('No data file found');
+    }
+    const latestPath = paths[0];
+    const module = await modules[latestPath]();
+    news.value = module.default;
   } catch (err) {
-    error.value = 'Failed to load news data: ' + (err.response?.data?.message || err.message);
-    console.error('Error fetching news:', err);
+    error.value = 'Failed to load news data: ' + err.message;
+    console.error('Error loading news:', err);
   } finally {
     loading.value = false;
   }

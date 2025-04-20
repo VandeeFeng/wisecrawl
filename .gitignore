@@ -1,5 +1,16 @@
-# 忽略数据目录
-/data/
+# 取消全局 gitignore 的 data 规则
+!data/
+!data/processed_output/
+
+# 只忽略特定的数据目录
+/data/webhook/
+/data/outputs/
+/data/inputs/
+/data/merged/
+/data/filtered/
+/data/raw/
+/data/cache/
+
 /backup/
 /.history/
 # 忽略环境变量配置文件

@@ -1,0 +1,5 @@
+{
+  "buildCommand": "cd frontend && mkdir -p src/data && LATEST_FILE=$(ls -t ../data/processed_output | head -n1) && cp ../data/processed_output/$LATEST_FILE src/data/$LATEST_FILE && npm run build",
+  "outputDirectory": "frontend/dist",
+  "installCommand": "cd frontend && npm install"
+} 
