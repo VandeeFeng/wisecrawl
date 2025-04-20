@@ -228,8 +228,9 @@ def summarize_with_deepseek(hotspots, api_key, api_url=None, model_id=None, max_
                     formatted_summary += f"## ** {num} {title} **  \n"
                     
                     news_summary = news.get("summary", "")
+                    related_ids = news.get("related_ids", [])  
+                    
                     if not news_summary:
-                        related_ids = news.get("related_ids", [])
                         all_summaries = []
                         for news_id in related_ids:
                             if news_id in hotspot_dict:
@@ -239,8 +240,8 @@ def summarize_with_deepseek(hotspots, api_key, api_url=None, model_id=None, max_
                         
                         if all_summaries:
                             best_summary = sorted(all_summaries, key=len, reverse=True)[0]
-                            if len(best_summary) > 100:
-                                news_summary = best_summary[:97] + "..."
+                            if len(best_summary) > 120:
+                                news_summary = best_summary[:117] + "..."
                             else:
                                 news_summary = best_summary
                     
@@ -262,10 +263,7 @@ def summarize_with_deepseek(hotspots, api_key, api_url=None, model_id=None, max_
                             if not url or url == "#":
                                 if "Twitter" in source_name:
                                     username = source_name.replace("Twitter-", "").strip()
-                                    username_no_space = username.replace(" ", "")  # 移除空格
-                                    
-                                    # 推文URL格式应为 https://twitter.com/username/status/tweet_id
-                                    # 由于我们没有真实的tweet_id，所以只能指向用户主页
+                                    username_no_space = username.replace(" ", "")  
                                     url = f"https://twitter.com/{username_no_space}"
                                 else:
                                     url = "#"  

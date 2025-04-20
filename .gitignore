@@ -19,7 +19,7 @@
 .DS_Store
 
 # 忽略缓存目录
-/cache/
+**/cache/
 
 # 忽略临时文件
 *.new
