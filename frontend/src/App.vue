@@ -39,6 +39,9 @@
           >
             {{ isExpanded ? '[-]' : `[+${sources.length - maxVisibleSources}]` }}
           </button>
+          <button @click="fetchNews" class="refresh-btn" :disabled="loading">
+            {{ loading ? '[LOADING...]' : '[REFRESH]' }}
+          </button>
         </div>
       </div>
 

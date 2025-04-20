@@ -24,13 +24,34 @@ function getLatestJsonFile() {
       return null
     }
     
-    // Sort files by timestamp in filename (newest first)
+    // Get today's date at midnight for comparison
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    
+    // Sort files by how close their date is to today
     jsonFiles.sort((a, b) => {
-      // Extract timestamp from filename: processed_news_YYYY-MM-DD_HH-MM-SS.json
+      const getDateDiff = filename => {
+        const match = filename.match(/processed_news_(\d{4}-\d{2}-\d{2})/)
+        if (match) {
+          const fileDate = new Date(match[1])
+          // Return absolute difference in days
+          return Math.abs(fileDate.getTime() - today.getTime())
+        }
+        return Infinity
+      }
+      
+      return getDateDiff(a) - getDateDiff(b)
+    })
+    
+    // Among files with the closest date, get the latest one by time
+    const closestDate = jsonFiles[0].match(/processed_news_(\d{4}-\d{2}-\d{2})/)[1]
+    const filesFromClosestDate = jsonFiles.filter(file => file.includes(closestDate))
+    
+    // Sort by time for files from the same date
+    filesFromClosestDate.sort((a, b) => {
       const getTimestamp = filename => {
         const match = filename.match(/processed_news_(\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2})\.json/)
         if (match) {
-          // Convert date format to something JS can parse
           const dateStr = match[1].replace(/_/g, 'T').replace(/-/g, ':')
           return new Date(dateStr).getTime()
         }
@@ -40,8 +61,10 @@ function getLatestJsonFile() {
       return getTimestamp(b) - getTimestamp(a)
     })
     
-    // Return path to the latest file
-    return path.join(outputDir, jsonFiles[0])
+    // Return path to the latest file from the closest date
+    const latestFile = filesFromClosestDate[0]
+    console.log(`Selected news file from ${closestDate}: ${latestFile}`)
+    return path.join(outputDir, latestFile)
   } catch (error) {
     console.error('Error reading output directory:', error)
     return null
@@ -56,20 +79,19 @@ export default defineConfig({
       '/api/news': {
         target: 'http://localhost:3000',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/news/, ''),
         configure: (proxy, options) => {
-          // Here we can intercept the request and directly return local JSON file content
           proxy.on('proxyReq', (proxyReq, req, res) => {
             const jsonPath = getLatestJsonFile()
             
             if (!jsonPath) {
-              res.writeHead(500)
+              res.writeHead(500, { 'Content-Type': 'application/json' })
               res.end(JSON.stringify({ error: 'No news data files found' }))
-              return true
+              return
             }
             
             try {
               const content = fs.readFileSync(jsonPath, 'utf-8')
+              const data = JSON.parse(content)
               console.log(`Serving latest news file: ${path.basename(jsonPath)}`)
               res.writeHead(200, {
                 'Content-Type': 'application/json',
@@ -78,7 +100,7 @@ export default defineConfig({
               res.end(content)
             } catch (error) {
               console.error('Error reading news data:', error)
-              res.writeHead(500)
+              res.writeHead(500, { 'Content-Type': 'application/json' })
               res.end(JSON.stringify({ error: 'Failed to load news data' }))
             }
             

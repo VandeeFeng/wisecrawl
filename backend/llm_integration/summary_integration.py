@@ -56,16 +56,25 @@ def summarize_with_deepseek(hotspots, api_key, api_url=None, model_id=None, max_
                 {hotspot_json}
                 请总结出10条最重要的科技新闻，优先选择AI相关新闻，去除重复和无关内容。
                 重点关注最新发布的AI技术或者模型等，相关新闻在返回的结果排序中需要前置；公众号的文章权重更高，其余结果按重要性排序。
-                你需要将相似的新闻合并为一条，并提供一个直观简洁的中文标题，需要讲清楚新闻内容不要太泛化（不超过30个字）。
+
+                对每条新闻：
+                1. 提供一个直观简洁的中文标题（不超过30个字）
+                2. 用2-3句话总结新闻的核心内容，包括：
+                   - 新技术/产品的关键特点或创新点
+                   - 对行业或用户的潜在影响
+                   - 相关公司/研究机构的具体贡献
+                总结内容控制在300字以内，确保信息准确且有实质性内容。
+
                 同时，也请关注来自 Twitter 等社交媒体源 (source: Twitter) 的重要信息，特别是关于最新 AI 技术突破、模型发布或重要行业动态的帖子，它们同样具有很高的价值。
                 相关新闻的ID列表最多选择其中4条，取最典型的，超过数量不需要全部给出。请特别注意，如果同一家媒体在多个渠道发布相同的内容，或新闻标题相似度极高，不要同时选择，则仅需列出1条即可。
-                如果有摘要信息，请参考摘要提供更准确的标题。
+                如果有摘要信息，请参考摘要提供更准确的标题和内容总结。
                 
                 请以JSON格式返回结果，格式如下：
                 ```json
                 [
                   {{
                     "title": "热点标题",
+                    "summary": "详细的新闻内容总结（2-3句话）",
                     "related_ids": [相关热点的ID列表]
                   }},
                   ...
@@ -79,16 +88,25 @@ def summarize_with_deepseek(hotspots, api_key, api_url=None, model_id=None, max_
                 以下是今日热点信息列表（包含新闻和社交媒体帖子，JSON格式），部分条目包含内容摘要：
                 {hotspot_json}
                 请总结出10条最重要的热点新闻，优先选择科技和AI相关新闻，但也要包含其他领域（如社会、娱乐、体育等）的重要新闻，去除重复内容。
-                你需要将相似的新闻合并为一条，并提供一个直观简洁的中文标题，需要讲清楚新闻内容不要太泛化（不超过30个字）。
+
+                对每条新闻：
+                1. 提供一个直观简洁的中文标题（不超过30个字）
+                2. 用2-3句话总结新闻的核心内容，包括：
+                   - 事件的主要进展或关键信息
+                   - 相关方的具体行动或表态
+                   - 事件的影响或未来发展
+                总结内容控制在300字以内，确保信息准确且有实质性内容。
+
                 同时，也请关注来自 Twitter 等社交媒体源 (source: Twitter) 的重要信息，特别是关于最新 AI 技术突破、模型发布或重要行业动态的帖子，将它们与新闻同等对待进行筛选和总结。
                 相关新闻的ID列表最多选择其中4条，取最典型的，超过数量不需要全部给出。请特别注意，如果同一家媒体在多个渠道发布相同的内容，或新闻标题相似度极高，不要同时选择，则仅需列出1条即可。
-                如果有摘要信息，请参考摘要提供更准确的标题。
+                如果有摘要信息，请参考摘要提供更准确的标题和内容总结。
                 
                 请以JSON格式返回结果，格式如下：
                 ```json
                 [
                   {{
                     "title": "热点标题",
+                    "summary": "详细的新闻内容总结（2-3句话）",
                     "related_ids": [相关热点的ID列表]
                   }},
                   ...
@@ -209,22 +227,22 @@ def summarize_with_deepseek(hotspots, api_key, api_url=None, model_id=None, max_
                     
                     formatted_summary += f"## ** {num} {title} **  \n"
                     
-                    news_summary = ""
-                    related_ids = news.get("related_ids", [])
-                    
-                    all_summaries = []
-                    for news_id in related_ids:
-                        if news_id in hotspot_dict:
-                            item = hotspot_dict[news_id]
-                            if item.get("summary") and len(item.get("summary").strip()) > 20:  
-                                all_summaries.append(item.get("summary"))
-                    
-                    if all_summaries:
-                        best_summary = sorted(all_summaries, key=len, reverse=True)[0]
-                        if len(best_summary) > 100:
-                            news_summary = best_summary[:97] + "..."
-                        else:
-                            news_summary = best_summary
+                    news_summary = news.get("summary", "")
+                    if not news_summary:
+                        related_ids = news.get("related_ids", [])
+                        all_summaries = []
+                        for news_id in related_ids:
+                            if news_id in hotspot_dict:
+                                item = hotspot_dict[news_id]
+                                if item.get("summary") and len(item.get("summary").strip()) > 20:  
+                                    all_summaries.append(item.get("summary"))
+                        
+                        if all_summaries:
+                            best_summary = sorted(all_summaries, key=len, reverse=True)[0]
+                            if len(best_summary) > 100:
+                                news_summary = best_summary[:97] + "..."
+                            else:
+                                news_summary = best_summary
                     
                     if not news_summary:
                         news_summary = f"{title}相关信息，详情请查看以下链接。"
