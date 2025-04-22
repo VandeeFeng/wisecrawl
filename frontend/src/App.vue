@@ -143,7 +143,12 @@ const fetchNews = async () => {
     if (paths.length === 0) {
       throw new Error('No data file found');
     }
-    const latestPath = paths[0];
+    // Sort paths by date in filename (descending)
+    const latestPath = paths.sort((a, b) => {
+      const dateA = a.match(/\d{4}-\d{2}-\d{2}/)?.[0] || '';
+      const dateB = b.match(/\d{4}-\d{2}-\d{2}/)?.[0] || '';
+      return dateB.localeCompare(dateA);
+    })[0];
     const module = await modules[latestPath]();
     news.value = module.default;
   } catch (err) {
