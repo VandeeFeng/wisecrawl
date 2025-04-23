@@ -59,7 +59,7 @@ RSS_FEEDS = [
     {
         'name': 'Twitter',
         'accounts': [
-      
+
             {
                  'name': '歸藏',
                  'url': 'https://rsshub.app/twitter/user/op7418'
@@ -67,6 +67,22 @@ RSS_FEEDS = [
             {
                 'name': '宝玉',
                 'url': 'https://rsshub.app/twitter/user/dotey'
+            },
+            {
+                'name': 'karminski-牙医',
+                'url': 'https://rsshub.app/twitter/user/karminski3'
+            },
+            {
+                'name': 'Geek',
+                'url': 'https://rsshub.app/twitter/user/geekbb'
+            },
+            {
+                'name': 'yihong0618',
+                'url': 'https://rsshub.app/twitter/user/yihong0618'
+            },
+            {
+                'name': '面条',
+                'url': 'https://rsshub.app/twitter/user/miantiao_me'
             },
         ]
     },
@@ -94,7 +110,7 @@ TECH_SOURCES = [
     # "36kr",         # 科技创新创业资讯平台
     "juejin",       # 开发者技术社区
     # "csdn",         # 专业技术博客平台
-    # "51cto",        # IT技术运维社区  
+    # "51cto",        # IT技术运维社区
     "huxiu",        # 科技商业媒体
     "ifanr",        # 聚焦智能硬件的科技媒体
     # "coolapk",      # 安卓应用和科技产品讨论
