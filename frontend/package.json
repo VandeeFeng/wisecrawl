@@ -8,15 +8,17 @@
     "predev": "mkdir -p src/data && LATEST_FILE=$(ls -t ../data/processed_output | head -n1) && cp ../data/processed_output/$LATEST_FILE src/data/$LATEST_FILE",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:tsdown": "tsdown"
   },
   "dependencies": {
+    "@webtui/css": "latest",
     "axios": "^1.8.4",
-    "vue": "^3.5.13",
-    "@webtui/css": "latest"
+    "vue": "^3.5.13"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.2",
+    "tsdown": "^0.9.5",
     "vite": "^6.3.0"
   }
 }
