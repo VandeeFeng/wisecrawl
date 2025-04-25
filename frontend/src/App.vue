@@ -42,6 +42,9 @@
           <button @click="fetchNews" class="refresh-btn" :disabled="loading">
             {{ loading ? '[LOADING...]' : '[REFRESH]' }}
           </button>
+          <a href="/feed.xml" target="_blank" class="rss-btn">
+            <button class="refresh-btn">[RSS]</button>
+          </a>
         </div>
       </div>
 
