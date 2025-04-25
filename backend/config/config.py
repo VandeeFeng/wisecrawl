@@ -33,6 +33,10 @@ RSS_FEEDS = [
     #     'url': 'https://openai.com/blog/rss.xml'
     # },
     {
+        'name': '阮一峰的网络日志',
+        'url': 'http://www.ruanyifeng.com/blog/atom.xml'
+    },
+    {
         'name': 'Solidot',
         'url': 'https://www.solidot.org/index.rss'
     },
