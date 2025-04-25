@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Hot news aggregation frontend interface",
   "scripts": {
-    "predev": "mkdir -p src/data && LATEST_FILE=$(ls -t ../data/processed_output | head -n1) && cp ../data/processed_output/$LATEST_FILE src/data/$LATEST_FILE",
+    "predev": "mkdir -p src/data && mkdir -p public && LATEST_FILE=$(ls -t ../data/processed_output | head -n1) && cp ../data/processed_output/$LATEST_FILE src/data/$LATEST_FILE && cp ../data/RSS/feed.xml public/feed.xml",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",

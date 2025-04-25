@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd frontend && mkdir -p src/data && LATEST_FILE=$(ls -1 ../data/processed_output/processed_news_*.json | sort -r | head -n1) && cp \"$LATEST_FILE\" src/data/$(basename \"$LATEST_FILE\") && npm run build",
+  "buildCommand": "cd frontend && mkdir -p src/data && LATEST_FILE=$(ls -1 ../data/processed_output/processed_news_*.json | sort -r | head -n1) && cp \"$LATEST_FILE\" src/data/$(basename \"$LATEST_FILE\") && npm run build && cp ../data/RSS/feed.xml dist/feed.xml",
   "outputDirectory": "frontend/dist",
   "installCommand": "cd frontend && npm install"
 } 

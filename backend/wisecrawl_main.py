@@ -17,7 +17,8 @@ from bs4 import BeautifulSoup
 from config.config import (
     TECH_SOURCES, ALL_SOURCES, WEBHOOK_URL, DEEPSEEK_API_KEY, 
     HUNYUAN_API_KEY, BASE_URL, DEEPSEEK_API_URL, DEEPSEEK_MODEL_ID,
-    RSS_URL, RSS_DAYS, TITLE_LENGTH, MAX_WORKERS, FILTER_DAYS, RSS_FEEDS
+    RSS_URL, RSS_DAYS, TITLE_LENGTH, MAX_WORKERS, FILTER_DAYS, RSS_FEEDS,
+    RSS_FEED_LINK
 )
 
 # Import utility functions
@@ -38,6 +39,9 @@ from llm_integration.summary_integration import summarize_with_deepseek
 
 # Import notification module
 from notification.webhook_sender import notify, send_to_webhook
+
+# Import the new RSS generator utility
+from utils.rss_generator import generate_rss_feed
 
 # Configure logging
 logging.basicConfig(
@@ -268,6 +272,19 @@ def main():
         with open(processed_filename, 'w', encoding='utf-8') as f:
             json.dump(cleaned_content, f, ensure_ascii=False, indent=4)
         logger.info(f"Successfully saved processed news list (HTML tags cleaned and line breaks preserved) to: {processed_filename}")
+
+        # --- Generate RSS Feed ---
+        try:
+            rss_output_dir = os.path.join(project_root, "data", "RSS")
+            # Use a consistent filename for the feed
+            rss_filename = os.path.join(rss_output_dir, "feed.xml")
+            # Use RSS_FEED_LINK directly from config
+            generate_rss_feed(cleaned_content, rss_filename, feed_link=RSS_FEED_LINK)
+            logger.info(f"Successfully generated RSS feed at: {rss_filename}")
+        except Exception as rss_err:
+            logger.error(f"Error generating RSS feed: {str(rss_err)}")
+        # --- End RSS Feed Generation ---
+
     except Exception as e:
         logger.error(f"Error saving processed news list to {processed_filename}: {str(e)}")
     

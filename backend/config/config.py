@@ -14,6 +14,11 @@ raw_base_url = os.getenv('BASE_URL', BASE_URL_DEFAULT)
 # Clean the URL: remove comments and strip whitespace
 BASE_URL = raw_base_url.split('#')[0].strip()
 
+# --- Add RSS Feed Link Configuration ---
+RSS_FEED_LINK_DEFAULT = "http://localhost:5173"
+RSS_FEED_LINK = os.getenv('RSS_FEED_LINK', RSS_FEED_LINK_DEFAULT).rstrip('/') # Read from env, default, and remove trailing slash
+# --- End RSS Feed Link Configuration ---
+
 DEEPSEEK_API_URL_DEFAULT = "http://127.0.0.1:11434/v1/chat/completions" 
 DEEPSEEK_API_URL = os.getenv('DEEPSEEK_API_URL', DEEPSEEK_API_URL_DEFAULT)
 
