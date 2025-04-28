@@ -19,32 +19,48 @@
 \  /\  / \__ \  __/\____|_|  \__,_| \_/\_/ |_|
  \/  \/|_|___/\___|                           
         </pre>
+        <div class="mobile-title">WiseCrawl</div>
       </div>
 
-      <div class="command-line">
-        <span class="prompt">$</span>
-        <div class="filters">
-          <button 
-            v-for="(source, index) in visibleSources" 
-            :key="source"
-            :class="{ active: selectedSource === source }"
-            @click="setSource(source)"
-          >
-            {{ source === 'all' ? '[ALL]' : '[' + source.toUpperCase() + ']' }}
-          </button>
-          <button 
-            v-if="sources.length > maxVisibleSources"
-            @click="toggleExpand"
-            class="expand-btn"
-          >
-            {{ isExpanded ? '[-]' : `[+${sources.length - maxVisibleSources}]` }}
-          </button>
-          <button @click="fetchNews" class="refresh-btn" :disabled="loading">
+      <div class="command-section">
+        <div class="function-buttons">
+          <button @click="fetchNews" class="function-btn refresh-btn" :disabled="loading">
             {{ loading ? '[LOADING...]' : '[REFRESH]' }}
           </button>
-          <a href="/feed.xml" target="_blank" class="rss-btn">
-            <button class="refresh-btn">[RSS]</button>
+          <a href="/feed.xml" target="_blank" class="rss-link">
+            <button class="function-btn">[RSS]</button>
           </a>
+        </div>
+        
+        <div class="command-line">
+          <span class="prompt">$</span>
+          <div class="filters">
+            <button 
+              v-for="(source, index) in visibleSources" 
+              :key="source"
+              :class="{ active: selectedSource === source }"
+              @click="setSource(source)"
+            >
+              {{ source === 'all' ? '[ALL]' : '[' + source.toUpperCase() + ']' }}
+            </button>
+            
+            <button 
+              v-if="!isMobile && sources.length > maxVisibleSources"
+              @click="toggleExpand"
+              class="expand-btn"
+            >
+              {{ isExpanded ? '[-]' : `[+${sources.length - maxVisibleSources}]` }}
+            </button>
+            
+            <div class="expand-btn-wrapper" v-if="isMobile && sources.length > maxVisibleSources">
+              <button 
+                @click="toggleExpand"
+                class="expand-btn"
+              >
+                {{ isExpanded ? '[-] COLLAPSE' : `[+${sources.length - maxVisibleSources}] MORE` }}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -52,7 +68,6 @@
         <div v-if="loading" class="loading">
           <pre>
 Loading news feed...
-[===>-----------------] 25%
           </pre>
         </div>
         
@@ -89,14 +104,20 @@ Type 'refresh' to try again.
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, onBeforeMount } from 'vue';
 
 const news = ref([]);
 const loading = ref(true);
 const error = ref(null);
 const selectedSource = ref('all');
 const isExpanded = ref(false);
-const maxVisibleSources = 20;
+const maxVisibleSources = ref(20);
+const isMobile = ref(false);
+
+const checkMobile = () => {
+  isMobile.value = window.innerWidth <= 768;
+  maxVisibleSources.value = isMobile.value ? 7 : 20;
+};
 
 const sources = computed(() => {
   const uniqueSources = new Set(news.value.map(item => item.source));
@@ -107,7 +128,7 @@ const visibleSources = computed(() => {
   if (isExpanded.value) {
     return sources.value;
   }
-  return sources.value.slice(0, maxVisibleSources);
+  return sources.value.slice(0, maxVisibleSources.value);
 });
 
 const toggleExpand = () => {
@@ -162,6 +183,12 @@ const fetchNews = async () => {
   }
 };
 
+onBeforeMount(() => {
+  checkMobile();
+  window.addEventListener('resize', checkMobile);
+  isExpanded.value = false;
+});
+
 onMounted(() => {
   fetchNews();
 });
@@ -174,4 +201,18 @@ onMounted(() => {
 @import "@webtui/css/utils/box.css";
 @import "@webtui/css/components/button.css";
 @import "@webtui/css/components/typography.css";
+
+.mobile-title {
+  display: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 480px) {
+  .mobile-title {
+    display: block;
+  }
+}
 </style>

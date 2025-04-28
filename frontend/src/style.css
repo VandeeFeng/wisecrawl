@@ -49,6 +49,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   width: calc(100% - 40px);
+  box-sizing: border-box;
 }
 
 .terminal-header {
@@ -113,6 +114,7 @@ body {
   color: var(--terminal-prompt);
   font-weight: bold;
   font-size: 0.9em;
+  margin-right: 5px;
 }
 
 .filters {
@@ -124,8 +126,8 @@ body {
   justify-content: center;
   min-height: 64px;
   align-content: flex-start;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--terminal-border);
+  padding: 0 0 8px 0;
+  position: relative;
 }
 
 .filters button {
@@ -163,10 +165,16 @@ body {
   flex: 0 0 auto;
   margin-bottom: 0;
   padding: 2px 6px;
+  text-decoration: none;
 }
 
-.filters .expand-btn:hover {
+.filters .expand-btn:hover,
+.filters .expand-btn:focus,
+.filters .expand-btn:active {
   background: rgba(97, 175, 239, 0.1);
+  text-decoration: none;
+  outline: none;
+  box-shadow: none;
 }
 
 /* News List Styles */
@@ -174,11 +182,17 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .news-item {
   padding: 16px;
   background: rgba(255, 255, 255, 0.05);
+  width: 100%;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .news-header {
@@ -193,6 +207,8 @@ body {
 .news-header .title {
   color: #e5c07b;
   font-weight: bold;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .news-meta {
@@ -201,6 +217,7 @@ body {
   margin-bottom: 12px;
   display: flex;
   gap: 16px;
+  flex-wrap: wrap;
 }
 
 .news-content {
@@ -209,6 +226,8 @@ body {
   font-size: 0.95em;
   line-height: 1.5;
   text-align: left;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .news-content pre {
@@ -221,6 +240,9 @@ body {
   color: #61afef;
   text-decoration: none;
   font-family: 'Fira Code', monospace;
+  word-break: break-all;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .news-link a:hover {
@@ -241,6 +263,9 @@ body {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 a {
@@ -298,4 +323,252 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+    overflow: auto;
+    height: auto;
+    min-height: 100vh;
+  }
+  
+  .terminal {
+    width: calc(100% - 20px);
+    min-height: 98vh;
+    max-height: 98vh;
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    margin: 0 auto;
+  }
+  
+  .terminal-body {
+    padding: 10px;
+  }
+  
+  .ascii-title pre {
+    font-size: 0.7em;
+    display: block;
+    overflow-x: auto;
+  }
+  
+  .news-meta {
+    gap: 8px;
+  }
+  
+  .news-item {
+    padding: 12px;
+  }
+  
+  .news-header .title {
+    display: block;
+    margin-top: 4px;
+  }
+  
+  .command-line {
+    flex-direction: row;
+    align-items: flex-start;
+    position: relative;
+    margin-bottom: 5px;
+    flex-wrap: nowrap;
+  }
+  
+  .prompt {
+    margin-right: 5px;
+    margin-top: 4px;
+  }
+  
+  .filters {
+    width: calc(100% - 20px);
+    padding-left: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    padding-bottom: 40px;
+    margin-bottom: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    border-bottom: none;
+  }
+  
+  .filters button {
+    margin-bottom: 5px;
+    margin-right: 5px;
+  }
+  
+  .expand-btn {
+    min-width: 80px;
+    background-color: rgba(97, 175, 239, 0.1);
+  }
+  
+  .function-buttons {
+    margin-left: 0;
+    justify-content: center;
+  }
+  
+  .expand-btn-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    padding: 5px 0 5px 0;
+    background-color: rgba(26, 27, 30, 0.85);
+    z-index: 5;
+    backdrop-filter: blur(2px);
+    margin-bottom: 5px;
+  }
+  
+  .expand-btn-wrapper .expand-btn {
+    font-size: 0.75em;
+    height: auto;
+    padding: 3px 10px;
+    background-color: var(--terminal-bg);
+    border: 1px solid var(--terminal-prompt);
+    color: var(--terminal-prompt);
+    text-decoration: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  
+  .command-section {
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 5px;
+  }
+  
+  .terminal {
+    width: calc(100% - 10px);
+    border-radius: 4px;
+  }
+  
+  .terminal-header .title {
+    font-size: 12px;
+  }
+  
+  .filters button {
+    min-width: 45px;
+    padding: 2px 4px;
+    font-size: 0.75em;
+    margin-right: 2px;
+    margin-bottom: 5px;
+  }
+  
+  .news-content {
+    font-size: 0.85em;
+  }
+  
+  .ascii-title {
+    display: none;
+  }
+  
+  .news-meta {
+    font-size: 0.8em;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+  
+  .news-item {
+    padding: 10px 8px;
+  }
+  
+  .news-content pre {
+    font-size: 0.9em;
+    line-height: 1.4;
+  }
+  
+  .news-link a {
+    font-size: 0.9em;
+    word-break: break-all;
+  }
+  
+  .filters {
+    min-height: 70px; 
+  }
+}
+
+@media (max-width: 360px) {
+  .terminal-header .title {
+    font-size: 10px;
+  }
+  
+  .filters button {
+    min-width: 40px;
+    padding: 2px 3px;
+    font-size: 0.7em;
+  }
+  
+  .news-content {
+    font-size: 0.8em;
+  }
+  
+  .news-header .index {
+    font-size: 0.8em;
+  }
+  
+  .news-header .title {
+    font-size: 0.9em;
+  }
+}
+
+button:focus {
+  outline: none;
+  box-shadow: none;
+  text-decoration: none;
+}
+
+a:focus, button:focus, 
+a:active, button:active {
+  text-decoration: none !important;
+  outline: none;
+}
+
+.command-section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+  gap: 10px;
+}
+
+.function-buttons {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 5px;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: 18px; 
+}
+
+.function-btn {
+  background: transparent;
+  border: 1px solid var(--terminal-border);
+  color: var(--terminal-text);
+  padding: 2px 8px;
+  cursor: pointer;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.8em;
+  transition: all 0.2s;
+  min-width: 60px;
+  text-align: center;
+  height: 24px;
+  line-height: 1.2;
+}
+
+.function-btn:hover {
+  background: rgba(97, 175, 239, 0.1);
+  border-color: var(--terminal-prompt);
+}
+
+.refresh-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
