@@ -41,7 +41,7 @@ def summarize_with_tencent_hunyuan(content, api_key, title="", max_retries=3, us
                 model=CONTENT_MODEL_ID,  
                 temperature=0.3,
                 api_key='ollama',
-                max_tokens=150,
+                # max_tokens=150,
                 base_url="http://127.0.0.1:11434/v1/"  
             )
             
@@ -98,7 +98,7 @@ def summarize_with_tencent_hunyuan(content, api_key, title="", max_retries=3, us
                 return result
             except json.JSONDecodeError:
                 logger.warning(f"JSON解析失败，使用原始文本: {result_text}")
-                result = {"summary": result_text[:50], "is_tech": False}
+                result = {"summary": result_text[:80], "is_tech": False}
                 
                 if use_cache and content_hash:
                     summary_cache = load_summary_cache()

@@ -90,8 +90,8 @@ Type 'refresh' to try again.
               <span class="time" v-if="item.timestamp">time={{ formatTime(item.timestamp) }}</span>
               <span class="tech-tag" v-if="item.is_tech">[TECH]</span>
             </div>
-            <div class="news-content" v-if="item.desc || item.summary">
-              <pre>{{ item.desc || (item.summary !== '[Summary cannot be generated: Insufficient content or source information]' ? item.summary : '') }}</pre>
+            <div class="news-content" v-if="item.content || item.desc || item.summary">
+              <pre>{{ (item.summary !== '[Summary cannot be generated: Insufficient content or source information]' ? item.summary : '') || item.content}}</pre>
             </div>
             <div class="news-link">
               <a :href="item.url" target="_blank">$ curl {{ item.url }}</a>
