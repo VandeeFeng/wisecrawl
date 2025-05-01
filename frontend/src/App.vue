@@ -116,7 +116,7 @@ const isMobile = ref(false);
 
 const checkMobile = () => {
   isMobile.value = window.innerWidth <= 768;
-  maxVisibleSources.value = isMobile.value ? 7 : 20;
+  maxVisibleSources.value = isMobile.value ? 6 : 15;
 };
 
 const sources = computed(() => {
