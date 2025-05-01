@@ -58,6 +58,7 @@ def summarize_with_tencent_hunyuan(content, api_key, title="", max_retries=3, us
                     2. is_tech: 布尔值，表示是否与科技相关
 
                     只返回JSON格式，不要有任何额外说明。
+                    /no_think
                     """
             )
             
