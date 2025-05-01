@@ -19,24 +19,28 @@ RSS_FEED_LINK_DEFAULT = "http://localhost:5173"
 RSS_FEED_LINK = os.getenv('RSS_FEED_LINK', RSS_FEED_LINK_DEFAULT).rstrip('/') # Read from env, default, and remove trailing slash
 # --- End RSS Feed Link Configuration ---
 
-DEEPSEEK_API_URL_DEFAULT = "http://127.0.0.1:11434/v1/chat/completions" 
+DEEPSEEK_API_URL_DEFAULT = "http://127.0.0.1:11434/v1/chat/completions"
 DEEPSEEK_API_URL = os.getenv('DEEPSEEK_API_URL', DEEPSEEK_API_URL_DEFAULT)
 
-DEEPSEEK_MODEL_ID_DEFAULT = "deepseek-r1:14b" 
+DEEPSEEK_MODEL_ID_DEFAULT = "deepseek-r1:14b"
 DEEPSEEK_MODEL_ID = os.getenv('DEEPSEEK_MODEL_ID', DEEPSEEK_MODEL_ID_DEFAULT)
 
 CONTENT_MODEL_ID_DEFAULT = "qwen2.5:14b"
 CONTENT_MODEL_ID = os.getenv('CONTENT_MODEL_ID', CONTENT_MODEL_ID_DEFAULT)
 
-RSS_URL_DEFAULT = None 
+RSS_URL_DEFAULT = None
 RSS_URL = os.getenv('RSS_URL', RSS_URL_DEFAULT)
 RSS_DAYS = int(os.getenv('RSS_DAYS', '1'))
 
 RSS_FEEDS = [
-    # {
-    #     'name': 'OpenAI Blog',
-    #     'url': 'https://openai.com/blog/rss.xml'
-    # },
+    {
+      'name': 'Github Trending',
+      'url': 'https://rsshub.rssforever.com/github/trending/daily/any'
+    },
+    {
+      'name': 'Hacker News 近期最佳',
+      'url': 'https://hnrss.org/best'
+    },
     {
         'name': '阮一峰的网络日志',
         'url': 'http://www.ruanyifeng.com/blog/atom.xml'
@@ -45,10 +49,10 @@ RSS_FEEDS = [
         'name': 'Solidot',
         'url': 'https://www.solidot.org/index.rss'
     },
-    {
-        'name': 'Hacker News',
-        'url': 'https://news.ycombinator.com/rss'
-    },
+    # {
+    #     'name': 'Hacker News',
+    #     'url': 'https://news.ycombinator.com/rss'
+    # },
     {
         'name': '机器之心',
         'url': 'https://www.jiqizhixin.com/rss'
@@ -62,9 +66,14 @@ RSS_FEEDS = [
         'url': 'https://deepmind.google/blog/rss.xml'
     },
     {
-        'name': 'The Verge',
-        'url': 'https://www.theverge.com/rss/index.xml'
+        'name': 'V2ex 热门',
+        'url': 'https://rsshub.rssforever.com/v2ex/topics/hot'
     },
+    {
+        'name': 'LINUX DO 今日热门',
+        'url': 'https://r4l.deno.dev/https://linux.do/top.rss?period=daily'
+    },
+
     {
         'name': 'Twitter',
         'accounts': [
@@ -148,14 +157,14 @@ ALL_SOURCES = [
     # "ithome",     # IT之家
     # "toutiao",    # 今日头条
     "36kr",       # 36氪
-    "juejin",     # 掘金
+    # "juejin",     # 掘金
     # "csdn",       # CSDN
     #"51cto",      # 51CTO
     # "huxiu",      # 虎嗅
     "ifanr",      # 爱范儿
     # "coolapk",    # 酷安
     # "hupu",       # 虎扑
-    "v2ex",       # V2EX
+    # "v2ex",       # V2EX
     # "hostloc",    # 全球主机交流
     # "sina-news",  # 新浪新闻
     # "netease-news", # 网易新闻
