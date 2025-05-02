@@ -11,9 +11,9 @@ from config.config import CONTENT_MODEL_ID
 
 logger = logging.getLogger(__name__)
 
-def summarize_with_tencent_hunyuan(content, api_key, title="", max_retries=3, use_cache=True):
+def summarize_with_content_model(content, api_key, title="", max_retries=3, use_cache=True):
     """
-    使用腾讯混元turbo-S模型对内容进行概述总结
+    使用内容处理模型对内容进行概述总结
     返回JSON格式，包含摘要和科技相关性判断
     支持缓存机制，避免重复处理相同内容
     """

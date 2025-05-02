@@ -16,7 +16,7 @@ from bs4 import BeautifulSoup
 # Import configurations
 from config.config import (
     TECH_SOURCES, ALL_SOURCES, WEBHOOK_URL, DEEPSEEK_API_KEY, 
-    HUNYUAN_API_KEY, BASE_URL, DEEPSEEK_API_URL, DEEPSEEK_MODEL_ID,
+    CONTENT_MODEL_API_KEY, BASE_URL, DEEPSEEK_API_URL, DEEPSEEK_MODEL_ID,
     RSS_URL, RSS_DAYS, TITLE_LENGTH, MAX_WORKERS, FILTER_DAYS, RSS_FEEDS,
     RSS_FEED_LINK
 )
@@ -67,7 +67,7 @@ def main():
     tech_only = str_to_bool(os.getenv('TECH_ONLY', str(TECH_SOURCES is not None))) # Default depends on TECH_SOURCES definition
     webhook = WEBHOOK_URL
     deepseek_key = DEEPSEEK_API_KEY
-    hunyuan_key = HUNYUAN_API_KEY
+    content_model_key = CONTENT_MODEL_API_KEY
     no_cache = str_to_bool(os.getenv('NO_CACHE', 'False')) # Keep env var override for this
     base_url = BASE_URL.strip() # Ensure no trailing spaces from env var or default
     deepseek_url = DEEPSEEK_API_URL
@@ -95,8 +95,8 @@ def main():
         logger.error("No Deepseek API Key provided. Please set DEEPSEEK_API_KEY in environment variables")
         sys.exit(1)
     
-    if not hunyuan_key and not skip_content:
-        logger.error("No Tencent Hunyuan API Key provided. Please set HUNYUAN_API_KEY in environment variables or set SKIP_CONTENT=True to skip content processing")
+    if not content_model_key and not skip_content:
+        logger.error("No Content Model API Key provided. Please set CONTENT_MODEL_API_KEY in environment variables or set SKIP_CONTENT=True to skip content processing")
         sys.exit(1)
     
     # Check if BASE_URL is accessible
@@ -187,7 +187,7 @@ def main():
             # Process all content asynchronously
             loop = asyncio.get_event_loop()
             all_content_with_summary = loop.run_until_complete(
-                process_hotspot_with_summary(all_content, hunyuan_key, max_workers, 
+                process_hotspot_with_summary(all_content, content_model_key, max_workers, 
                                            tech_only, use_cache=not no_cache)
             )
             logger.info(f"Generated summaries for {len(all_content_with_summary)} items")

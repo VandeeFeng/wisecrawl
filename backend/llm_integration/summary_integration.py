@@ -126,7 +126,7 @@ def summarize_with_deepseek(hotspots, api_key, api_url=None, model_id=None, max_
                         {"role": "user", "content": prompt}
                     ],
                     "temperature": 0.3,
-                    "max_tokens": 1000
+                    # "max_tokens": 1000
                 }
                 
                 import subprocess

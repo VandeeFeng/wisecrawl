@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 
 from utils.utils import get_content_hash, load_summary_cache, save_summary_cache, get_project_root
 from crawler.web_crawler import fetch_webpage_content, extract_publish_time_from_html
-from llm_integration.content_integration import summarize_with_tencent_hunyuan
+from llm_integration.content_integration import summarize_with_content_model
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -19,10 +19,10 @@ FINAL_DESC_MAX_LENGTH = 150
 FALLBACK_DESC_LENGTH = 150
 MIN_CONTENT_LENGTH_FOR_SUMMARY = 50 # Min content length to attempt summary
 
-async def process_hotspot_with_summary(hotspots, hunyuan_api_key, max_workers=5, tech_only=False, use_cache=True):
+async def process_hotspot_with_summary(hotspots, content_model_api_key, max_workers=5, tech_only=False, use_cache=True):
     """
     Process hotspot data asynchronously, get webpage content and generate summaries
-    Prioritize using API returned summaries, only call Hunyuan model when no summary exists
+    Prioritize using API returned summaries, only call content model when no summary exists
     Also try to extract publish time from webpage content
     If tech_only is True, only keep tech-related content
     Support cache mechanism to avoid processing same content repeatedly
@@ -121,8 +121,8 @@ async def process_hotspot_with_summary(hotspots, hunyuan_api_key, max_workers=5,
         if has_content:
             try:
                 # 使用腾讯混元生成摘要
-                summary_result_ai = summarize_with_tencent_hunyuan(
-                    content, hunyuan_api_key, title=title, use_cache=use_cache
+                summary_result_ai = summarize_with_content_model(
+                    content, content_model_api_key, title=title, use_cache=use_cache
                 )
                 
                 if summary_result_ai and summary_result_ai.get("summary"):
@@ -147,7 +147,7 @@ async def process_hotspot_with_summary(hotspots, hunyuan_api_key, max_workers=5,
                         final_summary = "[摘要生成失败]"
                         summary_source = "处理失败"
             except Exception as e:
-                logger.error(f"混元摘要生成失败: {e}, 标题: {title}. 将使用内容截断作为备选。")
+                logger.error(f"内容模型摘要生成失败: {e}, 标题: {title}. 将使用内容截断作为备选。")
                 # 使用内容截断作为备选
                 try:
                     soup = BeautifulSoup(content, 'html.parser')

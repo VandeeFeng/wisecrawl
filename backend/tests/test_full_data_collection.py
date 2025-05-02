@@ -41,8 +41,9 @@ logger = logging.getLogger(__name__)
 # 导入配置
 from config.config import (
     TECH_SOURCES, ALL_SOURCES, WEBHOOK_URL, DEEPSEEK_API_KEY, 
-    HUNYUAN_API_KEY, BASE_URL, DEEPSEEK_API_URL, DEEPSEEK_MODEL_ID,
-    RSS_URL, RSS_DAYS, TITLE_LENGTH, MAX_WORKERS, FILTER_DAYS, RSS_FEEDS
+    CONTENT_MODEL_API_KEY, BASE_URL, DEEPSEEK_API_URL, DEEPSEEK_MODEL_ID,
+    RSS_URL, RSS_DAYS, TITLE_LENGTH, MAX_WORKERS, FILTER_DAYS, RSS_FEEDS,
+    RSS_FEED_LINK
 )
 
 # 导入工具函数
@@ -65,7 +66,7 @@ async def test_full_data_collection():
     # 从环境变量中读取配置，优先使用环境变量，如果不存在则使用config.py中的默认值
     tech_only = os.getenv('TECH_ONLY', 'False').lower() in ('true', '1', 't')
     deepseek_key = os.getenv('DEEPSEEK_API_KEY', DEEPSEEK_API_KEY)
-    hunyuan_key = os.getenv('HUNYUAN_API_KEY', HUNYUAN_API_KEY)
+    content_model_key = os.getenv('CONTENT_MODEL_API_KEY', CONTENT_MODEL_API_KEY)
     no_cache = os.getenv('NO_CACHE', 'False').lower() in ('true', '1', 't')
     base_url = os.getenv('BASE_URL', BASE_URL)
     deepseek_url = os.getenv('DEEPSEEK_API_URL', DEEPSEEK_API_URL)
@@ -80,9 +81,9 @@ async def test_full_data_collection():
     if not deepseek_key and not skip_content:
         logger.warning("未提供Deepseek API Key，将跳过使用Deepseek进行汇总")
     
-    if not hunyuan_key and not skip_content:
-        logger.warning("未提供腾讯混元 API Key，将跳过内容处理")
-        skip_content = True
+    if not content_model_key and not skip_content:
+        logger.error("No Content Model API Key provided. Please set CONTENT_MODEL_API_KEY in environment variables or set SKIP_CONTENT=True to skip content processing")
+        sys.exit(1)
     
     # 检查 BASE_URL 是否可访问
     if not check_base_url(base_url):
@@ -135,7 +136,7 @@ async def test_full_data_collection():
             logger.info("开始获取网页内容并生成摘要...")
             # 使用异步方式处理所有内容，传递tech_only参数和use_cache参数
             all_content_with_summary = await process_hotspot_with_summary(
-                all_content, hunyuan_key, max_workers, tech_only, use_cache=not no_cache
+                all_content, content_model_key, max_workers, tech_only, use_cache=not no_cache
             )
             logger.info(f"已为 {len(all_content_with_summary)} 条内容生成摘要")
             

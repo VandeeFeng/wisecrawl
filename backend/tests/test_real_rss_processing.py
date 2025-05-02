@@ -30,7 +30,7 @@ logging.basicConfig(
 )
 
 # 导入相关模块
-from config.config import RSS_FEEDS, HUNYUAN_API_KEY
+from config.config import RSS_FEEDS, CONTENT_MODEL_API_KEY
 from crawler.data_collector import fetch_rss_articles
 from processor.news_processor import process_hotspot_with_summary
 
@@ -39,11 +39,11 @@ async def test_real_rss_processing():
     """
     使用真实RSS源测试数据处理流程
     """
-    # 获取API密钥
-    hunyuan_api_key = os.getenv('HUNYUAN_API_KEY', HUNYUAN_API_KEY)
-    if not hunyuan_api_key:
-        logging.error("未提供腾讯混元API密钥，请在.env文件中设置HUNYUAN_API_KEY")
-        return
+    # 检查API密钥是否存在
+    content_model_api_key = os.getenv('CONTENT_MODEL_API_KEY', CONTENT_MODEL_API_KEY)
+    if not content_model_api_key:
+        logging.error("未提供内容处理模型API密钥，请在.env文件中设置CONTENT_MODEL_API_KEY")
+        sys.exit(1)
     
     # 获取RSS文章
     logging.info("开始获取RSS文章...")
@@ -77,7 +77,7 @@ async def test_real_rss_processing():
     logging.info("开始处理RSS文章...")
     processed_articles = await process_hotspot_with_summary(
         test_articles,
-        hunyuan_api_key,
+        content_model_api_key,
         max_workers=2,  # 使用较少的工作线程
         tech_only=False,
         use_cache=True  # 启用缓存以避免重复处理
@@ -106,6 +106,15 @@ async def test_real_rss_processing():
             logging.info(f"内容长度: {len(content)} 字符")
         else:
             logging.info("内容: 无")
+
+    # 处理所有内容
+    processed_content = await process_hotspot_with_summary(
+        rss_articles, 
+        content_model_api_key,
+        max_workers=5,
+        tech_only=True,
+        use_cache=True
+    )
 
 
 async def main():

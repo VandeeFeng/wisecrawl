@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 DEEPSEEK_API_KEY = os.getenv('DEEPSEEK_API_KEY', None)
-HUNYUAN_API_KEY = os.getenv('HUNYUAN_API_KEY', None)
+CONTENT_MODEL_API_KEY = os.getenv('CONTENT_MODEL_API_KEY', None)
 
 WEBHOOK_URL = os.getenv('WEBHOOK_URL', None)
 

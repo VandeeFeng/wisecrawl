@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """测试RSS数据处理流程的脚本
-从RSS获取信息，经过爬取处理，到准备送往混元模型前的完整流程测试
+从RSS获取信息，经过爬取处理，到准备送往内容处理模型前的完整流程测试
 """
 
 import os
@@ -33,7 +33,7 @@ logging.basicConfig(
 # 导入被测试的模块
 from processor.news_processor import process_hotspot_with_summary
 from crawler.web_crawler import fetch_webpage_content, extract_publish_time_from_html
-from llm_integration.hunyuan_integration import summarize_with_tencent_hunyuan
+from llm_integration.content_integration import summarize_with_content_model
 
 
 class TestRSSProcessing(unittest.TestCase):
@@ -87,16 +87,16 @@ class TestRSSProcessing(unittest.TestCase):
         
         # 模拟的摘要结果
         self.mock_summary_result = {
-            "summary": "这是由混元模型生成的测试摘要。",
+            "summary": "这是由内容处理模型生成的测试摘要。",
             "is_tech": True
         }
         
         # 测试用的API密钥
-        self.test_api_key = "test_hunyuan_api_key"
+        self.test_api_key = "test_content_model_api_key"
     
     @patch('processor.news_processor.fetch_webpage_content')
     @patch('processor.news_processor.extract_publish_time_from_html')
-    @patch('processor.news_processor.summarize_with_tencent_hunyuan')
+    @patch('processor.news_processor.summarize_with_content_model')
     @patch('processor.news_processor.os.path.exists')
     @patch('processor.news_processor.open')
     async def test_process_hotspot_with_summary(self, mock_open, mock_exists, mock_summarize, mock_extract_time, mock_fetch):
@@ -148,9 +148,9 @@ class TestRSSProcessing(unittest.TestCase):
         self.assertTrue(result[3]['is_processed'])
         
         # 验证函数调用
-        # 第一个条目不应该调用fetch_webpage_content和summarize_with_tencent_hunyuan
-        # 第二个条目应该调用fetch_webpage_content但不调用summarize_with_tencent_hunyuan
-        # 第三个和第四个条目应该都调用fetch_webpage_content和summarize_with_tencent_hunyuan
+        # 第一个条目不应该调用fetch_webpage_content和summarize_with_content_model
+        # 第二个条目应该调用fetch_webpage_content但不调用summarize_with_content_model
+        # 第三个和第四个条目应该都调用fetch_webpage_content和summarize_with_content_model
         self.assertEqual(mock_fetch.call_count, 3)  # 应该被调用3次（第2、3、4个条目）
         self.assertEqual(mock_summarize.call_count, 2)  # 应该被调用2次（第3、4个条目）
         
@@ -172,11 +172,11 @@ class TestRSSProcessing(unittest.TestCase):
         # 验证requests.get没有被调用
         mock_get.assert_not_called()
     
-    @patch('llm_integration.hunyuan_integration.load_summary_cache')
-    @patch('llm_integration.hunyuan_integration.save_summary_cache')
-    @patch('llm_integration.hunyuan_integration.ChatOpenAI')
+    @patch('llm_integration.content_integration.load_summary_cache')
+    @patch('llm_integration.content_integration.save_summary_cache')
+    @patch('llm_integration.content_integration.ChatOpenAI')
     def test_summarize_with_cache(self, mock_chat_openai, mock_save_cache, mock_load_cache):
-        """测试summarize_with_tencent_hunyuan函数的缓存机制"""
+        """测试summarize_with_content_model函数的缓存机制"""
         # 设置模拟缓存
         mock_cache = {
             "test_hash": self.mock_summary_result
@@ -184,9 +184,9 @@ class TestRSSProcessing(unittest.TestCase):
         mock_load_cache.return_value = mock_cache
         
         # 模拟get_content_hash函数
-        with patch('llm_integration.hunyuan_integration.get_content_hash', return_value="test_hash"):
+        with patch('llm_integration.content_integration.get_content_hash', return_value="test_hash"):
             # 调用函数
-            result = summarize_with_tencent_hunyuan(
+            result = summarize_with_content_model(
                 "测试内容" * 20,
                 self.test_api_key,
                 use_cache=True

@@ -35,7 +35,7 @@ logger = logging.getLogger(__name__)
 # 导入配置
 from config.config import (
     TECH_SOURCES, ALL_SOURCES, WEBHOOK_URL, DEEPSEEK_API_KEY, 
-    HUNYUAN_API_KEY, BASE_URL, DEEPSEEK_API_URL, DEEPSEEK_MODEL_ID,
+    CONTENT_MODEL_API_KEY, BASE_URL, DEEPSEEK_API_URL, DEEPSEEK_MODEL_ID,
     RSS_URL, RSS_DAYS, TITLE_LENGTH, MAX_WORKERS, FILTER_DAYS, RSS_FEEDS
 )
 
@@ -228,7 +228,7 @@ async def test_all_news_sources():
     # 从环境变量中读取配置，优先使用环境变量，如果不存在则使用config.py中的默认值
     tech_only = os.getenv('TECH_ONLY', 'False').lower() in ('true', '1', 't')
     deepseek_key = os.getenv('DEEPSEEK_API_KEY', DEEPSEEK_API_KEY)
-    hunyuan_key = os.getenv('HUNYUAN_API_KEY', HUNYUAN_API_KEY)
+    content_model_key = os.getenv('CONTENT_MODEL_API_KEY', CONTENT_MODEL_API_KEY)
     no_cache = os.getenv('NO_CACHE', 'False').lower() in ('true', '1', 't')
     base_url = os.getenv('BASE_URL', BASE_URL)
     skip_content = os.getenv('SKIP_CONTENT', 'False').lower() in ('true', '1', 't')
@@ -274,7 +274,7 @@ async def test_all_news_sources():
         logger.info(f"已将所有内容合并保存到: {merged_file}")
     
     # 4. 如果提供了API密钥，测试内容处理和摘要生成
-    if not skip_content and hunyuan_key:
+    if not skip_content and content_model_key:
         try:
             logger.info("\n\n开始测试内容处理和摘要生成...")
             # 为了避免处理过多内容，只选择部分内容进行处理
@@ -284,7 +284,7 @@ async def test_all_news_sources():
             
             # 使用异步方式处理内容
             processed_content = await process_hotspot_with_summary(
-                sample_content, hunyuan_key, max_workers, tech_only, use_cache=not no_cache
+                sample_content, content_model_key, max_workers, tech_only, use_cache=not no_cache
             )
             
             logger.info(f"内容处理完成，共处理 {len(processed_content)} 条内容")
