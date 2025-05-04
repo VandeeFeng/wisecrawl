@@ -3,7 +3,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
+  color-scheme: dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 
@@ -25,10 +25,40 @@
 /* Base Styles */
 body {
   margin: 0;
-  padding: 20px;
+  padding: 0;
   background: #2c323c;
   height: 100vh;
   overflow: hidden;
+}
+
+/* Reset some browser defaults */
+* {
+  box-sizing: border-box;
+}
+
+/* Default button styles */
+button {
+  font-family: 'Fira Code', monospace;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+}
+
+button:focus {
+  outline: none;
+}
+
+a {
+  color: #61afef;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+pre, code {
+  font-family: 'Fira Code', monospace;
 }
 
 /* Terminal Styles */
@@ -124,9 +154,9 @@ body {
   align-items: flex-start;
   max-width: 100%;
   justify-content: center;
-  min-height: 64px;
+  min-height: auto;
   align-content: flex-start;
-  padding: 0 0 8px 0;
+  padding: 0 0 0 0;
   position: relative;
 }
 
@@ -152,10 +182,22 @@ body {
   box-shadow: none;
 }
 
+.filters button:hover {
+  background: rgba(97, 175, 239, 0.1);
+  border-color: var(--terminal-prompt);
+  outline: none;
+  box-shadow: none;
+}
+
 .filters button.active {
   background: var(--terminal-prompt);
   color: var(--terminal-bg);
   border-color: var(--terminal-prompt) !important;
+}
+
+.filters button.active:hover {
+  background: var(--terminal-prompt);
+  opacity: 0.9;
 }
 
 .filters .expand-btn {
@@ -268,37 +310,9 @@ body {
   box-sizing: border-box;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
 .card {
@@ -312,26 +326,10 @@ button:focus-visible {
   text-align: center;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
-/* Mobile Responsiveness */
+/* Mobile adjustments */
 @media (max-width: 768px) {
   body {
-    padding: 10px;
-    overflow: auto;
-    height: auto;
-    min-height: 100vh;
+    padding: 0;
   }
   
   .terminal {
@@ -386,12 +384,13 @@ button:focus-visible {
     padding-left: 0;
     max-height: 200px;
     overflow-y: auto;
-    padding-bottom: 40px;
+    padding-bottom: 30px;
     margin-bottom: 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     border-bottom: none;
+    position: relative;
   }
   
   .filters button {
@@ -416,11 +415,11 @@ button:focus-visible {
     right: 0;
     display: flex;
     justify-content: center;
-    padding: 5px 0 5px 0;
-    background-color: rgba(26, 27, 30, 0.85);
-    z-index: 5;
+    padding: 3px 0;
+    background-color: rgba(26, 27, 30, 0.95);
+    z-index: 10;
     backdrop-filter: blur(2px);
-    margin-bottom: 5px;
+    margin-bottom: 0;
   }
   
   .expand-btn-wrapper .expand-btn {
@@ -442,7 +441,7 @@ button:focus-visible {
 
 @media (max-width: 480px) {
   body {
-    padding: 5px;
+    font-size: 14px;
   }
   
   .terminal {
@@ -497,6 +496,10 @@ button:focus-visible {
 }
 
 @media (max-width: 360px) {
+  body {
+    font-size: 12px;
+  }
+  
   .terminal-header .title {
     font-size: 10px;
   }
@@ -535,14 +538,15 @@ a:active, button:active {
 .command-section {
   display: flex;
   flex-direction: column;
-  margin-bottom: 8px;
-  gap: 10px;
+  margin-bottom: 0.5rem;
+  padding: 0.75rem 0.75rem 0.5rem;
+  gap: 6px;
 }
 
 .function-buttons {
   display: flex;
-  gap: 8px;
-  margin-bottom: 5px;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
   align-items: center;
   justify-content: flex-start;
   margin-left: 18px; 
@@ -571,4 +575,136 @@ a:active, button:active {
 .refresh-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* Terminal Container */
+.terminal-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #2c323c;
+  padding: 1rem;
+}
+
+/* Terminal specific overrides */
+.terminal {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--terminal-bg);
+  border: 1px solid var(--terminal-border);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  min-height: 95vh;
+  max-height: 95vh;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 40px);
+  height: 95vh;
+  box-sizing: border-box;
+}
+
+.title-pre {
+  margin: 0;
+}
+
+/* Override news items */
+.news-item {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  width: 100%;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.news-meta {
+  font-size: 0.9em;
+  color: #56b6c2;
+  margin-bottom: 12px;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Custom error styling */
+.box--error {
+  border-color: #e06c75;
+}
+
+/* Button hover effects */
+.filters button:hover,
+.button:hover {
+  background: rgba(97, 175, 239, 0.1);
+  border-color: var(--terminal-prompt);
+}
+
+.filters button.active:hover {
+  background: var(--terminal-prompt);
+  opacity: 0.9;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .terminal-container {
+    padding: 0.5rem;
+  }
+  
+  .terminal {
+    height: 98vh;
+    width: calc(100% - 20px);
+    min-height: 98vh;
+    max-height: 98vh;
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    margin: 0 auto;
+  }
+  
+  .terminal-body {
+    padding: 0.75rem;
+  }
+  
+  .news-meta {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title-pre {
+    display: none;
+  }
+  
+  .function-buttons {
+    justify-content: center;
+  }
+  
+  .news-item {
+    padding: 0.75rem;
+  }
+  
+  .command-line {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  
+  .prompt {
+    margin-top: 4px;
+    align-self: flex-start;
+  }
+  
+  .filters {
+    flex: 1;
+    flex-wrap: wrap;
+    display: flex;
+    gap: 6px;
+    padding-left: 8px;
+  }
 }

@@ -1,100 +1,102 @@
 <template>
-  <div class="terminal">
-    <div class="terminal-header">
-      <div class="title">WiseCrawl v0.1.0</div>
-      <div class="controls">
-        <span class="minimize"></span>
-        <span class="maximize"></span>
-        <span class="close"></span>
+  <div class="terminal-container">
+    <div class="terminal">
+      <div class="terminal-header">
+        <div class="title">WiseCrawl v0.1.0</div>
+        <div class="controls">
+          <span class="minimize"></span>
+          <span class="maximize"></span>
+          <span class="close"></span>
+        </div>
       </div>
-    </div>
-    
-    <div class="terminal-body">
-      <div class="ascii-title">
-        <pre>
+      
+      <div class="terminal-body">
+        <div class="ascii-title">
+          <pre class="title-pre">
  _    _ _          ____                    _ 
 | |  | (_)        / ___|_ __ __ ___      _| |
 | |  | |_ ___  ___| |   | '__/ _' \ \ /\ / / |
 | |/\| | / __|/ _ \ |___| | | (_| |\ V  V /| |
 \  /\  / \__ \  __/\____|_|  \__,_| \_/\_/ |_|
  \/  \/|_|___/\___|                           
-        </pre>
-        <div class="mobile-title">WiseCrawl</div>
-      </div>
-
-      <div class="command-section">
-        <div class="function-buttons">
-          <button @click="fetchNews" class="function-btn refresh-btn" :disabled="loading">
-            {{ loading ? '[LOADING...]' : '[REFRESH]' }}
-          </button>
-          <a href="/feed.xml" target="_blank" class="rss-link">
-            <button class="function-btn">[RSS]</button>
-          </a>
+          </pre>
         </div>
-        
-        <div class="command-line">
-          <span class="prompt">$</span>
-          <div class="filters">
-            <button 
-              v-for="(source, index) in visibleSources" 
-              :key="source"
-              :class="{ active: selectedSource === source }"
-              @click="setSource(source)"
-            >
-              {{ source === 'all' ? '[ALL]' : '[' + source.toUpperCase() + ']' }}
+
+        <div class="command-section box box--double">
+          <div class="function-buttons">
+            <button @click="fetchNews" class="function-btn refresh-btn" :disabled="loading">
+              {{ loading ? '[LOADING...]' : '[REFRESH]' }}
             </button>
-            
-            <button 
-              v-if="!isMobile && sources.length > maxVisibleSources"
-              @click="toggleExpand"
-              class="expand-btn"
-            >
-              {{ isExpanded ? '[-]' : `[+${sources.length - maxVisibleSources}]` }}
-            </button>
-            
-            <div class="expand-btn-wrapper" v-if="isMobile && sources.length > maxVisibleSources">
+            <a href="/feed.xml" target="_blank" class="rss-link">
+              <button class="function-btn">[RSS]</button>
+            </a>
+          </div>
+          
+          <div class="command-line">
+            <span class="prompt">$</span>
+            <div class="filters">
               <button 
-                @click="toggleExpand"
-                class="expand-btn"
+                v-for="(source, index) in visibleSources" 
+                :key="source"
+                :class="{ active: selectedSource === source }"
+                @click="setSource(source)"
+                class="button"
               >
-                {{ isExpanded ? '[-] COLLAPSE' : `[+${sources.length - maxVisibleSources}] MORE` }}
+                {{ source === 'all' ? '[ALL]' : '[' + source.toUpperCase() + ']' }}
               </button>
+              
+              <button 
+                v-if="!isMobile && sources.length > maxVisibleSources"
+                @click="toggleExpand"
+                class="expand-btn button button--primary"
+              >
+                {{ isExpanded ? '[-]' : `[+${sources.length - maxVisibleSources}]` }}
+              </button>
+              
+              <div class="expand-btn-wrapper" v-if="isMobile && sources.length > maxVisibleSources">
+                <button 
+                  @click="toggleExpand"
+                  class="expand-btn button button--primary"
+                >
+                  {{ isExpanded ? '[-] COLLAPSE' : `[+${sources.length - maxVisibleSources}] MORE` }}
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="output-area">
-        <div v-if="loading" class="loading">
-          <pre>
+        <div class="output-area">
+          <div v-if="loading" class="loading box box--single">
+            <pre>
 Loading news feed...
-          </pre>
-        </div>
-        
-        <div v-else-if="error" class="error">
-          <pre>
+            </pre>
+          </div>
+          
+          <div v-else-if="error" class="error box box--single box--error">
+            <pre>
 ERROR: {{ error }}
 Type 'refresh' to try again.
-          </pre>
-        </div>
-        
-        <div v-else class="news-list">
-          <div v-for="(item, index) in filteredNews" :key="index" class="news-item" box-="double">
-            <div class="news-header">
-              <span class="index">[{{ index + 1 }}]</span>
-              <span class="title">{{ item.title }}</span>
-            </div>
-            <div class="news-meta">
-              <span class="source">src://{{ item.source }}</span>
-              <span class="hot" v-if="item.hot">heat={{ formatHot(item.hot) }}</span>
-              <span class="time" v-if="item.timestamp">time={{ formatTime(item.timestamp) }}</span>
-              <span class="tech-tag" v-if="item.is_tech">[TECH]</span>
-            </div>
-            <div class="news-content" v-if="item.content || item.desc || item.summary">
-              <pre>{{ (item.summary !== '[Summary cannot be generated: Insufficient content or source information]' ? item.summary : '') || item.content}}</pre>
-            </div>
-            <div class="news-link">
-              <a :href="item.url" target="_blank">$ curl {{ item.url }}</a>
+            </pre>
+          </div>
+          
+          <div v-else class="news-list">
+            <div v-for="(item, index) in filteredNews" :key="index" class="news-item box box--double">
+              <div class="news-header">
+                <span class="index">[{{ index + 1 }}]</span>
+                <span class="title type--headline">{{ item.title }}</span>
+              </div>
+              <div class="news-meta">
+                <span class="source type--code">src://{{ item.source }}</span>
+                <span class="hot type--code" v-if="item.hot">heat={{ formatHot(item.hot) }}</span>
+                <span class="time type--code" v-if="item.timestamp">time={{ formatTime(item.timestamp) }}</span>
+                <span class="tech-tag" v-if="item.is_tech">[TECH]</span>
+              </div>
+              <div class="news-content" v-if="item.content || item.desc || item.summary">
+                <pre>{{ (item.summary !== '[Summary cannot be generated: Insufficient content or source information]' ? item.summary : '') || item.content}}</pre>
+              </div>
+              <div class="news-link">
+                <a :href="item.url" target="_blank" class="type--link">$ curl {{ item.url }}</a>
+              </div>
             </div>
           </div>
         </div>
@@ -104,7 +106,7 @@ Type 'refresh' to try again.
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeMount } from 'vue';
+import { ref, computed, onMounted, onBeforeMount, watch } from 'vue';
 
 const news = ref([]);
 const loading = ref(true);
@@ -116,7 +118,7 @@ const isMobile = ref(false);
 
 const checkMobile = () => {
   isMobile.value = window.innerWidth <= 768;
-  maxVisibleSources.value = isMobile.value ? 6 : 15;
+  maxVisibleSources.value = isMobile.value ? 5 : 15;
 };
 
 const sources = computed(() => {
@@ -183,6 +185,19 @@ const fetchNews = async () => {
   }
 };
 
+// Watch for changes to expanded state to scroll to bottom of filters when expanded
+watch(isExpanded, (newValue) => {
+  if (newValue && isMobile.value) {
+    // Use setTimeout to allow DOM to update before scrolling
+    setTimeout(() => {
+      const filtersElement = document.querySelector('.filters');
+      if (filtersElement) {
+        filtersElement.scrollTop = 0; // Scroll to top when expanded
+      }
+    }, 10);
+  }
+});
+
 onBeforeMount(() => {
   checkMobile();
   window.addEventListener('resize', checkMobile);
@@ -194,25 +209,4 @@ onMounted(() => {
 });
 </script>
 
-<style>
-@layer base, utils, components;
-
-@import "@webtui/css/base.css";
-@import "@webtui/css/utils/box.css";
-@import "@webtui/css/components/button.css";
-@import "@webtui/css/components/typography.css";
-
-.mobile-title {
-  display: none;
-  font-size: 1.5rem;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-@media (max-width: 480px) {
-  .mobile-title {
-    display: block;
-  }
-}
-</style>
+<!-- No internal styles - all moved to style.css -->
