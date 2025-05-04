@@ -115,6 +115,7 @@ const selectedSource = ref('all');
 const isExpanded = ref(false);
 const maxVisibleSources = ref(20);
 const isMobile = ref(false);
+const scrollPositions = ref({}); // 存储各个来源的滚动位置
 
 const checkMobile = () => {
   isMobile.value = window.innerWidth <= 768;
@@ -145,7 +146,18 @@ const filteredNews = computed(() => {
 });
 
 const setSource = (source) => {
+  const outputArea = document.querySelector('.output-area');
+  if (outputArea && selectedSource.value) {
+    scrollPositions.value[selectedSource.value] = outputArea.scrollTop;
+  }
+  
   selectedSource.value = source;
+  
+  setTimeout(() => {
+    if (outputArea) {
+      outputArea.scrollTop = scrollPositions.value[source] || 0;
+    }
+  }, 10);
 };
 
 const formatTime = (timestamp) => {
