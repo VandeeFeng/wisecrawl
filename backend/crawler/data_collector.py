@@ -5,7 +5,7 @@ import feedparser
 import time
 import os
 from datetime import datetime, timedelta, timezone
-from config.config import SOURCE_NAME_MAP
+from config.config import SOURCE_NAME_MAP, XKIT_TWITTER_FEED, XKIT_TWITTER_FEED_URL
 from crawler.rss_parser import extract_rss_entry
 import json # Ensure json is imported
 from bs4 import BeautifulSoup # Import BeautifulSoup
@@ -805,6 +805,7 @@ def filter_recent_hotspots(hotspots, days=1):
 def fetch_twitter_feed(days_to_fetch=2):
     """
     Get tweet JSON data from GitHub Raw URL for the last few days and format it.
+    If XKIT_TWITTER_FEED is set to False in config, will return empty list.
 
     Parameters:
         days_to_fetch (int): How many days of data to fetch, default is 2 days.
@@ -812,8 +813,13 @@ def fetch_twitter_feed(days_to_fetch=2):
     Returns:
         list: List of formatted tweet data, format same as hotspot_data.
     """
+    # Check if Twitter feed is enabled in config
+    if not XKIT_TWITTER_FEED:
+        logger.info("Xkit Twitter feed is disabled in configuration, skipping.")
+        return []
+        
     all_tweets_formatted = []
-    base_url = "https://raw.githubusercontent.com/tuber0613/x-kit/main/tweets/"
+    base_url = XKIT_TWITTER_FEED_URL
     today = datetime.now()
 
     logger.info(f"Starting to fetch Twitter Feed for the last {days_to_fetch} days...")

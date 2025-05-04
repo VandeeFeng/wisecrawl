@@ -8,6 +8,10 @@ CONTENT_MODEL_API_KEY = os.getenv('CONTENT_MODEL_API_KEY', None)
 
 WEBHOOK_URL = os.getenv('WEBHOOK_URL', None)
 
+# --- Add Twitter Feed Configuration ---
+XKIT_TWITTER_FEED = os.getenv('XKIT_TWITTER_FEED', 'true').lower() == 'true'
+XKIT_TWITTER_FEED_URL = os.getenv('XKIT_TWITTER_FEED_URL', 'https://raw.githubusercontent.com/tuber0613/x-kit/main/tweets/')
+# --- End Twitter Feed Configuration ---
 
 BASE_URL_DEFAULT = "https://api-hot.imsyy.top/"
 raw_base_url = os.getenv('BASE_URL', BASE_URL_DEFAULT)

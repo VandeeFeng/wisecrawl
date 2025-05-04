@@ -113,7 +113,7 @@ def check_base_url(base_url):
     """
     import requests
     try:
-        response = requests.get(f"{base_url}/qq-news?limit=5", timeout=10)
+        response = requests.get(f"{base_url}/sspai?limit=5", timeout=10)
         response.raise_for_status()
         data = response.json()
         if data.get("code") == 200:
