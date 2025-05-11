@@ -5,22 +5,8 @@
     <link>https://wisecrawl.vercel.app</link>
     <description>Latest news aggregated by WiseCrawl</description>
     <language>en-us</language>
-    <lastBuildDate>Sat, 10 May 2025 15:25:22 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 11 May 2025 16:14:50 +0800</lastBuildDate>
     <atom:link href="https://wisecrawl.vercel.app/rss.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Cursor pro免费用了，谁还花钱啊？学生证？不需要！</title>
-      <link>https://juejin.cn/post/7501582225172545571</link>
-      <description>Cursor pro免费开放给学生使用一年，用户通过配置浏览器插件和使用AI工具完成学生认证，无需付费即可获得服务。</description>
-      <pubDate>Thu, 08 May 2025 04:28:42 +0800</pubDate>
-      <guid isPermaLink="true">https://juejin.cn/post/7501582225172545571</guid>
-    </item>
-    <item>
-      <title>谷歌突发大招刷爆 AI 编程榜！网友：不用买 Cursor 了</title>
-      <link>https://juejin.cn/post/7501582551673798671</link>
-      <description>谷歌推出Gemini 2.5 Pro Preview版本，其编码能力在多个排行榜上超越 Claude，位列第一。该模型可通过简单提示完成复杂任务，如绘图变音频、前端开发等，引发网友热议。</description>
-      <pubDate>Wed, 07 May 2025 17:00:23 +0800</pubDate>
-      <guid isPermaLink="true">https://juejin.cn/post/7501582551673798671</guid>
-    </item>
     <item>
       <title>熬夜写了个开源项目，同事看了直呼救命</title>
       <link>https://juejin.cn/post/7501963430635978791</link>
@@ -29,46 +15,11 @@
       <guid isPermaLink="true">https://juejin.cn/post/7501963430635978791</guid>
     </item>
     <item>
-      <title>工作两年，最后从css转向tailwind了！</title>
-      <link>https://juejin.cn/post/7501147702667952168</link>
-      <description>一名程序员分享了自己从使用CSS转向Tailwind CSS的经历，讨论了Tailwind的使用方法、优势以及在团队协作中的应用。</description>
-      <pubDate>Tue, 06 May 2025 16:55:38 +0800</pubDate>
-      <guid isPermaLink="true">https://juejin.cn/post/7501147702667952168</guid>
-    </item>
-    <item>
-      <title>xx.d.ts文件有什么用，为什么不引入都能生效？</title>
-      <link>https://juejin.cn/post/7500654211785392179</link>
-      <description>本文介绍了.d.ts文件在TypeScript项目中的作用，包括为第三方库补充类型、声明非代码资源模块、定义全局变量和类型等，并解释了为什么.d.ts文件不引入也能生效。</description>
-      <pubDate>Tue, 06 May 2025 10:20:03 +0800</pubDate>
-      <guid isPermaLink="true">https://juejin.cn/post/7500654211785392179</guid>
-    </item>
-    <item>
-      <title>Android 16 的 Appfunctions API ，应用级 MCP 支持为 AI 场景打通最后一层壁垒</title>
-      <link>https://juejin.cn/post/7500025453127663652</link>
-      <description>Android 16 引入了 Appfunctions API，允许应用向系统暴露功能，便于 AI 应用如 Gemini 与设备上其他应用无缝交互，提升 AI 场景的实用性。</description>
-      <pubDate>Tue, 06 May 2025 06:30:29 +0800</pubDate>
-      <guid isPermaLink="true">https://juejin.cn/post/7500025453127663652</guid>
-    </item>
-    <item>
-      <title>突发！曝阿里通义薄列峰离职，此前为应用视觉团队负责人</title>
-      <link>https://juejin.cn/post/7500899740441575439</link>
-      <description>阿里通义实验室应用视觉团队负责人薄列峰离职，加入某美国互联网大厂担任多模态模型部副总经理。他曾负责通义App的视觉功能，并在亚马逊和京东担任过AI相关职位。</description>
-      <pubDate>Tue, 06 May 2025 16:17:33 +0800</pubDate>
-      <guid isPermaLink="true">https://juejin.cn/post/7500899740441575439</guid>
-    </item>
-    <item>
-      <title>weapp-vite - 微信小程序工具链的另一种选择</title>
-      <link>https://juejin.cn/post/7500521400910807076</link>
-      <description>weapp-vite 是一个基于 Vite 的现代化微信小程序开发工具链，旨在提升小程序开发体验。自2024年8月发布以来，已迭代至4.0版本，优化了编译核心，支持TypeScript、SCSS等，并提供轻量级原生开发和增强功能。</description>
-      <pubDate>Tue, 06 May 2025 09:59:27 +0800</pubDate>
-      <guid isPermaLink="true">https://juejin.cn/post/7500521400910807076</guid>
-    </item>
-    <item>
-      <title>Flutter 合并 &#x27;dot-shorthands&#x27; 语法糖，Dart 开始支持交叉编译</title>
-      <link>https://juejin.cn/post/7500234308432445451</link>
-      <description>Dart 3.9 合并了 &#x27;dot-shorthands&#x27; 语法糖，简化了静态成员访问方式，并在 Flutter 中支持通过 .zero、.center 等简写语法。同时，Flutter 开始支持从 Windows 和 macOS 交叉编译为 Linux 二进制文件。</description>
-      <pubDate>Tue, 06 May 2025 11:55:18 +0800</pubDate>
-      <guid isPermaLink="true">https://juejin.cn/post/7500234308432445451</guid>
+      <title>⚡⚡Visual Studio Code 史诗级大更新 🚀🚀</title>
+      <link>https://juejin.cn/post/7502278666212130853</link>
+      <description>Visual Studio Code 1.100 版本发布，新增 AI 功能增强、多窗口支持改进、性能优化、ECMAScript 模块支持等更新，提升开发者效率和体验。</description>
+      <pubDate>Sat, 10 May 2025 09:39:50 +0800</pubDate>
+      <guid isPermaLink="true">https://juejin.cn/post/7502278666212130853</guid>
     </item>
     <item>
       <title>更崩溃！！感觉被偷家了！Element-plus组件测试的后续~</title>
@@ -78,772 +29,785 @@
       <guid isPermaLink="true">https://juejin.cn/post/7501539105001160742</guid>
     </item>
     <item>
-      <title>《2024中国网络文学发展研究报告》发布，网络文学行业规模逼近3500亿</title>
-      <link>https://www.ifanr.com/1623435</link>
-      <description>《2024中国网络文学发展研究报告》显示，中国网络文学行业规模持续扩大，IP开发和全球化进程加快，AI翻译助力网文出海，网络文学成为文化创新的重要力量。</description>
-      <pubDate>Fri, 09 May 2025 21:42:24 +0800</pubDate>
-      <guid isPermaLink="true">https://www.ifanr.com/1623435</guid>
+      <title>Node.js v24发布，你还未体验的新功能</title>
+      <link>https://juejin.cn/post/7501945440863600640</link>
+      <description>Node.js v24发布，新增文件监听、多文件测试、环境变量原生支持、彩色控制台及内置WebSocket等功能，提升开发者体验。</description>
+      <pubDate>Thu, 08 May 2025 22:56:57 +0800</pubDate>
+      <guid isPermaLink="true">https://juejin.cn/post/7501945440863600640</guid>
     </item>
     <item>
-      <title>阿维塔 12 纯电版风洞测试完成</title>
-      <link>https://weibo.com/1642720480/5164489197226127</link>
+      <title>Google 开始正式强制 Android 适配 16 K Page Size，你准备好了吗？</title>
+      <link>https://juejin.cn/post/7502246437372182569</link>
+      <description>Google宣布自2025年11月1日起，所有提交到Google Play且面向Android 15+设备的新应用和更新必须支持16KB页面大小，开发者需适配动态链接库和相关框架版本。</description>
+      <pubDate>Fri, 09 May 2025 15:30:52 +0800</pubDate>
+      <guid isPermaLink="true">https://juejin.cn/post/7502246437372182569</guid>
+    </item>
+    <item>
+      <title>React Native 前瞻式重大更新 Skia &amp; WebGPU &amp; ThreeJS，未来可期</title>
+      <link>https://juejin.cn/post/7501989765085298700</link>
+      <description>React Native 推出重大更新，引入 WebGPU 和 Skia，提升跨平台图形渲染能力，支持高性能动画和 3D 图形，与 Web 技术对齐。</description>
+      <pubDate>Fri, 09 May 2025 11:15:24 +0800</pubDate>
+      <guid isPermaLink="true">https://juejin.cn/post/7501989765085298700</guid>
+    </item>
+    <item>
+      <title>从热衷到放弃：我的 Cursor 续费终止之路</title>
+      <link>https://juejin.cn/post/7501966297334497290</link>
+      <description>用户分享了自己使用Cursor的经历，从最初的热情到后来因功能限制和续费问题决定终止续费。文章详细描述了Cursor的使用体验、功能优缺点以及在实际工作中的应用情况。</description>
+      <pubDate>Fri, 09 May 2025 13:31:14 +0800</pubDate>
+      <guid isPermaLink="true">https://juejin.cn/post/7501966297334497290</guid>
+    </item>
+    <item>
+      <title>为什么我会执着于使用 NextJs 开发项目 🫠🫠🫠</title>
+      <link>https://juejin.cn/post/7501657041606492200</link>
+      <description>文章作者分享了使用Next.js开发项目的经验，强调其在SEO优化、路由管理和项目架构方面的优势，适合用于构建博客、官网、电商等网站。</description>
+      <pubDate>Thu, 08 May 2025 14:08:59 +0800</pubDate>
+      <guid isPermaLink="true">https://juejin.cn/post/7501657041606492200</guid>
+    </item>
+    <item>
+      <title>实习生不知道package-lock.json，被辞退了</title>
+      <link>https://juejin.cn/post/7501969167194144806</link>
+      <description>一名实习生因不了解package-lock.json文件被辞退，该文件用于锁定依赖版本，确保团队开发环境一致。文章解释了其作用、生成方式及如何解除版本锁定。</description>
+      <pubDate>Fri, 09 May 2025 10:41:53 +0800</pubDate>
+      <guid isPermaLink="true">https://juejin.cn/post/7501969167194144806</guid>
+    </item>
+    <item>
+      <title>零基础小白利用Trae也能三下五除二把网页背景&quot;绿&quot;了？！😯</title>
+      <link>https://juejin.cn/post/7502396721218617370</link>
+      <description>本文介绍了如何利用AI工具Trae开发一个Chrome插件，实现一键将网页背景变为绿色的功能，适合零基础学习者入门Chrome插件开发与AI结合的应用。</description>
+      <pubDate>Sat, 10 May 2025 22:04:56 +0800</pubDate>
+      <guid isPermaLink="true">https://juejin.cn/post/7502396721218617370</guid>
+    </item>
+    <item>
+      <title>工信部征集汽车门把手标准意见</title>
+      <link>https://weibo.com/1642720480/5164890865540330</link>
       <description>[摘要无法生成：无内容或来源信息不足]</description>
-      <pubDate>Fri, 09 May 2025 20:29:51 +0800</pubDate>
-      <guid isPermaLink="true">https://weibo.com/1642720480/5164489197226127</guid>
+      <pubDate>Sun, 11 May 2025 06:20:15 +0800</pubDate>
+      <guid isPermaLink="true">https://weibo.com/1642720480/5164890865540330</guid>
     </item>
     <item>
-      <title>AI 超级框升级深度搜索功能</title>
-      <link>https://weibo.com/1642720480/5164439150008635</link>
+      <title>小米与纽北赛道达成合作</title>
+      <link>https://weibo.com/1642720480/5164901333206755</link>
       <description>[摘要无法生成：无内容或来源信息不足]</description>
-      <pubDate>Fri, 09 May 2025 17:08:46 +0800</pubDate>
-      <guid isPermaLink="true">https://weibo.com/1642720480/5164439150008635</guid>
+      <pubDate>Sun, 11 May 2025 06:10:11 +0800</pubDate>
+      <guid isPermaLink="true">https://weibo.com/1642720480/5164901333206755</guid>
     </item>
     <item>
-      <title>联想发布两大智能体创新交付模式，推动千行万业开启智能体时代</title>
-      <link>https://www.ifanr.com/1623341</link>
-      <description>联想在2025创新科技大会上发布了两大智能体创新交付模式——超级工厂和智能体即服务（AaaS），推动企业智能体规模化落地，加速AI技术在各行业的应用。</description>
-      <pubDate>Fri, 09 May 2025 15:42:23 +0800</pubDate>
-      <guid isPermaLink="true">https://www.ifanr.com/1623341</guid>
+      <title>许个愿，号召全站抵制 imgur</title>
+      <link>https://www.v2ex.com/t/1130961</link>
+      <description>用户在讨论 imgur 图床在中国无法正常使用的问题，部分用户尝试更换机场、使用自建服务器或编写脚本解决图片上传和显示问题。</description>
+      <pubDate>Sun, 11 May 2025 12:11:12 +0800</pubDate>
+      <guid isPermaLink="true">https://www.v2ex.com/t/1130961</guid>
     </item>
     <item>
-      <title>大模型面临新的攻击风险</title>
-      <link>https://weibo.com/1642720480/5164361593127486</link>
+      <title>轮到我要给幼儿园小朋友上课了，愁死了，大家有什么建议吗</title>
+      <link>https://www.v2ex.com/t/1130936</link>
+      <description>一位家长需要为幼儿园小朋友准备一个20分钟的课程，但苦于没有合适的主题，向网友求助。网友建议包括物理实验、手工制作、AI科普、神话故事等，内容多样。</description>
+      <pubDate>Sun, 11 May 2025 09:25:40 +0800</pubDate>
+      <guid isPermaLink="true">https://www.v2ex.com/t/1130936</guid>
+    </item>
+    <item>
+      <title>Gemini 2.5 Pro 代码水平已经能与腾讯 T7 相媲美了</title>
+      <link>https://www.v2ex.com/t/1130938</link>
+      <description>用户讨论Gemini 2.5 Pro在代码编写方面的能力，认为其水平已接近甚至超过腾讯T7，但同时也指出AI在实际工作场景中仍存在局限，如对冷门领域、复杂需求的支持不足。</description>
+      <pubDate>Sun, 11 May 2025 09:42:52 +0800</pubDate>
+      <guid isPermaLink="true">https://www.v2ex.com/t/1130938</guid>
+    </item>
+    <item>
+      <title>很久没回国了，现在国内建设怎么样？</title>
+      <link>https://www.v2ex.com/t/1130924</link>
+      <description>多位网友讨论回国发展的问题，涉及就业机会、收入水平、生活成本、国内建设情况等，部分人提到互联网、嵌入式等行业，但整体讨论偏向于生活和工作选择。</description>
+      <pubDate>Sun, 11 May 2025 06:57:06 +0800</pubDate>
+      <guid isPermaLink="true">https://www.v2ex.com/t/1130924</guid>
+    </item>
+    <item>
+      <title>关于我在消费主义陷阱下购买的 Mac mini</title>
+      <link>https://www.v2ex.com/t/1130916</link>
+      <description>一名成都前端开发人员在消费主义影响下购买了高配Mac mini，尽管其工作并不急需，但仍因各种理由下单，引发网友讨论是否属于非必要消费。</description>
+      <pubDate>Sun, 11 May 2025 00:34:47 +0800</pubDate>
+      <guid isPermaLink="true">https://www.v2ex.com/t/1130916</guid>
+    </item>
+    <item>
+      <title>iPhone 16 Pro 已开始 618 活动，国补后仅需 5499 元</title>
+      <link>https://www.v2ex.com/t/1130942</link>
+      <description>iPhone 16 Pro 已开始 618 活动，国补后价格为 5499 元，用户讨论购买情况、价格变动、扩容需求及付款问题。</description>
+      <pubDate>Sun, 11 May 2025 09:52:48 +0800</pubDate>
+      <guid isPermaLink="true">https://www.v2ex.com/t/1130942</guid>
+    </item>
+    <item>
+      <title>harry0703/MoneyPrinterTurbo</title>
+      <link>https://github.com/harry0703/MoneyPrinterTurbo</link>
+      <description>该项目利用AI大模型一键生成高清短视频，使用Python语言开发，拥有大量星标和分支。</description>
+      <pubDate>Sun, 11 May 2025 15:59:26 +0800</pubDate>
+      <guid isPermaLink="true">https://github.com/harry0703/MoneyPrinterTurbo</guid>
+    </item>
+    <item>
+      <title>Blaizzy/mlx-audio</title>
+      <link>https://github.com/Blaizzy/mlx-audio</link>
+      <description>Blaizzy/mlx-audio 是一个基于 Apple MLX 框架的语音处理库，支持文本转语音、语音转文本和语音转语音功能，适用于 Apple Silicon 设备。该库使用 Python 编写，拥有 1537 个星标和 105 个分支。</description>
+      <pubDate>Sun, 11 May 2025 15:59:26 +0800</pubDate>
+      <guid isPermaLink="true">https://github.com/Blaizzy/mlx-audio</guid>
+    </item>
+    <item>
+      <title>voideditor/void</title>
+      <link>https://github.com/voideditor/void</link>
+      <description>新闻内容展示了一个名为voideditor/void的项目，使用TypeScript语言开发，拥有16616个星标和965个分支。</description>
+      <pubDate>Sun, 11 May 2025 15:59:26 +0800</pubDate>
+      <guid isPermaLink="true">https://github.com/voideditor/void</guid>
+    </item>
+    <item>
+      <title>zed-industries/zed</title>
+      <link>https://github.com/zed-industries/zed</link>
+      <description>Zed是一款由Atom和Tree-sitter的开发者创建的高性能多人代码编辑器，使用Rust语言开发，目前在GitHub上获得59098颗星标和4144个分支。</description>
+      <pubDate>Sun, 11 May 2025 15:59:26 +0800</pubDate>
+      <guid isPermaLink="true">https://github.com/zed-industries/zed</guid>
+    </item>
+    <item>
+      <title>Peterande/D-FINE</title>
+      <link>https://github.com/Peterande/D-FINE</link>
+      <description>D-FINE是一个在ICLR 2025上获得关注的项目，旨在通过细粒度分布优化重新定义DETRs的回归任务。该项目使用Python编写，拥有2172个星标和179个分支。</description>
+      <pubDate>Sun, 11 May 2025 15:59:26 +0800</pubDate>
+      <guid isPermaLink="true">https://github.com/Peterande/D-FINE</guid>
+    </item>
+    <item>
+      <title>shane-mason/FieldStation42</title>
+      <link>https://github.com/shane-mason/FieldStation42</link>
+      <description>新闻内容涉及一个名为FieldStation42的项目，该项目是一个广播电视模拟器，使用Python语言开发，拥有512个星标和21个分支。</description>
+      <pubDate>Sun, 11 May 2025 15:59:26 +0800</pubDate>
+      <guid isPermaLink="true">https://github.com/shane-mason/FieldStation42</guid>
+    </item>
+    <item>
+      <title>wolfpld/tracy</title>
+      <link>https://github.com/wolfpld/tracy</link>
+      <description>wolfpld/tracy 是一个使用 C++ 编写的帧分析工具，拥有 11562 个星标和 786 个分支。</description>
+      <pubDate>Sun, 11 May 2025 15:59:26 +0800</pubDate>
+      <guid isPermaLink="true">https://github.com/wolfpld/tracy</guid>
+    </item>
+    <item>
+      <title>Lightricks/LTX-Video</title>
+      <link>https://github.com/Lightricks/LTX-Video</link>
+      <description>LTX-Video 是一个使用 Python 编写的项目，目前在 GitHub 上获得了 4688 个星标和 376 个分支。该项目的官方仓库提供了相关代码和资源。</description>
+      <pubDate>Sun, 11 May 2025 15:59:26 +0800</pubDate>
+      <guid isPermaLink="true">https://github.com/Lightricks/LTX-Video</guid>
+    </item>
+    <item>
+      <title>punkpeye/awesome-mcp-servers</title>
+      <link>https://github.com/punkpeye/awesome-mcp-servers</link>
+      <description>该新闻介绍了一个名为 &#x27;awesome-mcp-servers&#x27; 的 GitHub 项目，该项目收集了多个 MCP 服务器，目前拥有 47617 个星标和 3508 个分支。</description>
+      <pubDate>Sun, 11 May 2025 15:59:26 +0800</pubDate>
+      <guid isPermaLink="true">https://github.com/punkpeye/awesome-mcp-servers</guid>
+    </item>
+    <item>
+      <title>longbridge/gpui-component</title>
+      <link>https://github.com/longbridge/gpui-component</link>
+      <description>该新闻介绍了一个名为gpui-component的UI组件库，用于使用GPUI构建桌面应用程序，使用Rust语言开发，拥有2187个星标和103个分支。</description>
+      <pubDate>Sun, 11 May 2025 15:59:26 +0800</pubDate>
+      <guid isPermaLink="true">https://github.com/longbridge/gpui-component</guid>
+    </item>
+    <item>
+      <title>panaversity/learn-agentic-ai</title>
+      <link>https://github.com/panaversity/learn-agentic-ai</link>
+      <description>该新闻介绍了一个学习Agentic AI的项目，使用Dapr Agentic Cloud Ascent设计模式和相关技术，如OpenAI Agents SDK、Kubernetes等，并提供了Jupyter Notebook学习资源。</description>
+      <pubDate>Sun, 11 May 2025 15:59:26 +0800</pubDate>
+      <guid isPermaLink="true">https://github.com/panaversity/learn-agentic-ai</guid>
+    </item>
+    <item>
+      <title>雷军隔月首发声：创立小米以来最难的日子；Altman向马斯克服软「AGI比恩怨重要」；酷玩等明星抗议AI滥用</title>
+      <link>http://www.geekpark.net/news/349136</link>
+      <description>雷军称小米创办以来最难，SpaceX将进行星际飞船第九次测试发射，Altman与马斯克就AGI发展示好，酷玩等明星抗议AI滥用。</description>
+      <pubDate>Sun, 11 May 2025 00:03:07 +0800</pubDate>
+      <guid isPermaLink="true">http://www.geekpark.net/news/349136</guid>
+    </item>
+    <item>
+      <title>所有还没有chatgpt的，卡在sheerid学生认证的过来</title>
+      <link>https://linux.do/t/topic/641374</link>
+      <description>该新闻内容涉及关于绕过Sheerid学生认证以获取ChatGPT的教程，作者表示将分享两个必过方法，并邀请关注以获取更多信息。</description>
+      <pubDate>Sat, 10 May 2025 17:29:11 +0800</pubDate>
+      <guid isPermaLink="true">https://linux.do/t/topic/641374</guid>
+    </item>
+    <item>
+      <title>LobeChat v1.85.6 桌面端 Windows 版 Beta 公测开启！</title>
+      <link>https://linux.do/t/topic/641747</link>
+      <description>LobeChat v1.85.6 桌面端 Windows 版 Beta 公测开启，支持多AI提供商和知识库功能，用户可参与体验和反馈问题。</description>
+      <pubDate>Sun, 11 May 2025 03:32:18 +0800</pubDate>
+      <guid isPermaLink="true">https://linux.do/t/topic/641747</guid>
+    </item>
+    <item>
+      <title>[算了，随缘吧]claw cloud，你玩我呢</title>
+      <link>https://linux.do/t/topic/641357</link>
+      <description>用户在使用claw cloud服务时遇到自定义域名pending的问题，而自带域名则正常，用户对此表示不满。</description>
+      <pubDate>Sat, 10 May 2025 17:08:36 +0800</pubDate>
+      <guid isPermaLink="true">https://linux.do/t/topic/641357</guid>
+    </item>
+    <item>
+      <title>Lucky+Cloudflare达到家宽ipv6建站ipv4+ipv6双栈访问</title>
+      <link>https://linux.do/t/topic/641319</link>
+      <description>新闻介绍了如何使用Lucky和Cloudflare实现家庭宽带IPv6建站，并支持IPv4+IPv6双栈访问，包括准备工作、IPv6测试、端口测试等步骤。</description>
+      <pubDate>Sat, 10 May 2025 16:29:35 +0800</pubDate>
+      <guid isPermaLink="true">https://linux.do/t/topic/641319</guid>
+    </item>
+    <item>
+      <title>我与Linux Do的贰叁事</title>
+      <link>https://linux.do/t/topic/641842</link>
+      <description>文章讲述了作者如何通过朋友的推荐发现Linux do社区，并在其中学习了关于互联网、编程、GitHub、VPS、AI等知识，逐渐对科技领域产生兴趣的过程。</description>
+      <pubDate>Sun, 11 May 2025 04:48:19 +0800</pubDate>
+      <guid isPermaLink="true">https://linux.do/t/topic/641842</guid>
+    </item>
+    <item>
+      <title>ios国民app下架了？</title>
+      <link>https://linux.do/t/topic/641584</link>
+      <description>新闻标题提到iOS国民app下架，但新闻内容主要包含图片链接和论坛帖子信息，未提供具体下架原因或相关背景。</description>
+      <pubDate>Sun, 11 May 2025 01:41:39 +0800</pubDate>
+      <guid isPermaLink="true">https://linux.do/t/topic/641584</guid>
+    </item>
+    <item>
+      <title>依某人的想法写了个小玩意</title>
+      <link>https://linux.do/t/topic/641335</link>
+      <description>新闻内容介绍了一个由个人开发的结婚证生成工具，用户可自定义设计并生成结婚证，项目托管在GitHub上。</description>
+      <pubDate>Sat, 10 May 2025 16:45:40 +0800</pubDate>
+      <guid isPermaLink="true">https://linux.do/t/topic/641335</guid>
+    </item>
+    <item>
+      <title>鸿蒙电脑-和我预测的一模一样。</title>
+      <link>https://linux.do/t/topic/641637</link>
+      <description>华为回应称Windows电脑无法兼容鸿蒙系统，用户若想体验鸿蒙电脑需购买新设备。</description>
+      <pubDate>Sun, 11 May 2025 02:26:55 +0800</pubDate>
+      <guid isPermaLink="true">https://linux.do/t/topic/641637</guid>
+    </item>
+    <item>
+      <title>自研的 Chrome 订阅扩展 WebFeed 已经在 Chrome web store 收获 800 多用户了</title>
+      <link>https://linux.do/t/topic/641529</link>
+      <description>自研的Chrome扩展WebFeed已在Chrome Web Store获得800多名用户，该扩展专注于隐私保护，可自动发现并订阅RSS/ATOM链接，代码开源且无需服务器支持。</description>
+      <pubDate>Sun, 11 May 2025 00:47:43 +0800</pubDate>
+      <guid isPermaLink="true">https://linux.do/t/topic/641529</guid>
+    </item>
+    <item>
+      <title>我为什么做公益？当然是找点乐子</title>
+      <link>https://linux.do/t/topic/641568</link>
+      <description>新闻内容讲述一个人通过做公益来寻找乐趣，并提到投资和一些AI模型名称，如Claude 3.7 Sonnet等。</description>
+      <pubDate>Sun, 11 May 2025 01:19:23 +0800</pubDate>
+      <guid isPermaLink="true">https://linux.do/t/topic/641568</guid>
+    </item>
+    <item>
+      <title>AI 生成生日卡、母亲节卡片 提示词1： 制作一张漂亮的【母亲节】贺卡，卡片上写着： 【“母亲节快乐，亲爱的妈妈”】 并在这行字的下面写上一些温馨甜美的祝福语...</title>
+      <link>https://x.com/dotey/status/1921406473965338697</link>
+      <description>新闻介绍了使用AI生成生日卡和母亲节卡片的方法，提供了多个提示词用于生成不同风格的贺卡内容。</description>
+      <pubDate>Sun, 11 May 2025 03:26:16 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/dotey/status/1921406473965338697</guid>
+    </item>
+    <item>
+      <title>赞，让 notebookLM 时间超过10分钟的方法</title>
+      <link>https://x.com/dotey/status/1921348118433485095</link>
+      <description>新闻内容提到Jesse Lau在notebookLM中通过添加特定指令，使生成的音频时间超过10分钟，但需要抽卡。</description>
+      <pubDate>Sat, 10 May 2025 23:34:23 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/dotey/status/1921348118433485095</guid>
+    </item>
+    <item>
+      <title>RT Berryxia.AI: Re @dotey 推荐可以学习openai 学院推出的K12 教育专题内容 是一个学习系列：https://academy.openai.com/public/blogs/k-12-mastering-your-pr...</title>
+      <link>https://x.com/dotey/status/1921246164403318792</link>
+      <description>Berryxia.AI推荐学习OpenAI学院推出的K12教育专题内容，该系列旨在帮助学生掌握提示工程技能，链接为https://academy.openai.com/public/blogs/k-12-mastering-your-prompts。</description>
+      <pubDate>Sat, 10 May 2025 16:29:20 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/dotey/status/1921246164403318792</guid>
+    </item>
+    <item>
+      <title>来个AI数据库客户端——Chat2DB，可以直接使用自然语言操作数据库 比如你可以为，本月消费最多的客户是谁？这个客户端就能使用AI根据库表结构生成SQL并帮你查询...</title>
+      <link>https://x.com/karminski3/status/1921366979165745211</link>
+      <description>新闻介绍了一个名为Chat2DB的AI数据库客户端，用户可以通过自然语言操作数据库，例如查询本月消费最多的客户，AI会根据库表结构生成SQL语句并执行查询。</description>
+      <pubDate>Sun, 11 May 2025 00:49:19 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/karminski3/status/1921366979165745211</guid>
+    </item>
+    <item>
+      <title>来自 Google 的 提示词教程，教你如何提示词 教程写得非常清晰，如何明确输出要求，约束输出范围，如何使用变量写的都非常好 地址：http://www.kaggle.com/white...</title>
+      <link>https://x.com/karminski3/status/1921359804510994820</link>
+      <description>Google发布了一篇关于提示词使用的教程，内容详细介绍了如何明确输出要求、约束输出范围以及使用变量的方法，教程被评价为清晰易懂。</description>
+      <pubDate>Sun, 11 May 2025 00:20:49 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/karminski3/status/1921359804510994820</guid>
+    </item>
+    <item>
+      <title>来一个本地代码搜索引擎——SeaGOAT，可以针对本地代码库进行语义搜索 比如输入&quot;我们的程序是在哪里读取文件的&quot;，就可以搜索到文件 I/O 相关的代码片段 地址：ht...</title>
+      <link>https://x.com/karminski3/status/1921353150352478246</link>
+      <description>SeaGOAT是一个本地代码搜索引擎，支持对本地代码库进行语义搜索，例如通过自然语言查询找到文件I/O相关的代码片段。</description>
+      <pubDate>Sat, 10 May 2025 23:54:22 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/karminski3/status/1921353150352478246</guid>
+    </item>
+    <item>
+      <title>字节跳动发布了一个小的写代码大模型 Seed-Coder-8B 看分数写代码水平比Qwen3-8B 要好一些，Aider 分数他们自测在 57.1 分左右 模型地址：http://huggingface.co...</title>
+      <link>https://x.com/karminski3/status/1921339541786399106</link>
+      <description>字节跳动发布了一个名为Seed-Coder-8B的代码生成模型，其写代码能力在自测中表现优于Qwen3-8B，模型地址和相关技术资料已公开。</description>
+      <pubDate>Sat, 10 May 2025 23:00:18 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/karminski3/status/1921339541786399106</guid>
+    </item>
+    <item>
+      <title>鉴于我3499国补的 Mac mini M4 都能被背刺，这把我不跟了，坐等4999。</title>
+      <link>https://x.com/geekbb/status/1921430152396800120</link>
+      <description>用户因3499元的Mac mini M4被‘背刺’而决定不购买，等待4999元版本。</description>
+      <pubDate>Sun, 11 May 2025 05:00:21 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/geekbb/status/1921430152396800120</guid>
+    </item>
+    <item>
+      <title>轻量的 Cloud Note &amp; PasteBin 平替方案，一键保存文本、代码、图片、视频等任意内容，分享更便捷！ 内置 Monaco、Cherry Markdown 等专业编辑器；支持 PWA 离线...</title>
+      <link>https://x.com/geekbb/status/1921415977301910002</link>
+      <description>该新闻介绍了一个轻量级的Cloud Note和PasteBin替代方案，支持保存和分享文本、代码、图片、视频等内容，内置专业编辑器并支持PWA离线编辑等功能。</description>
+      <pubDate>Sun, 11 May 2025 04:04:01 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/geekbb/status/1921415977301910002</guid>
+    </item>
+    <item>
+      <title>Please offer galaxy brain questions and answers...</title>
+      <link>https://x.com/elonmusk/status/1921467596810915939</link>
+      <description>新闻请求提供关于‘galaxy brain’的问题和答案，用于Grok训练。</description>
+      <pubDate>Sun, 11 May 2025 15:29:08 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/elonmusk/status/1921467596810915939</guid>
+    </item>
+    <item>
+      <title>MCP is an amazing concept and tool use is going...</title>
+      <link>https://x.com/garrytan/status/1921466662739496972</link>
+      <description>MCP is described as a powerful concept and tool, but there are issues with Google Drive integration, preventing the retrieval of specific Google Docs content through native and Zapier methods.</description>
+      <pubDate>Sun, 11 May 2025 15:25:26 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/garrytan/status/1921466662739496972</guid>
+    </item>
+    <item>
+      <title>Who has the most consistently idiotic takes on X?</title>
+      <link>https://x.com/Austen/status/1921421361039237128</link>
       <description>[摘要无法生成：无内容或来源信息不足]</description>
-      <pubDate>Fri, 09 May 2025 12:07:14 +0800</pubDate>
-      <guid isPermaLink="true">https://weibo.com/1642720480/5164361593127486</guid>
+      <pubDate>Sun, 11 May 2025 12:25:25 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/Austen/status/1921421361039237128</guid>
     </item>
     <item>
-      <title>Space X 火箭公司成立新城市</title>
-      <link>https://weibo.com/1642720480/5164356208427979</link>
+      <title>Watching the AI-powered vacuum/mop from Matic d...</title>
+      <link>https://x.com/Austen/status/1921409214024413530</link>
+      <description>新闻内容描述了一款由Matic公司推出的AI驱动的扫地机器人，其能够智能避开障碍物，表现优于Roomba。</description>
+      <pubDate>Sun, 11 May 2025 11:37:09 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/Austen/status/1921409214024413530</guid>
+    </item>
+    <item>
+      <title>一款闲鱼智能值班机器人系统：XianyuAutoAgent，支持多agent协同、具备智能议价...</title>
+      <link>https://x.com/aigclink/status/1921407715609628898</link>
+      <description>闲鱼推出智能值班机器人系统XianyuAutoAgent，支持多agent协同、智能议价、上下文感知对话及自定义提示词，未来将加入市场比价功能。</description>
+      <pubDate>Sun, 11 May 2025 11:31:12 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/aigclink/status/1921407715609628898</guid>
+    </item>
+    <item>
+      <title>AI 生成生日卡、母亲节卡片
+提示词1：
+制作一张漂亮的【母亲节】贺卡，卡片上写着：
+【...</title>
+      <link>https://x.com/dotey/status/1921406473965338697</link>
+      <description>新闻介绍了使用AI生成生日卡和母亲节卡片的方法，提供具体提示词用于生成内容。</description>
+      <pubDate>Sun, 11 May 2025 11:26:16 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/dotey/status/1921406473965338697</guid>
+    </item>
+    <item>
+      <title>DeepSeek Punctured the Myth That Silicon Valley...</title>
+      <link>https://x.com/hardmaru/status/1921374572131254516</link>
+      <description>DeepSeek挑战了硅谷在AI领域的主导地位，中国开源AI运动在两年内缩小了与美国的差距，目标是加速创新并减少对西方的依赖。</description>
+      <pubDate>Sun, 11 May 2025 09:19:30 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/hardmaru/status/1921374572131254516</guid>
+    </item>
+    <item>
+      <title>tell apple keyboard we have ai now bye</title>
+      <link>https://x.com/bentossell/status/1921369402609373630</link>
       <description>[摘要无法生成：无内容或来源信息不足]</description>
-      <pubDate>Fri, 09 May 2025 11:47:07 +0800</pubDate>
-      <guid isPermaLink="true">https://weibo.com/1642720480/5164356208427979</guid>
+      <pubDate>Sun, 11 May 2025 08:58:57 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/bentossell/status/1921369402609373630</guid>
     </item>
     <item>
-      <title>比尔·盖茨未来20年将捐出财富</title>
-      <link>https://weibo.com/1642720480/5164336935338813</link>
+      <title>We&#x27;re missing (at least one) major paradigm for...</title>
+      <link>https://x.com/karpathy/status/1921368644069765486</link>
+      <description>文章讨论了当前大型语言模型（LLM）学习中可能缺失的一个重要范式，提出了系统提示学习（system prompt learning）作为可能的解决方案。预训练用于知识获取，微调用于习惯性行为，但两者都涉及参数变化和大量人力投入。</description>
+      <pubDate>Sun, 11 May 2025 08:55:56 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/karpathy/status/1921368644069765486</guid>
+    </item>
+    <item>
+      <title>Folks watching Oregon&#x27;s law enforcement drone b...</title>
+      <link>https://x.com/KateKayeReports/status/1921366333268140183</link>
+      <description>新闻内容涉及俄勒冈州警方无人机法案SB238的监督情况，以及对波特兰警方无人机使用和监控技术政策的调查报道。</description>
+      <pubDate>Sun, 11 May 2025 08:46:45 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/KateKayeReports/status/1921366333268140183</guid>
+    </item>
+    <item>
+      <title>Learn more and get started</title>
+      <link>https://x.com/Momof3bskibrc/status/1921350147667116416</link>
       <description>[摘要无法生成：无内容或来源信息不足]</description>
-      <pubDate>Fri, 09 May 2025 10:36:42 +0800</pubDate>
-      <guid isPermaLink="true">https://weibo.com/1642720480/5164336935338813</guid>
+      <pubDate>Sun, 11 May 2025 07:42:26 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/Momof3bskibrc/status/1921350147667116416</guid>
     </item>
     <item>
-      <title>苹果副总裁谈iPhone未来</title>
-      <link>https://weibo.com/1642720480/5164337648373064</link>
+      <title>The Pope gets it.
+The most important question ...</title>
+      <link>https://x.com/GaryMarcus/status/1921348686220775923</link>
+      <description>新闻讨论了人工智能时代最重要的问题不是技术问题，而是如何在AI时代维持和促进一个公正的社会。</description>
+      <pubDate>Sun, 11 May 2025 07:36:38 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/GaryMarcus/status/1921348686220775923</guid>
+    </item>
+    <item>
+      <title>One thing I do to keep my mental model of LLM a...</title>
+      <link>https://x.com/fchollet/status/1921338462570979348</link>
+      <description>作者通过定期向大型语言模型（LLM）助手提出自己知道答案的困难问题，以保持对LLM的正确理解。</description>
+      <pubDate>Sun, 11 May 2025 06:56:00 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/fchollet/status/1921338462570979348</guid>
+    </item>
+    <item>
+      <title>Every AI dev should know how to implement these...</title>
+      <link>https://x.com/omarsar0/status/1921332642017873944</link>
+      <description>新闻内容强调AI开发人员应了解如何实现特定类型的智能系统，并提到结合这些想法可以创造新用例。作者还推广了一门4.5小时的课程，包含代码示例。</description>
+      <pubDate>Sun, 11 May 2025 06:32:53 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/omarsar0/status/1921332642017873944</guid>
+    </item>
+    <item>
+      <title>AI/BI, Databricks SQL, MLflow, LLMs – deep dive...</title>
+      <link>https://x.com/databricks/status/1921324430682202173</link>
+      <description>新闻介绍了Databricks在AI/BI、SQL、MLflow和LLMs等领域的培训和认证机会，鼓励注册参加Data AI Summit。</description>
+      <pubDate>Sun, 11 May 2025 06:00:15 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/databricks/status/1921324430682202173</guid>
+    </item>
+    <item>
+      <title>This would fix it. https://t.co/MekREe5ZnS</title>
+      <link>https://x.com/tunguz/status/1921324415079350629</link>
       <description>[摘要无法生成：无内容或来源信息不足]</description>
-      <pubDate>Fri, 09 May 2025 10:26:37 +0800</pubDate>
-      <guid isPermaLink="true">https://weibo.com/1642720480/5164337648373064</guid>
+      <pubDate>Sun, 11 May 2025 06:00:11 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/tunguz/status/1921324415079350629</guid>
     </item>
     <item>
-      <title>发布业内首个“伙伴智能体” 联想携手合作伙伴共同激发AI创新生产力</title>
-      <link>https://www.ifanr.com/1623282</link>
-      <description>2025联想中国合作伙伴大会在上海举办，联想发布业内首个‘伙伴智能体’，并推出总额超10亿元的合作伙伴激励计划，推动AI创新生产力，开启大联想4.0升级。</description>
-      <pubDate>Fri, 09 May 2025 08:32:05 +0800</pubDate>
-      <guid isPermaLink="true">https://www.ifanr.com/1623282</guid>
+      <title>YC released an amicus brief re: US v Google yes...</title>
+      <link>https://x.com/garrytan/status/1921319298640892373</link>
+      <description>YC发布了一份关于美国诉谷歌案的法庭之友简报，表达了对谷歌作为美国科技和创新代表的支持，同时希望大型科技公司的过度行为能为未来的小型科技公司让路。</description>
+      <pubDate>Sun, 11 May 2025 05:39:51 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/garrytan/status/1921319298640892373</guid>
     </item>
     <item>
-      <title>失业半年了找不到工作天要塌了</title>
-      <link>https://www.v2ex.com/t/1130681</link>
-      <description>一名失业半年的系统运维人员在社交媒体上寻求工作建议，讨论包括转行、送外卖、学习新技术如Kubernetes和Docker等应对失业困境的方法。</description>
-      <pubDate>Fri, 09 May 2025 14:33:27 +0800</pubDate>
-      <guid isPermaLink="true">https://www.v2ex.com/t/1130681</guid>
-    </item>
-    <item>
-      <title>带娃玩马里奥赛车，我妈又骂我了</title>
-      <link>https://www.v2ex.com/t/1130683</link>
-      <description>一位父亲因带3岁儿子玩Switch的《马里奥赛车》而遭到母亲批评，认为玩游戏是堕落行为。他希望在现代育儿观念与传统观念之间找到平衡，并控制游戏时长以避免沉迷。</description>
-      <pubDate>Fri, 09 May 2025 14:38:22 +0800</pubDate>
-      <guid isPermaLink="true">https://www.v2ex.com/t/1130683</guid>
-    </item>
-    <item>
-      <title>SSL 证书再有几年 47 天了，大家有什么自动化方案嘛</title>
-      <link>https://www.v2ex.com/t/1130748</link>
-      <description>用户讨论SSL证书即将到期的自动化管理方案，涉及多种工具如acme.sh、lego、Caddy等，以及如何应对证书续期和同步到第三方平台的问题。</description>
-      <pubDate>Fri, 09 May 2025 18:23:18 +0800</pubDate>
-      <guid isPermaLink="true">https://www.v2ex.com/t/1130748</guid>
-    </item>
-    <item>
-      <title>想买扫地机器人，大家一般重视什么指标？</title>
-      <link>https://www.v2ex.com/t/1130678</link>
-      <description>用户讨论购买扫地机器人时应关注的指标，如吸力、避障能力、自动上下水功能、自清洁能力等，并分享了不同品牌和型号的使用体验。</description>
-      <pubDate>Fri, 09 May 2025 14:26:24 +0800</pubDate>
-      <guid isPermaLink="true">https://www.v2ex.com/t/1130678</guid>
-    </item>
-    <item>
-      <title>Linux 停止支持 486 和第一代奔腾处理器</title>
-      <link>https://www.solidot.org/story?sid=81251</link>
-      <description>Linux 6.15 版本将停止支持 486 和第一代奔腾处理器，开发者认为维护旧架构兼容性耗费大量精力，未来最低支持将为 P5 微架构的奔腾处理器。</description>
-      <pubDate>Fri, 09 May 2025 15:50:47 +0800</pubDate>
-      <guid isPermaLink="true">https://www.solidot.org/story?sid=81251</guid>
-    </item>
-    <item>
-      <title>中国汽车，开始「量产博世」</title>
-      <link>http://www.geekpark.net/news/349134</link>
-      <description>2025年上海车展上，零部件供应商如华为、宁德时代、地平线等成为焦点，展示了多项汽车科技产品和技术，如电池、自动驾驶系统等，显示出汽车行业向技术驱动的转变。</description>
-      <pubDate>Sat, 10 May 2025 00:34:00 +0800</pubDate>
-      <guid isPermaLink="true">http://www.geekpark.net/news/349134</guid>
-    </item>
-    <item>
-      <title>纽北专为小米设置「小米弯道」；马斯克 xAI 估值超 1200 亿美元；智元办机器人比赛奖金 50 万美元</title>
-      <link>http://www.geekpark.net/news/349130</link>
-      <description>xAI估值超1200亿美元，英伟达开源代码大模型，苹果将推出智能眼镜，小米与纽北赛道合作设置「小米弯道」，马云现身阿里音乐会。</description>
-      <pubDate>Sat, 10 May 2025 00:27:55 +0800</pubDate>
-      <guid isPermaLink="true">http://www.geekpark.net/news/349130</guid>
-    </item>
-    <item>
-      <title>想转到安卓手机了，求建议</title>
-      <link>https://www.v2ex.com/t/1130815</link>
-      <description>用户考虑转向安卓手机，关注信号、流畅度和游戏散热，对vivo x200 pro感兴趣，并询问安卓推送和后台应用管理问题。</description>
-      <pubDate>Sat, 10 May 2025 01:35:43 +0800</pubDate>
-      <guid isPermaLink="true">https://www.v2ex.com/t/1130815</guid>
-    </item>
-    <item>
-      <title>马上要结婚了，我想斥点巨资给佬友们送福利！！！</title>
-      <link>https://linux.do/t/topic/639489</link>
-      <description>一位即将结婚的用户在L站论坛上表示，希望为社区成员准备礼物，并征求大家的意见，同时表达了对论坛氛围和技术交流的赞赏。</description>
-      <pubDate>Fri, 09 May 2025 22:09:07 +0800</pubDate>
-      <guid isPermaLink="true">https://linux.do/t/topic/639489</guid>
-    </item>
-    <item>
-      <title>解决Google Gemini isn&#x27;t available in this country</title>
-      <link>https://linux.do/t/topic/639382</link>
-      <description>用户在使用Google Gemini时遇到地区限制问题，通过调整代理节点解决。Gemini的多个功能依赖特定的Google API域名，需使用支持的节点才能正常访问。</description>
-      <pubDate>Fri, 09 May 2025 16:59:53 +0800</pubDate>
-      <guid isPermaLink="true">https://linux.do/t/topic/639382</guid>
-    </item>
-    <item>
-      <title>求推荐交换机，初创公司的第一台服务器</title>
-      <link>https://linux.do/t/topic/639424</link>
-      <description>一名大二学生在创业基地搭建了服务器R730，但尚未购买交换机，寻求推荐和经验分享。</description>
-      <pubDate>Fri, 09 May 2025 17:49:08 +0800</pubDate>
-      <guid isPermaLink="true">https://linux.do/t/topic/639424</guid>
-    </item>
-    <item>
-      <title>随着多模态模型的发展，API调用时的数据传输怎么办，视频、音频、图片等大体积文件会造成严重的延迟和流量损耗，一次传输所有上下文不再适用了？</title>
-      <link>https://linux.do/t/topic/639414</link>
-      <description>新闻讨论了多模态模型在API调用时面临的数据传输问题，如重复传输、高延迟和高成本，特别是大体积文件如视频、音频和图片带来的挑战。</description>
-      <pubDate>Fri, 09 May 2025 17:42:03 +0800</pubDate>
-      <guid isPermaLink="true">https://linux.do/t/topic/639414</guid>
-    </item>
-    <item>
-      <title>Ailora EDU现已支持DBeaver Enterprise许可证</title>
-      <link>https://linux.do/t/topic/639437</link>
-      <description>Ailora EDU现已支持DBeaver Enterprise许可证，相关内容涉及Perplexity Enterprise Pro的两个方案选择。</description>
-      <pubDate>Fri, 09 May 2025 18:08:49 +0800</pubDate>
-      <guid isPermaLink="true">https://linux.do/t/topic/639437</guid>
-    </item>
-    <item>
-      <title>一些大厂设计系统整理</title>
-      <link>https://linux.do/t/topic/639584</link>
-      <description>新闻内容列举了多家大厂的设计系统及其相关信息，包括所属公司和官方网站链接。</description>
-      <pubDate>Sat, 10 May 2025 00:48:33 +0800</pubDate>
-      <guid isPermaLink="true">https://linux.do/t/topic/639584</guid>
-    </item>
-    <item>
-      <title>:fire:【原创长文】全网最全，中美AI相关社区汇总【长期更新】</title>
-      <link>https://linux.do/t/topic/639388</link>
-      <description>本文汇总了中美AI相关社区，包括Reddit、Discord、Discourse等平台，并列举了中文AI论坛和非专业社区，如LinuxDo、阿里魔搭社区、百度AI开发者社区等。</description>
-      <pubDate>Fri, 09 May 2025 17:04:57 +0800</pubDate>
-      <guid isPermaLink="true">https://linux.do/t/topic/639388</guid>
-    </item>
-    <item>
-      <title>clash verge 提权+命令执行+任意文件写入漏洞</title>
-      <link>https://linux.do/t/topic/639447</link>
-      <description>新闻报道了clash verge存在提权、命令执行和任意文件写入漏洞，一名网络安全人员尝试定位问题代码并实现EXP。漏洞涉及Web服务接口和数据结构体定义，可能影响软件安全性。</description>
-      <pubDate>Fri, 09 May 2025 18:36:17 +0800</pubDate>
-      <guid isPermaLink="true">https://linux.do/t/topic/639447</guid>
-    </item>
-    <item>
-      <title>ping0.cc加入人机验证了</title>
-      <link>https://linux.do/t/topic/639445</link>
-      <description>新闻标题提到ping0.cc加入了人机验证，新闻内容包含一张截图和一些关于防刷的讨论，但未提供更多具体信息。</description>
-      <pubDate>Fri, 09 May 2025 18:25:17 +0800</pubDate>
-      <guid isPermaLink="true">https://linux.do/t/topic/639445</guid>
-    </item>
-    <item>
-      <title>Replicate API 代理服务</title>
-      <link>https://linux.do/t/topic/639313</link>
-      <description>新闻标题为&#x27;Replicate API 代理服务&#x27;，内容提及官方已进行修补，但未明确具体细节，包含链接至相关讨论话题。</description>
-      <pubDate>Fri, 09 May 2025 16:19:35 +0800</pubDate>
-      <guid isPermaLink="true">https://linux.do/t/topic/639313</guid>
-    </item>
-    <item>
-      <title>问一个问题(关于羊毛)</title>
-      <link>https://linux.do/t/topic/639345</link>
-      <description>用户分享了一个软件，通过付费获取大量优惠券，包括Notion、You.com、Bolt等科技相关产品的免费或折扣服务，并询问是否存在问题。</description>
-      <pubDate>Fri, 09 May 2025 16:37:52 +0800</pubDate>
-      <guid isPermaLink="true">https://linux.do/t/topic/639345</guid>
-    </item>
-    <item>
-      <title>问：老师 我下学期要在国内的一所高职院校开设一门AI通识课(公共基础课)，但需要全程在机房上课...</title>
-      <link>https://x.com/dotey/status/1921096114356273171</link>
-      <description>一位老师计划在高职院校开设AI通识课，但面临理论与实操难以平衡的问题，希望获得教学建议。</description>
-      <pubDate>Sat, 10 May 2025 14:53:00 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/dotey/status/1921096114356273171</guid>
-    </item>
-    <item>
-      <title>It&#x27;s still going , great opportunity</title>
-      <link>https://x.com/pickardwisker12/status/1921083548234072366</link>
+      <title>Make sure you don’t miss out on the reward program</title>
+      <link>https://x.com/RowanAbnklf/status/1921319131904643494</link>
       <description>[摘要无法生成：无内容或来源信息不足]</description>
-      <pubDate>Sat, 10 May 2025 14:03:04 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/pickardwisker12/status/1921083548234072366</guid>
+      <pubDate>Sun, 11 May 2025 05:39:12 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/RowanAbnklf/status/1921319131904643494</guid>
     </item>
     <item>
-      <title>The boys pulled through https://t.co/QSyQdz1xXP</title>
-      <link>https://x.com/rebecca_szkutak/status/1921068211535061252</link>
+      <title>[ α‑AGI Business 👁️✨ ]
+Example Scenario:
+&quot;👗⚡...</title>
+      <link>https://x.com/ceobillionaire/status/1921315934687404169</link>
+      <description>AGI scouts trends, auto-prints patterns, books factories. Collection sold out in 36 h. Solo designer, global runway. GitHub link provided.</description>
+      <pubDate>Sun, 11 May 2025 05:26:29 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/ceobillionaire/status/1921315934687404169</guid>
+    </item>
+    <item>
+      <title>69,420 is the new 42,069.</title>
+      <link>https://x.com/tunguz/status/1921315444486476053</link>
       <description>[摘要无法生成：无内容或来源信息不足]</description>
-      <pubDate>Sat, 10 May 2025 13:02:08 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/rebecca_szkutak/status/1921068211535061252</guid>
+      <pubDate>Sun, 11 May 2025 05:24:32 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/tunguz/status/1921315444486476053</guid>
     </item>
     <item>
-      <title>For enterprises going AI-first, the best way to...</title>
-      <link>https://x.com/levie/status/1921060440248852911</link>
-      <description>新闻讨论了企业采用AI-first策略时，应将AI视为提升产出和加速进程的工具，而非仅仅用于降低成本。竞争对手若能更高效地利用AI，将获得优势。</description>
-      <pubDate>Sat, 10 May 2025 12:31:15 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/levie/status/1921060440248852911</guid>
+      <title>[ 👾👾👾🌌👾👾👾 &quot;Multi-Agent AI DAO&quot; 👾👾👾🌌👾👾👾 ]
+The &quot;...</title>
+      <link>https://x.com/ceobillionaire/status/1921314207666217368</link>
+      <description>新闻标题和内容均涉及&#x27;Multi-Agent AI DAO&#x27;，并提到了2017年的一项先驱性工作，强调AI代理的自主权。</description>
+      <pubDate>Sun, 11 May 2025 05:19:38 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/ceobillionaire/status/1921314207666217368</guid>
     </item>
     <item>
-      <title>🫡🫡🫡 https://t.co/OvurCCzGup</title>
-      <link>https://x.com/rebecca_szkutak/status/1921056067913482677</link>
+      <title>🔒 Local Chat RAG
+A fully local document Q&amp;...</title>
+      <link>https://x.com/LangChainAI/status/1921309268461949273</link>
+      <description>新闻介绍了一个名为Local Chat RAG的本地文档问答系统，强调隐私保护，使用LangChain的RAG流程和Ollama本地LLM处理文档并提供有来源的答案。</description>
+      <pubDate>Sun, 11 May 2025 05:00:00 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/LangChainAI/status/1921309268461949273</guid>
+    </item>
+    <item>
+      <title>Self-preferencing in big tech platforms is a ch...</title>
+      <link>https://x.com/garrytan/status/1921309198295462273</link>
+      <description>新闻讨论大型科技平台的自我偏好行为对初创企业造成的负面影响，呼吁实现平台中立以促进市场竞争和消费者选择。</description>
+      <pubDate>Sun, 11 May 2025 04:59:43 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/garrytan/status/1921309198295462273</guid>
+    </item>
+    <item>
+      <title>Checks out. https://t.co/Wsu7fmZP6H</title>
+      <link>https://x.com/tunguz/status/1921305506247032975</link>
       <description>[摘要无法生成：无内容或来源信息不足]</description>
-      <pubDate>Sat, 10 May 2025 12:13:52 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/rebecca_szkutak/status/1921056067913482677</guid>
+      <pubDate>Sun, 11 May 2025 04:45:03 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/tunguz/status/1921305506247032975</guid>
     </item>
     <item>
-      <title>AI will learn from ‘experience’ and self-genera...</title>
-      <link>https://x.com/PeterDiamandis/status/1921052954972274713</link>
-      <description>AI将通过自身生成的现实世界数据进行学习，而非依赖人工创建的数据集。随着对人类理解的加深，其解决全球性挑战的能力将呈指数级增长。</description>
-      <pubDate>Sat, 10 May 2025 12:01:30 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/PeterDiamandis/status/1921052954972274713</guid>
-    </item>
-    <item>
-      <title>The Jony Ive interview made me never want to bu...</title>
-      <link>https://x.com/nikitabier/status/1921041257599570053</link>
-      <description>The Jony Ive interview made me never want to build a dark pattern again.</description>
-      <pubDate>Sat, 10 May 2025 11:15:01 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/nikitabier/status/1921041257599570053</guid>
-    </item>
-    <item>
-      <title>I can’t tell if this was meant to build tech wo...</title>
-      <link>https://x.com/Austen/status/1921040016244867159</link>
-      <description>新闻标题和内容模糊，无法明确判断其意图，但提到了与科技工作者相关的内容。</description>
-      <pubDate>Sat, 10 May 2025 11:10:05 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/Austen/status/1921040016244867159</guid>
-    </item>
-    <item>
-      <title>https://t.co/eXb33CMhwf</title>
-      <link>https://x.com/elonmusk/status/1921033367597854793</link>
+      <title>I love you guys so much.</title>
+      <link>https://x.com/tunguz/status/1921301096598765672</link>
       <description>[摘要无法生成：无内容或来源信息不足]</description>
-      <pubDate>Sat, 10 May 2025 10:43:40 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/elonmusk/status/1921033367597854793</guid>
+      <pubDate>Sun, 11 May 2025 04:27:32 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/tunguz/status/1921301096598765672</guid>
     </item>
     <item>
-      <title>https://t.co/IzOvqUj4XD</title>
-      <link>https://x.com/elonmusk/status/1921031949390324200</link>
+      <title>👾</title>
+      <link>https://x.com/ceobillionaire/status/1921298148607082691</link>
       <description>[摘要无法生成：无内容或来源信息不足]</description>
-      <pubDate>Sat, 10 May 2025 10:38:02 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/elonmusk/status/1921031949390324200</guid>
+      <pubDate>Sun, 11 May 2025 04:15:49 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/ceobillionaire/status/1921298148607082691</guid>
     </item>
     <item>
-      <title>Never Send a Human to Do a Machine&#x27;s Job https:...</title>
-      <link>https://x.com/ceobillionaire/status/1921027033934532717</link>
-      <description>新闻标题为&#x27;Never Send a Human to Do a Machine&#x27;s Job&#x27;，内容未提供详细信息，但标题暗示了机器应承担某些任务而非人类。</description>
-      <pubDate>Sat, 10 May 2025 10:18:30 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/ceobillionaire/status/1921027033934532717</guid>
+      <title>🔧🤖 Structured Output with Claude 3.7
+A hands-o...</title>
+      <link>https://x.com/LangChainAI/status/1921294170519482528</link>
+      <description>本文提供了一个使用Claude 3.7实现结构化输出的实践指南，介绍了通过LangChain和AWS Bedrock构建生产级AI系统的三种方法。</description>
+      <pubDate>Sun, 11 May 2025 04:00:00 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/LangChainAI/status/1921294170519482528</guid>
     </item>
     <item>
-      <title>🙏 do better: https://t.co/Uqy4oz2ulH</title>
-      <link>https://x.com/GaryMarcus/status/1921024181057081403</link>
+      <title>Thirty days left! Join us in San Francisco for ...</title>
+      <link>https://x.com/databricks/status/1921291170820296932</link>
+      <description>距离Data AI Summit会议在旧金山举行还有30天，该会议提供700多个技术会议，涵盖数据工程、数据科学、AI/ML等主题。</description>
+      <pubDate>Sun, 11 May 2025 03:48:05 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/databricks/status/1921291170820296932</guid>
+    </item>
+    <item>
+      <title>FREE 2-day GenAI Engineering conference you sho...</title>
+      <link>https://x.com/svpino/status/1921281600962388273</link>
+      <description>免费的两日GenAI工程会议将于5月13日至14日举行，有25多位演讲者和3500多名参与者，可通过虚拟方式参加。</description>
+      <pubDate>Sun, 11 May 2025 03:10:04 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/svpino/status/1921281600962388273</guid>
+    </item>
+    <item>
+      <title>🌐🔍 Nimble Retriever Integration
+Introducing a ...</title>
+      <link>https://x.com/LangChainAI/status/1921279069812891781</link>
+      <description>新闻介绍了Nimble Retriever，一个强大的网络数据检索工具，能够为LangChain驱动的LLM应用提供精确和准确的数据获取，并无缝集成到检索生态系统中。</description>
+      <pubDate>Sun, 11 May 2025 03:00:00 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/LangChainAI/status/1921279069812891781</guid>
+    </item>
+    <item>
+      <title>The interesting theme from the Jony Ive intervi...</title>
+      <link>https://x.com/nikitabier/status/1921278141122887970</link>
+      <description>Jony Ive在采访中提到，产品开发者应更注重产品价值观而非指标，间接批评了社交媒体产品开发的框架，如Facebook的开发方式。</description>
+      <pubDate>Sun, 11 May 2025 02:56:19 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/nikitabier/status/1921278141122887970</guid>
+    </item>
+    <item>
+      <title>Visionary leader? You mean delusional?</title>
+      <link>https://x.com/tunguz/status/1921271521873662262</link>
       <description>[摘要无法生成：无内容或来源信息不足]</description>
-      <pubDate>Sat, 10 May 2025 10:07:10 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/GaryMarcus/status/1921024181057081403</guid>
+      <pubDate>Sun, 11 May 2025 02:30:00 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/tunguz/status/1921271521873662262</guid>
     </item>
     <item>
-      <title>[ Meta‑Agentic α‑AGI 👁️✨ Demo v3 — AZR‑Powered ...</title>
-      <link>https://x.com/ceobillionaire/status/1920981133321183335</link>
-      <description>新闻介绍了Meta-Agentic α-AGI Demo v3，基于AZR（Absolute Zero Reasoner）的自我课程学习引擎，能够持续发明并解决自身任务，实现跨领域推理。提供了GitHub链接。</description>
-      <pubDate>Sat, 10 May 2025 07:16:06 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/ceobillionaire/status/1920981133321183335</guid>
-    </item>
-    <item>
-      <title>New post: things have been moving very fast in ...</title>
-      <link>https://x.com/patrickmineault/status/1920958895821832650</link>
-      <description>新闻讨论了AI领域的发展速度，以及安全措施是否跟上能力提升的问题，并回顾了过去六个月中暴露的大型语言模型安全漏洞。</description>
-      <pubDate>Sat, 10 May 2025 05:47:45 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/patrickmineault/status/1920958895821832650</guid>
-    </item>
-    <item>
-      <title>Bear jumper
-https://t.co/JuVxDkem46</title>
-      <link>https://x.com/googleaidevs/status/1920952116283101664</link>
+      <title>sf hot girl gf
+nyc smart guy bf</title>
+      <link>https://x.com/tunguz/status/1921265743527628991</link>
       <description>[摘要无法生成：无内容或来源信息不足]</description>
-      <pubDate>Sat, 10 May 2025 05:20:48 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/googleaidevs/status/1920952116283101664</guid>
+      <pubDate>Sun, 11 May 2025 02:07:03 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/tunguz/status/1921265743527628991</guid>
     </item>
     <item>
-      <title>Google I/O 2025: What to expect, including upda...</title>
-      <link>https://x.com/Kyle_L_Wiggers/status/1920948199176466536</link>
-      <description>新闻标题和内容提到了Google I/O 2025，预计将包括Gemini和Android 16的更新。</description>
-      <pubDate>Sat, 10 May 2025 05:05:14 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/Kyle_L_Wiggers/status/1920948199176466536</guid>
+      <title>There’s increasing evidence that consumer AI ch...</title>
+      <link>https://x.com/levie/status/1921276139621712003</link>
+      <description>新闻指出，消费者AI聊天产品正在推动网站流量增长，未来AI原生广告单元将带来更大影响，AI作为发现引擎可显著提升广告相关性。</description>
+      <pubDate>Sun, 11 May 2025 02:48:21 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/levie/status/1921276139621712003</guid>
     </item>
     <item>
-      <title>Things I would work on if I was in academia:
-- ...</title>
-      <link>https://x.com/oh_that_hat/status/1920943578173321543</link>
-      <description>该新闻内容列举了如果在学术界工作可能会研究的几个方向，包括记忆/泛化电路、数据集交互以及不同学习动态之间的差异。</description>
-      <pubDate>Sat, 10 May 2025 04:46:53 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/oh_that_hat/status/1920943578173321543</guid>
+      <title>🔒💬 Private RAG Chat App
+Build a local RAG chat...</title>
+      <link>https://x.com/LangChainAI/status/1921263972566606241</link>
+      <description>本文介绍如何使用LangChain和Reflex框架构建一个本地RAG聊天应用，强调数据隐私和上下文感知的对话功能。</description>
+      <pubDate>Sun, 11 May 2025 02:00:01 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/LangChainAI/status/1921263972566606241</guid>
     </item>
     <item>
-      <title>Girl, you must be hyperparameters, because you ...</title>
-      <link>https://x.com/tunguz/status/1920943106469622054</link>
-      <description>新闻内容为一句调侃语句，将女性比喻为‘超参数’，暗示其经过精细调整。</description>
-      <pubDate>Sat, 10 May 2025 04:45:00 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/tunguz/status/1920943106469622054</guid>
-    </item>
-    <item>
-      <title>Try it for free now! https://t.co/anOB2VSgsc
-🚀...</title>
-      <link>https://x.com/gachi_ai/status/1920942474261880877</link>
-      <description>新闻内容介绍了一个Slack的智能助手的测试版，提供AI支持以提高生产力，并邀请用户尝试使用。</description>
-      <pubDate>Sat, 10 May 2025 04:42:29 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/gachi_ai/status/1920942474261880877</guid>
-    </item>
-    <item>
-      <title>I&#x27;m creating a platform to digitize ALL Sanatan...</title>
-      <link>https://x.com/SamanyouGarg/status/1920936295293219029</link>
-      <description>该项目旨在创建一个平台，用于数字化所有印度教圣典，并配备现代界面和AI搜索功能。目前已完成《薄伽梵歌》的数字化，下一步将扩展至吠陀、奥义书、罗摩衍那、往世书等经典。</description>
-      <pubDate>Sat, 10 May 2025 04:17:56 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/SamanyouGarg/status/1920936295293219029</guid>
-    </item>
-    <item>
-      <title>A recent @Stanford research highlights the pote...</title>
-      <link>https://x.com/StanfordHAI/status/1920932537326522385</link>
-      <description>斯坦福大学的一项研究指出，大型语言模型（LLMs）可以作为中学数学教师的重要工具，帮助不同技能水平的学生提升学习体验。</description>
-      <pubDate>Sat, 10 May 2025 04:03:00 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/StanfordHAI/status/1920932537326522385</guid>
-    </item>
-    <item>
-      <title>🧪🤖 El Agente Q
-A revolutionary LangGraph-power...</title>
-      <link>https://x.com/LangChainAI/status/1920924259368542587</link>
-      <description>El Agente Q 是一个基于 LangGraph 的多智能体系统，通过自然语言使量子化学自动化，成功率达到 87%。</description>
-      <pubDate>Sat, 10 May 2025 03:30:07 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/LangChainAI/status/1920924259368542587</guid>
-    </item>
-    <item>
-      <title>https://t.co/mbJ7MU489r</title>
-      <link>https://x.com/elonmusk/status/1920923012343214572</link>
+      <title>We are so back. https://t.co/87H58RI9wW</title>
+      <link>https://x.com/tunguz/status/1921261871643902012</link>
       <description>[摘要无法生成：无内容或来源信息不足]</description>
-      <pubDate>Sat, 10 May 2025 03:25:09 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/elonmusk/status/1920923012343214572</guid>
+      <pubDate>Sun, 11 May 2025 01:51:40 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/tunguz/status/1921261871643902012</guid>
     </item>
     <item>
-      <title>🚨 H100s @ $1.50/hr. A100s @ $0.99/hr.
-- 3TB+ NV...</title>
-      <link>https://x.com/GPUTrader/status/1920906615345344630</link>
-      <description>新闻内容提供了H100和A100 GPU的租赁价格信息，包括每小时费用、存储容量和使用方式等。</description>
-      <pubDate>Sat, 10 May 2025 02:20:00 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/GPUTrader/status/1920906615345344630</guid>
+      <title>New release from @PacktDataML &gt;&gt; Hands-On...</title>
+      <link>https://x.com/KirkDBorne/status/1921252761858937183</link>
+      <description>PacktDataML发布新书《Hands-On AI for IoT》，介绍使用Python库如TensorFlow开发更智能的物联网系统的机器学习和深度学习技术。</description>
+      <pubDate>Sun, 11 May 2025 01:15:28 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/KirkDBorne/status/1921252761858937183</guid>
     </item>
     <item>
-      <title>Introducing Rho’s YC SAFE Note Generator, our n...</title>
-      <link>https://x.com/rhobusiness/status/1920847679753454020</link>
-      <description>Rho推出了YC SAFE Note Generator，这是一个新工具，允许用户快速创建初创企业领域中非常有用的融资工具，节省时间和法律费用。</description>
-      <pubDate>Fri, 09 May 2025 22:25:49 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/rhobusiness/status/1920847679753454020</guid>
+      <title>New from @PacktDataML &gt;&gt; Building Agentic...</title>
+      <link>https://x.com/KirkDBorne/status/1921251202597089318</link>
+      <description>新闻介绍了由@PacktDataML发布的新内容，主题是构建自主的智能AI系统，涵盖推理、规划和适应等能力。</description>
+      <pubDate>Sun, 11 May 2025 01:09:16 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/KirkDBorne/status/1921251202597089318</guid>
     </item>
     <item>
-      <title>FYI https://t.co/ehBOqduWGj</title>
-      <link>https://x.com/tunguz/status/1920922025054409195</link>
+      <title>🏆 Winning RAG Solution
+A powerful RAG implemen...</title>
+      <link>https://x.com/LangChainAI/status/1921248930391593014</link>
+      <description>新闻介绍了一个强大的RAG解决方案，利用LangChain框架分析公司年度报告，支持PDF解析、多LLM支持和高级检索功能，以实现精准问答。</description>
+      <pubDate>Sun, 11 May 2025 01:00:14 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/LangChainAI/status/1921248930391593014</guid>
+    </item>
+    <item>
+      <title>last year we all thought that open source model...</title>
+      <link>https://x.com/svpino/status/1921248197651177530</link>
+      <description>去年人们认为开源模型将赶上商业模型，但目前差距似乎更大，开源模型尚未取得预期进展。</description>
+      <pubDate>Sun, 11 May 2025 00:57:20 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/svpino/status/1921248197651177530</guid>
+    </item>
+    <item>
+      <title>YC massively changed our startup trajectory and...</title>
+      <link>https://x.com/jordnb/status/1921244212235731302</link>
+      <description>新闻内容提到YC（Y Combinator）对初创公司的轨迹产生了重大影响，并推荐申请，夏季25届的申请截止日期即将到来。</description>
+      <pubDate>Sun, 11 May 2025 00:41:29 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/jordnb/status/1921244212235731302</guid>
+    </item>
+    <item>
+      <title>https://t.co/hQodvV7Plq</title>
+      <link>https://x.com/elonmusk/status/1921242118984474838</link>
       <description>[摘要无法生成：无内容或来源信息不足]</description>
-      <pubDate>Sat, 10 May 2025 03:21:14 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/tunguz/status/1920922025054409195</guid>
+      <pubDate>Sun, 11 May 2025 00:33:10 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/elonmusk/status/1921242118984474838</guid>
     </item>
     <item>
-      <title>SoundCloud changes policies to allow AI trainin...</title>
-      <link>https://x.com/Kyle_L_Wiggers/status/1920920394048954409</link>
-      <description>SoundCloud更新政策，允许使用用户内容进行AI训练。</description>
-      <pubDate>Sat, 10 May 2025 03:14:45 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/Kyle_L_Wiggers/status/1920920394048954409</guid>
+      <title>OpenAI’s enterprise adoption appears to be acce...</title>
+      <link>https://x.com/Kyle_L_Wiggers/status/1921237337222037776</link>
+      <description>OpenAI&#x27;s enterprise adoption appears to be accelerating, at the expense of rivals.</description>
+      <pubDate>Sun, 11 May 2025 00:14:10 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/Kyle_L_Wiggers/status/1921237337222037776</guid>
     </item>
     <item>
-      <title>DeepSeek: Everything you need to know about the...</title>
-      <link>https://x.com/Kyle_L_Wiggers/status/1920920392798998965</link>
-      <description>新闻介绍了DeepSeek AI聊天机器人应用的相关信息，包括其功能和特点。</description>
-      <pubDate>Sat, 10 May 2025 03:14:45 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/Kyle_L_Wiggers/status/1920920392798998965</guid>
-    </item>
-    <item>
-      <title>Build the next generation of games with Google ...</title>
-      <link>https://x.com/googleaidevs/status/1920916683155210358</link>
-      <description>Google推出多项技术助力下一代游戏开发，包括Gemma 3用于设备端AI、Gemini模型提升互动性以及Google Cloud提供可扩展的游戏托管服务。</description>
-      <pubDate>Sat, 10 May 2025 03:00:00 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/googleaidevs/status/1920916683155210358</guid>
-    </item>
-    <item>
-      <title>You’re out here grinding your entire life to ma...</title>
-      <link>https://x.com/Austen/status/1920913759423332817</link>
-      <description>新闻内容讽刺地指出，有人辛苦工作却赚不到与早期投资 fartcoin 的人一样多的钱。</description>
-      <pubDate>Sat, 10 May 2025 02:48:23 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/Austen/status/1920913759423332817</guid>
-    </item>
-    <item>
-      <title>On &quot;The AI Revolution in Medicine, Revisited&quot; p...</title>
-      <link>https://x.com/peteratmsr/status/1920913413401686317</link>
-      <description>在微软研究院的播客《The AI Revolution in Medicine, Revisited》中，嘉宾CALonghurst讨论了AI在医疗中的应用，特别是AI如何以支持和有用的方式回应患者的负面信息。</description>
-      <pubDate>Sat, 10 May 2025 02:47:01 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/peteratmsr/status/1920913413401686317</guid>
-    </item>
-    <item>
-      <title>On Path to Multimodal Generalist
-General-Level...</title>
-      <link>https://x.com/_akhaliq/status/1920912208969560130</link>
-      <description>新闻标题为&#x27;On Path to Multimodal Generalist&#x27;，内容提及General-Level和General-Bench，并附有链接。</description>
-      <pubDate>Sat, 10 May 2025 02:42:14 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/_akhaliq/status/1920912208969560130</guid>
-    </item>
-    <item>
-      <title>Top 20 study chats from students using ChatGPT....</title>
-      <link>https://x.com/omarsar0/status/1920905613493621189</link>
-      <description>新闻介绍了学生使用ChatGPT进行学习的20个最佳对话示例，适合对新学科感兴趣的人尝试。</description>
-      <pubDate>Sat, 10 May 2025 02:16:01 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/omarsar0/status/1920905613493621189</guid>
-    </item>
-    <item>
-      <title>NVIDIA is going to #DellTechWorld in just 10 da...</title>
-      <link>https://x.com/NVIDIAAI/status/1920898906994430061</link>
-      <description>NVIDIA将参加DellTechWorld活动，提供AI认证和加速计算相关的专家交流机会。</description>
-      <pubDate>Sat, 10 May 2025 01:49:22 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/NVIDIAAI/status/1920898906994430061</guid>
-    </item>
-    <item>
-      <title>[ α-AGI 👁️✨ ]
-&quot;α&quot; typically represents the beg...</title>
-      <link>https://x.com/ceobillionaire/status/1920894820144300163</link>
-      <description>新闻标题为[ α-AGI 👁️✨ ]，内容提到‘α’代表AGI的起点或基础，强调其卓越性，并提供了GitHub链接和相关标签，如#AGI和#AGIALPHA。</description>
-      <pubDate>Sat, 10 May 2025 01:33:08 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/ceobillionaire/status/1920894820144300163</guid>
-    </item>
-    <item>
-      <title>SWE-bench and SWE-agent are groundbreaking tool...</title>
-      <link>https://x.com/databricks/status/1920894106294685982</link>
-      <description>SWE-bench和SWE-agent是用于评估和提升软件工程中AI的突破性工具。普林斯顿大学的Carlos Jimenez和Killian Lieret分享了关于AI在软件工程中的工具的相关见解。</description>
-      <pubDate>Sat, 10 May 2025 01:30:18 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/databricks/status/1920894106294685982</guid>
-    </item>
-    <item>
-      <title>Have you trained your XGBoost today? @trainxgb</title>
-      <link>https://x.com/tunguz/status/1920891667814445056</link>
+      <title>I miss normal people.</title>
+      <link>https://x.com/tunguz/status/1921236737478578236</link>
       <description>[摘要无法生成：无内容或来源信息不足]</description>
-      <pubDate>Sat, 10 May 2025 01:20:36 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/tunguz/status/1920891667814445056</guid>
+      <pubDate>Sun, 11 May 2025 00:11:47 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/tunguz/status/1921236737478578236</guid>
     </item>
     <item>
-      <title>Copilot versus Cursor:
-(This is so embarrassin...</title>
-      <link>https://x.com/svpino/status/1920884123767631971</link>
-      <description>用户在Visual Studio Code和Cursor中测试代码补全功能，Cursor仅用34秒完成任务，而Visual Studio Code耗时122秒，显示Cursor在效率上显著优于后者。</description>
-      <pubDate>Sat, 10 May 2025 00:50:38 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/svpino/status/1920884123767631971</guid>
+      <title>30 free, handy APIs for developers.
+v/@sahnlam...</title>
+      <link>https://x.com/MIT_CSAIL/status/1921233897481802066</link>
+      <description>该新闻介绍了30个对开发者有用的免费API，由@sahnlam分享，链接为https://t.co/ZtSq0K2qYb。</description>
+      <pubDate>Sun, 11 May 2025 00:00:30 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/MIT_CSAIL/status/1921233897481802066</guid>
     </item>
     <item>
-      <title>We&#x27;ve released an update to Gen-4 References th...</title>
-      <link>https://x.com/runwayml/status/1920882924339044450</link>
-      <description>Gen-4 References已发布更新，提升了美学质量、场景构图和身份保持能力，并将分享更多新用例。</description>
-      <pubDate>Sat, 10 May 2025 00:45:52 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/runwayml/status/1920882924339044450</guid>
-    </item>
-    <item>
-      <title>Learn how you can build with the power of advan...</title>
-      <link>https://x.com/googleaidevs/status/1920878453093494947</link>
-      <description>新闻介绍了如何利用Gemini 2.5的高级视频理解能力进行构建，提供相关链接。</description>
-      <pubDate>Sat, 10 May 2025 00:28:06 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/googleaidevs/status/1920878453093494947</guid>
-    </item>
-    <item>
-      <title>AGI https://t.co/WQyro4Bk7R</title>
-      <link>https://x.com/ceobillionaire/status/1920871997757632871</link>
+      <title>https://t.co/eAO1RcOY7p</title>
+      <link>https://x.com/tunguz/status/1921233807090515982</link>
       <description>[摘要无法生成：无内容或来源信息不足]</description>
-      <pubDate>Sat, 10 May 2025 00:02:26 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/ceobillionaire/status/1920871997757632871</guid>
+      <pubDate>Sun, 11 May 2025 00:00:09 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/tunguz/status/1921233807090515982</guid>
     </item>
     <item>
-      <title>Happy birthday to Caltech professor Katie Bouma...</title>
-      <link>https://x.com/MIT_CSAIL/status/1920871677816136078</link>
-      <description>庆祝加州理工学院教授Katie Bouman生日。她在麻省理工学院攻读博士学位期间，曾参与团队成功创建了人类历史上第一张黑洞图像。</description>
-      <pubDate>Sat, 10 May 2025 00:01:10 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/MIT_CSAIL/status/1920871677816136078</guid>
+      <title>🌐 Social Media Agent UI Tutorial
+Transform Lan...</title>
+      <link>https://x.com/LangChainAI/status/1921233794960445663</link>
+      <description>教程展示如何将LangChain的社交媒体代理转换为用户友好的网页应用，支持多种内容提交方式和Notion集成，使用ExpressJS和AgentInbox UI进行进度监控。</description>
+      <pubDate>Sun, 11 May 2025 00:00:06 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/LangChainAI/status/1921233794960445663</guid>
     </item>
     <item>
-      <title>🔬🧪 ScienceBridge AI
-This LangGraph-powered AI ...</title>
-      <link>https://x.com/LangChainAI/status/1920871385666027775</link>
-      <description>ScienceBridge AI 是一个由 LangGraph 动力驱动的 AI 代理，用于自动化科学研究工作流程，从数据分析到假设验证，并生成可发表的可视化图表以加速研究发现。</description>
-      <pubDate>Sat, 10 May 2025 00:00:01 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/LangChainAI/status/1920871385666027775</guid>
+      <title>基于Amazon Q、MCP以及tmux的一款新闻获取总结系统：news-agents，这是一...</title>
+      <link>https://x.com/aigclink/status/1921233721241596333</link>
+      <description>news-agents是一款基于Amazon Q、MCP和tmux的多智能体新闻获取与总结系统，支持多个新闻源，并可在终端窗口中显示操作和结果。</description>
+      <pubDate>Sat, 10 May 2025 23:59:48 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/aigclink/status/1921233721241596333</guid>
     </item>
     <item>
-      <title>This is the moment many in government have been...</title>
-      <link>https://x.com/a16z/status/1920870971445309492</link>
-      <description>AndurilTech的总裁表示，政府领导人越来越接受国防领域中迭代且有时‘混乱’的创新，以尽快部署最有效的工具。</description>
-      <pubDate>Fri, 09 May 2025 23:58:22 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/a16z/status/1920870971445309492</guid>
+      <title>Can’t believe ChatGPT delved the em dash. What ...</title>
+      <link>https://x.com/amasad/status/1921232668479398210</link>
+      <description>新闻表达了对ChatGPT在处理em dash（长破折号）时出现问题的失望。</description>
+      <pubDate>Sat, 10 May 2025 23:55:37 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/amasad/status/1921232668479398210</guid>
     </item>
     <item>
-      <title>I am going live in 10 minutes with @ohlennart t...</title>
-      <link>https://x.com/azeem/status/1920869542613655943</link>
-      <description>用户将在10分钟后与@ohlennart进行直播，讨论计算领域的地缘政治问题，并提供了Substack链接以获取直播通知。</description>
-      <pubDate>Fri, 09 May 2025 23:52:41 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/azeem/status/1920869542613655943</guid>
+      <title>Multi-Agent Embodied AI
+Physical AI is the nex...</title>
+      <link>https://x.com/omarsar0/status/1921229500651893146</link>
+      <description>新闻讨论了Multi-Agent Embodied AI的发展，指出Physical AI是未来的趋势，并提到了一篇相关论文的五个有趣部分。</description>
+      <pubDate>Sat, 10 May 2025 23:43:02 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/omarsar0/status/1921229500651893146</guid>
     </item>
     <item>
-      <title>CoreWeave reportedly looks to raise $1.5B in de...</title>
-      <link>https://x.com/Kyle_L_Wiggers/status/1920866276437606629</link>
-      <description>CoreWeave reportedly seeks to raise $1.5 billion in debt following a disappointing IPO.</description>
-      <pubDate>Fri, 09 May 2025 23:39:42 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/Kyle_L_Wiggers/status/1920866276437606629</guid>
+      <title>[ Building: &quot;Meta-Agentic α-AGI Browser&quot; ]
+✨👁️...</title>
+      <link>https://x.com/ceobillionaire/status/1921220132098977908</link>
+      <description>新闻标题和内容提到了&#x27;Building: Meta-Agentic α-AGI Browser&#x27;，并提及AGIALPHA的历史，涉及AI代理和AGI浏览器，相关标签包括#AIAgent和#AGIBrowser。</description>
+      <pubDate>Sat, 10 May 2025 23:05:48 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/ceobillionaire/status/1921220132098977908</guid>
     </item>
     <item>
-      <title>Today&#x27;s AI agents promise to streamline web tas...</title>
-      <link>https://x.com/StanfordHAI/status/1920864341072453666</link>
-      <description>新闻介绍了一种由斯坦福学者开发的名为NNetNav的开源AI代理，该代理通过直接与网站交互来学习，旨在提高网络任务的效率，但也引发了隐私问题。</description>
-      <pubDate>Fri, 09 May 2025 23:32:01 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/StanfordHAI/status/1920864341072453666</guid>
+      <title>An AI found that a gene once thought to be harm...</title>
+      <link>https://x.com/PeterDiamandis/status/1921219179903844459</link>
+      <description>AI发现一个曾被认为无害的基因实际上会导致阿尔茨海默病，这一突破可能改变疾病治疗和药物研发的方式。</description>
+      <pubDate>Sat, 10 May 2025 23:02:01 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/PeterDiamandis/status/1921219179903844459</guid>
     </item>
     <item>
-      <title>If the Grok team really cared about building fo...</title>
-      <link>https://x.com/nikitabier/status/1920854410529321261</link>
-      <description>新闻内容提到，如果Grok团队真的关心为X的用户构建产品，他们应该添加一个Alex Jones的声音模式。</description>
-      <pubDate>Fri, 09 May 2025 22:52:33 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/nikitabier/status/1920854410529321261</guid>
+      <title>Researchers introduced Mender, a recommendation...</title>
+      <link>https://x.com/DeepLearningAI/status/1921218738969342303</link>
+      <description>研究人员推出了Mender，一个使用Llama 3从产品评论和描述中推断客户偏好的推荐系统，该系统通过提取显式偏好来减少噪声影响。</description>
+      <pubDate>Sat, 10 May 2025 23:00:16 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/DeepLearningAI/status/1921218738969342303</guid>
     </item>
     <item>
-      <title>Simple multi-agent search system using Google A...</title>
-      <link>https://x.com/omarsar0/status/1920853608716812398</link>
-      <description>新闻介绍了一个使用Google ADK的简单多智能体搜索系统，具有强大的功能且易于部署。</description>
-      <pubDate>Fri, 09 May 2025 22:49:22 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/omarsar0/status/1920853608716812398</guid>
+      <title>Most of the marketing AI agents showcased on Yo...</title>
+      <link>https://x.com/omarsar0/status/1921215591198740734</link>
+      <description>新闻指出，YouTube上展示的大多数营销AI代理生成的文案质量较差，难以产出有创意和风格化的营销内容。</description>
+      <pubDate>Sat, 10 May 2025 22:47:46 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/omarsar0/status/1921215591198740734</guid>
     </item>
     <item>
-      <title>X timelines aren’t updating for many users http...</title>
-      <link>https://x.com/Kyle_L_Wiggers/status/1920849905607643562</link>
-      <description>许多用户报告X的时间线无法更新，可能影响其正常使用。</description>
-      <pubDate>Fri, 09 May 2025 22:34:39 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/Kyle_L_Wiggers/status/1920849905607643562</guid>
+      <title>一个比较有意思的工具：WeClone，用自己的微信聊天记录训练LLM，搞一个自己的数字分身，支...</title>
+      <link>https://x.com/aigclink/status/1921213118094733409</link>
+      <description>WeClone是一款工具，允许用户使用自己的微信聊天记录训练LLM，创建个人数字分身，支持语音克隆和绑定多个社交平台，作为个人助手使用。</description>
+      <pubDate>Sat, 10 May 2025 22:37:56 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/aigclink/status/1921213118094733409</guid>
     </item>
     <item>
-      <title>🚀 One line. A full webpage. No hassle.
-Introdu...</title>
-      <link>https://x.com/Alibaba_Qwen/status/1920848175457591406</link>
-      <description>新闻介绍了一款名为Web Dev的工具，用户可以通过简单的提示在Qwen Chat中快速生成完整的网页和应用程序代码，无需编程。</description>
-      <pubDate>Fri, 09 May 2025 22:27:47 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/Alibaba_Qwen/status/1920848175457591406</guid>
-    </item>
-    <item>
-      <title>“The basic issue is, will Alphabet lose its cas...</title>
-      <link>https://x.com/tunguz/status/1920845353160409161</link>
-      <description>B. Riley Wealth Management的首席市场策略师Art Hogan表示，Alphabet是否会在其核心业务上失去优势是一个关键问题，这是Alphabet自搜索引擎领域诞生以来首次面临真正的竞争，并已出现一些弱点。</description>
-      <pubDate>Fri, 09 May 2025 22:16:34 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/tunguz/status/1920845353160409161</guid>
-    </item>
-    <item>
-      <title>Think of the chirren! https://t.co/VKeUUPMNME</title>
-      <link>https://x.com/tunguz/status/1920841227270058419</link>
+      <title>https://t.co/9yiyClzl74</title>
+      <link>https://x.com/tunguz/status/1921203601575473204</link>
       <description>[摘要无法生成：无内容或来源信息不足]</description>
-      <pubDate>Fri, 09 May 2025 22:00:10 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/tunguz/status/1920841227270058419</guid>
+      <pubDate>Sat, 10 May 2025 22:00:07 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/tunguz/status/1921203601575473204</guid>
     </item>
     <item>
-      <title>I thought this was America https://t.co/ml6YW8nIrl</title>
-      <link>https://x.com/Austen/status/1920837389343219891</link>
+      <title>Llama.cpp now supports vision models thanks to ...</title>
+      <link>https://x.com/ClementDelangue/status/1921203009834385553</link>
+      <description>Llama.cpp现在支持视觉模型，由@ngxson和@ggerganov贡献，实现了设备上的多模态功能。</description>
+      <pubDate>Sat, 10 May 2025 21:57:46 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/ClementDelangue/status/1921203009834385553</guid>
+    </item>
+    <item>
+      <title>The secret to AGI, in 4 pages! h/t @flowersslop...</title>
+      <link>https://x.com/GaryMarcus/status/1921195977802752497</link>
+      <description>新闻标题声称在四页内容中揭示了通用人工智能（AGI）的秘密，并附有链接。</description>
+      <pubDate>Sat, 10 May 2025 21:29:49 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/GaryMarcus/status/1921195977802752497</guid>
+    </item>
+    <item>
+      <title>Read a lot of PDFs at work?
+Let https://t.co/ly...</title>
+      <link>https://x.com/yashch2411/status/1921190233603010609</link>
+      <description>该新闻介绍了一款利用AI技术自动提取、总结PDF文件中表格、图表和文本的工具，帮助用户节省时间，提高工作效率。</description>
+      <pubDate>Sat, 10 May 2025 21:07:00 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/yashch2411/status/1921190233603010609</guid>
+    </item>
+    <item>
+      <title>The future of AI is personal. Whether we contro...</title>
+      <link>https://x.com/tunguz/status/1921178761518534776</link>
+      <description>新闻标题指出人工智能的未来是个性化的，但是否由人类控制则是另一个问题。文章进一步探讨了这一主题。</description>
+      <pubDate>Sat, 10 May 2025 20:21:25 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/tunguz/status/1921178761518534776</guid>
+    </item>
+    <item>
+      <title>gm https://t.co/v3MdcH18ye</title>
+      <link>https://x.com/tunguz/status/1921172591072444807</link>
       <description>[摘要无法生成：无内容或来源信息不足]</description>
-      <pubDate>Fri, 09 May 2025 21:44:55 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/Austen/status/1920837389343219891</guid>
-    </item>
-    <item>
-      <title>NSF budgets slashed by 50%, ongoing grants canc...</title>
-      <link>https://x.com/ylecun/status/1920833631511007680</link>
-      <description>新闻标题和内容指出美国国家科学基金会（NSF）预算被削减50%，正在进行的资助项目被取消，工作人员大幅减少，所有37个部门被废除，资助项目现在将由政治官员审查。</description>
-      <pubDate>Fri, 09 May 2025 21:29:59 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/ylecun/status/1920833631511007680</guid>
-    </item>
-    <item>
-      <title>who&#x27;s building a protocol like mcp but for gene...</title>
-      <link>https://x.com/bentossell/status/1920830598857253327</link>
-      <description>新闻讨论了构建类似MCP的协议，用于生成后端服务，类似于Supabase的使用方式，希望LLM能像MCP一样简化代码设置过程。</description>
-      <pubDate>Fri, 09 May 2025 21:17:56 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/bentossell/status/1920830598857253327</guid>
-    </item>
-    <item>
-      <title>WebThinker combines large reasoning models with...</title>
-      <link>https://x.com/omarsar0/status/1920827892554248397</link>
-      <description>新闻介绍了一个名为WebThinker的推理代理框架，该框架结合大型推理模型与深度研究能力，使模型具备自主探索网络和撰写报告的能力，以克服静态内部知识的局限性。</description>
-      <pubDate>Fri, 09 May 2025 21:07:11 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/omarsar0/status/1920827892554248397</guid>
-    </item>
-    <item>
-      <title>We&#x27;re featured partners of @Snowflake&#x27;s Dev Day...</title>
-      <link>https://x.com/DeepLearningAI/status/1920826147064934669</link>
-      <description>该新闻提到成为Snowflake Dev Day 2025的合作伙伴，活动内容包括AI和数据实践者的前沿演示、交流以及Andrew Ng等专家的演讲。</description>
-      <pubDate>Fri, 09 May 2025 21:00:15 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/DeepLearningAI/status/1920826147064934669</guid>
-    </item>
-    <item>
-      <title>&quot;sign in with openai&quot; isn&#x27;t enough
-it&#x27;ll be hu...</title>
-      <link>https://x.com/bentossell/status/1920823778130440565</link>
-      <description>新闻讨论了使用OpenAI进行登录的局限性，指出虽然这可能为新应用带来上下文记忆功能，但用户仍需登录。文章认为，拥有常使用的浏览器或硬件对于实现应用中的记忆功能至关重要。</description>
-      <pubDate>Fri, 09 May 2025 20:50:50 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/bentossell/status/1920823778130440565</guid>
-    </item>
-    <item>
-      <title>Our Senior Research Director Joelle Barral join...</title>
-      <link>https://x.com/GoogleDeepMind/status/1920819179940110642</link>
-      <description>Joelle Barral, Senior Research Director, discusses how AI is being developed to improve healthcare, including increasing access to life-saving screening tools and personalized treatments.</description>
-      <pubDate>Fri, 09 May 2025 20:32:34 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/GoogleDeepMind/status/1920819179940110642</guid>
-    </item>
-    <item>
-      <title>Kids don&#x27;t learn to play football by reading bo...</title>
-      <link>https://x.com/svpino/status/1920818059440500785</link>
-      <description>新闻强调实践学习的重要性，指出孩子通过实际踢球学习足球，而非仅靠书本。同样，学习AI/ML应从实践开始，而非仅依赖理论。</description>
-      <pubDate>Fri, 09 May 2025 20:28:07 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/svpino/status/1920818059440500785</guid>
-    </item>
-    <item>
-      <title>https://t.co/h8UsN2HXoU</title>
-      <link>https://x.com/tunguz/status/1920814779603812631</link>
-      <description>[摘要无法生成：无内容或来源信息不足]</description>
-      <pubDate>Fri, 09 May 2025 20:15:05 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/tunguz/status/1920814779603812631</guid>
-    </item>
-    <item>
-      <title>&quot;Cogito, ergo sum&quot;
-&quot;I think, therefore I am&quot; -...</title>
-      <link>https://x.com/ceobillionaire/status/1920812633017500048</link>
-      <description>新闻标题引用了笛卡尔的名言&#x27;Cogito, ergo sum&#x27;（我思故我在），并附有#AGI和#AGIAgent等标签，可能与人工智能相关。</description>
-      <pubDate>Fri, 09 May 2025 20:06:33 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/ceobillionaire/status/1920812633017500048</guid>
-    </item>
-    <item>
-      <title>find the model you need among 1.6M models at @h...</title>
-      <link>https://x.com/mervenoyann/status/1920809315784417734</link>
-      <description>新闻内容提到在Hugging Face平台上可以找到160万个模型，链接指向相关网站。</description>
-      <pubDate>Fri, 09 May 2025 19:53:22 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/mervenoyann/status/1920809315784417734</guid>
-    </item>
-    <item>
-      <title>These AI-generated spam replies are becoming in...</title>
-      <link>https://x.com/paulg/status/1920804042982166571</link>
-      <description>新闻讨论了AI生成的垃圾邮件回复日益增多的问题，并探讨了是否可以通过过滤器解决，或是否会导致Twitter模式过时。</description>
-      <pubDate>Fri, 09 May 2025 19:32:25 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/paulg/status/1920804042982166571</guid>
+      <pubDate>Sat, 10 May 2025 19:56:54 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/tunguz/status/1921172591072444807</guid>
     </item>
     <item>
       <title>GM 👁️✨</title>
-      <link>https://x.com/ceobillionaire/status/1920802626435690818</link>
+      <link>https://x.com/ceobillionaire/status/1921172565550121255</link>
       <description>[摘要无法生成：无内容或来源信息不足]</description>
-      <pubDate>Fri, 09 May 2025 19:26:47 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/ceobillionaire/status/1920802626435690818</guid>
+      <pubDate>Sat, 10 May 2025 19:56:47 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/ceobillionaire/status/1921172565550121255</guid>
     </item>
     <item>
-      <title>Join #DataAISummit virtually to explore the lat...</title>
-      <link>https://x.com/databricks/status/1920795929839354041</link>
-      <description>新闻邀请参加#DataAISummit虚拟会议，探讨数据和AI的最新发展，包括AI代理、前沿模型、治理和性能等内容，提供直播演讲和虚拟会议。</description>
-      <pubDate>Fri, 09 May 2025 19:00:10 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/databricks/status/1920795929839354041</guid>
-    </item>
-    <item>
-      <title>gm https://t.co/v1zyvhmGJ1</title>
-      <link>https://x.com/tunguz/status/1920794393885159566</link>
-      <description>[摘要无法生成：无内容或来源信息不足]</description>
-      <pubDate>Fri, 09 May 2025 18:54:04 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/tunguz/status/1920794393885159566</guid>
-    </item>
-    <item>
-      <title>You should be noticing some improvements to the...</title>
-      <link>https://x.com/elonmusk/status/1920781941932003527</link>
-      <description>新闻内容提到用户在时间线中可能会注意到推荐质量的提升。</description>
-      <pubDate>Fri, 09 May 2025 18:04:36 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/elonmusk/status/1920781941932003527</guid>
-    </item>
-    <item>
-      <title>一个快速商品广告图生成AI工具：ZenCtrl，帮你几分钟内生成多个不同背景、风格的广告图
-...</title>
-      <link>https://x.com/aigclink/status/1920781867177177378</link>
-      <description>ZenCtrl是一款AI工具，可在几分钟内生成多个不同背景和风格的商品广告图，无需微调即可生成高分辨率图像。</description>
-      <pubDate>Fri, 09 May 2025 18:04:18 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/aigclink/status/1920781867177177378</guid>
-    </item>
-    <item>
-      <title>酷啊，字节把他的基于节点的流程构建引擎开源了：https://t.co/4ENHnYNqkL ...</title>
-      <link>https://x.com/aigclink/status/1920764051526721595</link>
-      <description>字节跳动开源了其基于节点的流程构建引擎flowgram，支持固定和自由布局模式，并利用AI技术优化工作流程，如自动完成重复任务和调整流程。</description>
-      <pubDate>Fri, 09 May 2025 16:53:30 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/aigclink/status/1920764051526721595</guid>
-    </item>
-    <item>
-      <title>ZenCtrl
-One framework to Generate multi-view, ...</title>
-      <link>https://x.com/_akhaliq/status/1920761989900411101</link>
-      <description>ZenCtrl是一个框架，可以从单张主体图像生成多视角、多样化场景和任务特定的高分辨率图像，无需微调。</description>
-      <pubDate>Fri, 09 May 2025 16:45:19 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/_akhaliq/status/1920761989900411101</guid>
-    </item>
-    <item>
-      <title>Apple announced StreamBridge
-Turning Your Off...</title>
-      <link>https://x.com/_akhaliq/status/1920754392812196120</link>
-      <description>Apple宣布推出StreamBridge，将离线视频大语言模型转化为主动流媒体助手。</description>
-      <pubDate>Fri, 09 May 2025 16:15:07 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/_akhaliq/status/1920754392812196120</guid>
-    </item>
-    <item>
-      <title>Crosslingual Reasoning through Test-Time Scalin...</title>
-      <link>https://x.com/_akhaliq/status/1920753842431435159</link>
-      <description>该新闻讨论通过扩大以英语为中心的推理语言模型（如s1模型）的思考标记数量，可以提升多语言数学推理性能，并分析了语言混合模式及不同因素的影响。</description>
-      <pubDate>Fri, 09 May 2025 16:12:56 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/_akhaliq/status/1920753842431435159</guid>
-    </item>
-    <item>
-      <title>Microsoft announced X-REASONER
-Towards General...</title>
-      <link>https://x.com/_akhaliq/status/1920752791405863000</link>
-      <description>Microsoft宣布推出X-REASONER，旨在实现跨模态和跨领域的通用推理能力。</description>
-      <pubDate>Fri, 09 May 2025 16:08:45 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/_akhaliq/status/1920752791405863000</guid>
-    </item>
-    <item>
-      <title>No kidding
-https://t.co/CUXAbo1mNG</title>
-      <link>https://x.com/elonmusk/status/1920751702782742960</link>
-      <description>[摘要无法生成：无内容或来源信息不足]</description>
-      <pubDate>Fri, 09 May 2025 16:04:26 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/elonmusk/status/1920751702782742960</guid>
-    </item>
-    <item>
-      <title>Flow-GRPO
-Training Flow Matching Models via On...</title>
-      <link>https://x.com/_akhaliq/status/1920751468400775589</link>
-      <description>该新闻标题为&#x27;Flow-GRPO&#x27;，内容涉及通过在线强化学习训练流匹配模型，相关链接提供更多信息。</description>
-      <pubDate>Fri, 09 May 2025 16:03:30 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/_akhaliq/status/1920751468400775589</guid>
-    </item>
-    <item>
-      <title>LegoGPT
-Generating Physically Stable and Build...</title>
-      <link>https://x.com/_akhaliq/status/1920750465152618758</link>
-      <description>LegoGPT 是一个能够根据文本生成物理稳定且可构建的乐高设计的系统。该技术结合了人工智能和3D建模，旨在将文本描述转化为实际可建造的乐高模型。</description>
-      <pubDate>Fri, 09 May 2025 15:59:31 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/_akhaliq/status/1920750465152618758</guid>
-    </item>
-    <item>
-      <title>字节开源了：DeerFlow，基于LangChain和LangGraph框架的一款智能研究助手...</title>
-      <link>https://x.com/aigclink/status/1920745950181814479</link>
-      <description>字节跳动开源了DeerFlow，这是一款基于LangChain和LangGraph框架的智能研究助手，支持动态任务迭代、自动生成研究计划、人机协作及生成播客和PPT等功能，结合语言模型与网络搜索、爬虫和Python代码执行等工具。</description>
-      <pubDate>Fri, 09 May 2025 15:41:34 +0800</pubDate>
-      <guid isPermaLink="true">https://x.com/aigclink/status/1920745950181814479</guid>
+      <title>Crypto once promised liberation; now it props u...</title>
+      <link>https://x.com/EMostaque/status/1921167356518117548</link>
+      <description>新闻讨论了加密货币从最初承诺赋予人们自由，到现在却支持了强大的资本方。文章指出资本正在取代劳动。</description>
+      <pubDate>Sat, 10 May 2025 19:36:06 +0800</pubDate>
+      <guid isPermaLink="true">https://x.com/EMostaque/status/1921167356518117548</guid>
     </item>
   </channel>
 </rss>
