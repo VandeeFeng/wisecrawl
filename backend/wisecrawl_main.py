@@ -309,6 +309,7 @@ def main():
         os.path.join(project_root, "data", "inputs"),   # LLM input data
         os.path.join(project_root, "data", "outputs"),  # LLM output data
         os.path.join(project_root, "data", "webhook"),  # Webhook logs
+        os.path.join(project_root, "data", "processed_output"),  # Processed output data
     ]
     days_to_keep = 7 # Set retention period
     logger.info(f"Starting cleanup of data older than {days_to_keep} days...")
