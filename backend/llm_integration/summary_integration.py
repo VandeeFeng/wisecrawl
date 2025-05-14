@@ -225,7 +225,7 @@ def summarize_with_deepseek(hotspots, api_key, api_url=None, model_id=None, max_
                     num = str(index + 1).zfill(2)
                     title = news.get("title", "未知标题")
                     
-                    formatted_summary += f"## ** {num} {title} **  \n"
+                    formatted_summary += f"## {num} {title}  \n"
                     
                     news_summary = news.get("summary", "")
                     related_ids = news.get("related_ids", [])  
@@ -310,7 +310,7 @@ def summarize_with_deepseek(hotspots, api_key, api_url=None, model_id=None, max_
             item_title = item_title.replace('\n', ' ').replace('\r', ' ')
             item_title = ' '.join(item_title.split())
             
-            fallback += f"## ** {num} {item_title} **  \n"
+            fallback += f"## {num} {item_title}  \n"
             
             item_summary = item.get('summary', '')
             if not item_summary:
